@@ -12,8 +12,13 @@ namespace WebApplication3.Controllers
         DB db = new DB();
         public ActionResult Index()
         {
-            var instance = db.Customers.Find(1);
-            return View(instance);
+            var airports = db.Airports.ToList();
+            return View(airports);
+        }
+
+        public ActionResult RegisterFlight()
+        {
+            return View();
         }
     }
 }

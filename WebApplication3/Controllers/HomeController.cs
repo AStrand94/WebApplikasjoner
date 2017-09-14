@@ -37,5 +37,28 @@ namespace WebApplication3.Controllers
             //return View();
             return RedirectToAction("Index");
         }
+
+        public ActionResult Registration()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Registration(Models.Customer customerIn)
+        {
+
+            try
+            {
+                db.Customers.Add(customerIn);
+                db.SaveChanges();
+            }
+            catch (Exception e)
+            {
+
+            }
+
+            return RedirectToAction("Index");
+        } 
+     
     }
 }

@@ -40,7 +40,6 @@
     <br />
     <input type="submit" class="btn btn-success" value="Submit Button"/>
 </form>
-<a href="/Home/RegisterFlight">REGISTER FLIGHT</a>
 <a href="/Home/Registration">Registrer</a>
 
 <script>
@@ -95,13 +94,12 @@
         var date = formVals.date.value;
 
         if (from === to || !from || !to) {
-            document.getElementById('errorLabel').val('You cannot travel to the same airport!');
+            document.getElementById('errorLabel').innerHTML = 'You cannot travel to the same airport!';
             return false;
         } else if (!isValidDate(date)) {
-            document.getElementById('errorLabel').val('Wrong format for the date');
+            document.getElementById('errorLabel').innerHTML = 'Wrong format for the date';
             return false;
         }
-        alert("HEI");
         return true;
     }
 </script>

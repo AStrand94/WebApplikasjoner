@@ -26,7 +26,8 @@ namespace WebApplication3.Controllers
 
             if (!allFlights.Any())
             {
-                return RedirectToAction("Index");
+                ViewBag.NoData = "No flights on this date. (could also be no flights on this distance..)";
+                return View();
             }
 
             return View(allFlights);
@@ -43,7 +44,7 @@ namespace WebApplication3.Controllers
             return View();
         }
 
-        [HttpPost]
+        /*[HttpPost] -> kan legge til [ActionName("RegisterCustomer")]. Da kalles /home/RegisterCustomer. Evt bytt bare navn på metoden(er nok best practice å ha metode-navn = view-navn)
         public ActionResult Registration(Models.Customer customerIn)
         {
 
@@ -58,7 +59,13 @@ namespace WebApplication3.Controllers
             }
 
             return RedirectToAction("Index");
-        } 
-     
+        }*/
+
+        [HttpPost]
+        public ActionResult Registration(int flightId)
+        {
+            return View();
+        }
+
     }
 }

@@ -8,10 +8,10 @@
 <h2>
     HEI
 </h2>
-<form action="#" onsubmit="return checkForm(this);">
+<form action="/home/registerflight" onsubmit="return checkForm(this);" method="get">
     <div class="form-group" style="float:left; width:40%;">
         <label for="sel1">Travel from:</label>
-        <select class="form-control" id="fromAirport" name="fromAirport">
+        <select class="form-control" id="fromAirportId" name="fromAirportId">
             <option selected disabled hidden>Select airport..</option>
             @foreach (var airport in Model)
             {
@@ -21,7 +21,7 @@
     </div>
     <div class="form-group" style="margin-left:40px;">
         <label for="sel1">Travel to:</label>
-        <select class="form-control" id="toAirport" name="toAirport">
+        <select class="form-control" id="toAirportId" name="toAirportId">
             <option selected disabled hidden>Select airport..</option>
             @foreach (var airport in Model)
             {
@@ -61,12 +61,12 @@
     });
 
     function checkForm(formVals) {
-        var from = formVals.fromAirport.value;
-        var to = formVals.toAirport.value;
+        var from = formVals.fromAirportId.value;
+        var to = formVals.toAirportId.value;
         var date = formVals.date.value;
 
         var string = 'FROM: ' + from + '\nTO: ' + to + '\nDATE: ' + date;
         alert(string);
-        return false; //returns false so it do not send form(reloads page)
+        return true; //returns false so it do not send form(reloads page)
     }
 </script>

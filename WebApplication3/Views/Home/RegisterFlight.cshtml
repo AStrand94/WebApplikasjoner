@@ -1,5 +1,20 @@
 ﻿@{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+@model List<WebApplication3.Models.Flight>
 
 <h1>Register flight</h1>
+
+<div class="list-group">
+@foreach (var f in Model)
+{
+    <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+        <div class="d-flex w-100 justify-content-between">
+            <h5 class="mb-1">@f.Route.FromAirport.Name - @f.Route.ToAirport.Name</h5>
+            <small>@f.Time.DayOfWeek, @f.Time.Day.@f.Time.Month @f.Time.Year</small>
+        </div>
+        <p class="mb-2">USD @f.Price</p>
+    </a>
+} 
+</div>
+

@@ -9,6 +9,7 @@ namespace WebApplication3.Models
     {
         public int Id { get; set; }
         public DateTime Time { get; set; }
+        public double Price { get; set; }
         public virtual List<Customer> Passangers { get; set; }
         public virtual Route Route { get; set; }
         public virtual Airplane Airplane { get; set; }

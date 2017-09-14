@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -16,9 +17,25 @@ namespace WebApplication3.Controllers
             return View(airports);
         }
 
+        [HttpGet]
+        public ActionResult RegisterFlight(int fromAirportId, int toAirportId, DateTime date) //Correct implementation
+        {
+            PathHelper pathHelper = new PathHelper(fromAirportId, toAirportId,date, db);
+
+            var allFlights = pathHelper.GetDirectFlights().ToList();
+
+            if (!allFlights.Any())
+            {
+                return RedirectToAction("Index");
+            }
+
+            return View(allFlights);
+        }
+
         public ActionResult RegisterFlight()
         {
-            return View();
+            //return View();
+            return RedirectToAction("Index");
         }
     }
 }

@@ -11,7 +11,35 @@
     titles.Add(new SelectListItem() { Text = "Miss", Value = "Miss" });
 }
 
-<h2>Registration</h2>
+<br/>
+
+<style>
+    th {
+        background-color: #428bca;
+        color: white;
+    }
+</style>
+
+<div class="container">
+    <table class="table table-condensed">
+        <thead>
+            <tr>
+                <th>From Airport</th>
+                <th>To Airport</th>
+                <th>Date</th>
+                <th>Price</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Gardermoen</td>
+                <td>Flesland</td>
+                <td>28.11.2017</td>
+                <td>20 USD</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
 
 @using (Html.BeginForm())
 {
@@ -94,12 +122,8 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Register" class="btn btn-default" />
+                <input type="submit" value="Register" class="btn btn-primary" />
             </div>
         </div>
     </div>
 }
-
-<div>
-    @Html.ActionLink("Til index", "Index")
-</div>

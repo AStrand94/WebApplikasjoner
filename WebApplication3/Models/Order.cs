@@ -7,8 +7,13 @@ namespace WebApplication3.Models
 {
     public class Order
     {
-        public virtual Flight Flight { get; set; }
-        public virtual Customer Customer { get; set; }
+        public List<Flight> Flights { get; set; }
+        public Customer Customer { get; set; }
+
+        public Order()
+        {
+            Flights = new List<Flight>();
+        }
 
     }
 }

@@ -6,10 +6,10 @@
 <h2>Payment</h2>
 
 @{
-    var customer = (WebApplication3.Models.Customer)Session["Customer"];
-    if (customer != null)
+    var order = (WebApplication3.Models.Order)Session["Order"];
+    if (order != null)
     {
-        <p>@customer.Firstname</p>
+        <p>@order.Customer.Firstname</p>
     }
 }
 

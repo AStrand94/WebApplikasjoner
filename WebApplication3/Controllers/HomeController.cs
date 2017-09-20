@@ -10,9 +10,9 @@ namespace WebApplication3.Controllers
 {
     public class HomeController : Controller
     {
-        Order order = new Order();
 
-        DB db = new DB();
+        private DB db = new DB();
+
         public ActionResult Index()
         {
             var airports = db.Airports.ToList();
@@ -46,14 +46,6 @@ namespace WebApplication3.Controllers
         }
 
         [HttpPost]
-        public ActionResult Registration(int flightId)
-        {
-            order.Flight = db.Flights.Where(f => f.Id == flightId).First();
-            Session.Add("Flight", order.Flight);
-            return View();
-        }
-
-        [HttpPost]
         public ActionResult Payment(Models.Customer customer)
         {
             try
@@ -65,9 +57,8 @@ namespace WebApplication3.Controllers
             {
                 
             }
-
+            Order order = GetOrderObject();
             order.Customer = customer;
-            Session.Add("Customer", order.Customer);
 
             return View();
         }
@@ -75,13 +66,48 @@ namespace WebApplication3.Controllers
         [HttpPost]
         public ActionResult Registration(int flightId1,int? flightId2, int? flightId3, int? flightId4)
         {
-            Console.Write(flightId1);
+
+            Order order = GetOrderObject();
+            
+            order.Flights.Add(db.Flights.Where(f => f.Id == flightId1).First());
+
+            if(flightId2 != null)
+            {
+                order.Flights.Add(db.Flights.Where(f => f.Id == flightId2).First());
+            }
+
+            if (flightId3 != null)
+            {
+                order.Flights.Add(db.Flights.Where(f => f.Id == flightId3).First());
+            }
+
+            if (flightId4 != null)
+            {
+                order.Flights.Add(db.Flights.Where(f => f.Id == flightId4).First());
+            }
 
             /*
              foreach flight in flightIds -> hent ut faktiske flight objekter fra db -> legg inn i bestillingsobjekt -> lagre bestillingsobjekt i SESSION
              */
 
             return View();
+        }
+
+        private Order GetOrderObject()
+        {
+            Order order;
+
+            if (Session["Order"] != null)
+            {
+                order = (Order)Session["Order"];
+            }
+            else
+            {
+                order = new Order();
+                Session["Order"] = order;
+            }
+
+            return order;
         }
 
     }

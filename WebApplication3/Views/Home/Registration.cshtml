@@ -20,28 +20,34 @@
     }
 </style>
 
-<div class="container">
-    <table class="table table-condensed">
-        <thead>
-            <tr>
-                <th>From Airport</th>
-                <th>To Airport</th>
-                <th>Date</th>
-                <th>Price</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>Gardermoen</td>
-                <td>Flesland</td>
-                <td>28.11.2017</td>
-                <td>20 USD</td>
-            </tr>
-        </tbody>
-    </table>
-</div>
+@{
+    var flight = (WebApplication3.Models.Flight)Session["Flight"];
+    if (flight != null)
+    {
+        <div class="container">
+            <table class="table table-condensed">
+                <thead>
+                    <tr>
+                        <th>From Airport</th>
+                        <th>To Airport</th>
+                        <th>Date</th>
+                        <th>Price</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>@flight.Route.FromAirport.Name</td>
+                        <td>@flight.Route.ToAirport.Name</td>
+                        <td>@flight.Time</td>
+                        <td>@flight.Price</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    }
+}
 
-@using (Html.BeginForm())
+@using (Html.BeginForm("Payment", "Home"))
 {
     @Html.AntiForgeryToken()
 

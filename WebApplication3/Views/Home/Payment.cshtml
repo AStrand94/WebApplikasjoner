@@ -1,0 +1,17 @@
+﻿
+@{
+    ViewBag.Title = "Payment";
+}
+
+<h2>Payment</h2>
+
+@{
+    var customer = (WebApplication3.Models.Customer)Session["Customer"];
+    if (customer != null)
+    {
+        <p>@customer.Firstname</p>
+    }
+}
+
+
+

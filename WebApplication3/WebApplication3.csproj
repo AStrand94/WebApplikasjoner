@@ -165,6 +165,7 @@
     <Compile Include="Models\Airplane.cs" />
     <Compile Include="Models\Airport.cs" />
     <Compile Include="Models\Order.cs" />
+    <Compile Include="Models\Travel.cs" />
     <Compile Include="Models\PathHelper.cs" />
     <Compile Include="Models\DBInit.cs" />
     <Compile Include="Models\Customer.cs" />

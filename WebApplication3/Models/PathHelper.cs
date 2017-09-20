@@ -10,87 +10,97 @@ namespace WebApplication3.Models
         public PathHelper(int fromAirport, int toAirport, DateTime date, DB db)
         {
             this.date = date;
-            this.toAirport = toAirport;
-            this.fromAirport = fromAirport;
+            this.toAirportId = toAirport;
+            this.fromAirportId = fromAirport;
             FlightList = new List<List<Flight>>();
             this.db = db;
             AllFlights = db.Flights.ToList();
+            FromAirport = db.Airports.Where(air => air.Id == fromAirport).First();
+            ToAirport = db.Airports.Where(air => air.Id == toAirport).First();
         }
         private DateTime date;
-        private int fromAirport;
-        private int toAirport;
+        private int fromAirportId;
+        private int toAirportId;
         private DB db;
         private List<Flight> AllFlights;
         private List<List<Flight>> FlightList { get; }
-        private static readonly int MAX_STOPOVERS = 3;
+        private Airport FromAirport;
+        private Airport ToAirport;
 
-        public List<List<Flight>> GetAllFlights()
+        public List<Travel> GetAllFlights()
         {
-            foreach(Flight f in GetDirectFlights())
+            List<Travel> FlightList = GetDirectFlights();
+
+            foreach(var t in getStopovers())
             {
-                List<Flight> tempList = new List<Flight>();
-                tempList.Add(f);
-                FlightList.Add(tempList);
+                FlightList.Add(t);
             }
 
-            /*foreach(List<Flight> fList in GetStopovers())
-            {
-                FlightList.Add(fList);
-            }*/
-            
             return FlightList;
         }
 
-        public IEnumerable<Flight> GetDirectFlights()
+
+
+        public List<Travel> GetDirectFlights()
         {
             List<Flight> routeList = db.Flights.ToList();
+            List<Travel> DirectTravels = new List<Travel>();
 
-            return routeList.Where(r => r.Route.FromAirport.Id == fromAirport && r.Route.ToAirport.Id == toAirport);
+            foreach (var f in db.Flights.Where(r => r.Route.FromAirport.Id == fromAirportId && r.Route.ToAirport.Id == toAirportId))
+            {
+                DirectTravels.Add(new Travel(f));
+            }
+            return DirectTravels;
         }
 
-        /*private List<List<Flight>> GetStopovers()
+        private List<Travel> getStopovers()
         {
-            List<List<Flight>> Stopovers = new List<List<Flight>>();
+          
+            Travel WholeDistance = new Travel(FromAirport,ToAirport);
 
-            List<Flight> allFlightsFromA = db.Flights.Where(f => f.Route.FromAirport.Id == fromAirport).ToList();
+            List<Flight> FromFlights = db.Flights.Where(f => f.Route.FromAirport.Id == FromAirport.Id).ToList();
+            List<Flight> ToFlights = db.Flights.Where(f => f.Route.ToAirport.Id == ToAirport.Id).ToList();
 
-            foreach(Flight f in allFlightsFromA)
+            List<Travel> Stopovers = new List<Travel>();
+
+            foreach (var f in FromFlights)
             {
-                Stopovers.Add(GetStopovers(f));
+                if (toAirportIn(f,ToFlights))
+                {
+                    foreach (var Travel in GetTravel(f,ToFlights)){
+                        Stopovers.Add(Travel);
+                    }
+                }
             }
-
             return Stopovers;
         }
 
-        private List<Flight> GetStopovers(Flight f)
+        private List<Travel> GetTravel(Flight f, List<Flight> ToFlights)
         {
-            int nStopovers = 1;
-            List<Flight> Stopovers = new List<Flight>();
-            List<Airport> UsedAirports = new List<Airport>();
-            UsedAirports.Add(f.Route.FromAirport);
-            Stopovers.Add(f);
+            List<Travel> allTravels = new List<Travel>();
 
-            return NextStopOver(Stopovers);
+            foreach(var ToFlight in ToFlights)
+            {
+                if(f.Route.ToAirport.Id == ToFlight.Route.FromAirport.Id)
+                {
+                    Travel t = new Travel(f,ToFlight);
+                    allTravels.Add(t);
+                }
+            }
+            return allTravels;
         }
 
-        private List<Flight> NextStopOver(List<Flight> Stopovers)
+        private bool toAirportIn(Flight f, List<Flight> ToFlightList)
         {
-            Flight PrevFlight = Stopovers.Last();
-
-            if(PrevFlight.Route.ToAirport.Id == toAirport)
+            foreach (var ToFlight in ToFlightList)
             {
-                return Stopovers;
-            }
-            else
-            {
-                foreach ()
+                if (f.Route.ToAirport.Id == ToFlight.Route.FromAirport.Id)
                 {
-
+                    return true;
                 }
-
-                return NextStopOver(Stopovers);
             }
-        }*/
-        
+            return false;
+
+        }
     }
 }

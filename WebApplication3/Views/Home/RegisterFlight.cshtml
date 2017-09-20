@@ -1,29 +1,36 @@
 ﻿@{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-@model List<WebApplication3.Models.Flight>
+@model List<WebApplication3.Models.Travel>
 
 <h1>Register flight</h1>
 
 @if (Model != null)
 {
-<div class="list-group">
-@foreach (var f in Model)
-{
-    <form action="/home/registration" id="flightForm{@f.Id}" method="post">
-    <a href="javascript:{}" onclick="document.getElementById('flightForm{@f.Id}').submit();" class="list-group-item list-group-item-action flex-column align-items-start">
-        <input type="hidden" name="flightId" value="@f.Id" />
-        <div class="d-flex w-100 justify-content-between">
-            <h4 class="mb-1">@f.Route.FromAirport.Name - @f.Route.ToAirport.Name</h4>
-            <small>@f.Time.DayOfWeek, @f.Time.Day.@f.Time.Month @f.Time.Year</small>
-        <p class="mb-2" style="float:right;">USD @f.Price</p>
-        </div>  
-    </a>
-    </form>
-} 
+    foreach (var f in Model)
+    {
+    <div class="list-group">
+        @if (f.isSingleFlight)
+        {
+            <form action="/home/registration" method="post">
+                <a>Reise: @f.FromFlight.Route.FromAirport.Name - @f.FromFlight.Route.ToAirport.Name  </a>
+                <input type="hidden" id="flightId1" name="flightId1" value="@f.FromFlight.Id" />
+                <input type="submit" />
+                </form>
+
+                }
+                else
+                {
+                <form action="/home/registration" method="post">
+                    <a>Reise: @f.FromFlight.Route.FromAirport.Name - @f.FromFlight.Route.ToAirport.Name  </a>
+                    <a>Reise 2: @f.ToFlight.Route.FromAirport.Name - @f.ToFlight.Route.ToAirport.Name  </a>
+                    <input type="hidden" id="flightId1" name="flightId1" value="@f.FromFlight.Id" />
+                    <input type="hidden" id="flightId2" name="flightId2" value="@f.ToFlight.Id" />
+                    <input type="submit" />
+                </form>
+                    }
 </div>
+    
+    }
 }
-else
-{
-    <p>@ViewBag.NoData</p>
-}
+        <!--LEGG TIL RETURREISER OGSÅ SOM HIDDEN INPUT OG EN EGEN FORM. BØR VÆRE VALG OM VIL HA RETURREISE ELLER IKKE-->

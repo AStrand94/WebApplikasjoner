@@ -5,13 +5,106 @@
 
 <h2>Payment</h2>
 
+<style>
+    th {
+        background-color: #428bca;
+        color: white;
+    }
+</style>
+
 @{
     var order = (WebApplication3.Models.Order)Session["Order"];
     if (order != null)
     {
+        <div class="container">
+            <table class="table table-condensed">
+                <thead>
+                    <tr>
+                        <th>From Airport</th>
+                        <th>To Airport</th>
+                        <th>Date</th>
+                        <th>Price</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var f in order.Flights)
+                    {
+                        <tr>
+                            <td>@f.Route.FromAirport.Name</td>
+                            <td>@f.Route.ToAirport.Name</td>
+                            <td>@f.Time</td>
+                            <td>@f.Price</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+
+        <p>@order.Customer.Title</p>
         <p>@order.Customer.Firstname</p>
+        <p>@order.Customer.Lastname</p>
+        <p>@order.Customer.Address</p>
+        <p>@order.Customer.ZipCode</p>
+        <p>@order.Customer.City</p>
+        <p>@order.Customer.Country</p>
+        <p>@order.Customer.Telephone</p>
+        <p>@order.Customer.Email</p>
     }
 }
 
-
+<div class="container">
+    <div class="row">
+        <div class="col-xs-12 col-md-4">
+            <div class="panel panel-default credit-card-box">
+                <div class="panel-heading display-table">
+                    <div class="row display-tr">
+                        <h3 class="panel-title display-td col-xs-12">Payment Details</h3>
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <form role="form" id="payment-form" method="POST" action="javascript:void(0);">
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <div class="form-group">
+                                    <label for="cardNumber">CARD NUMBER</label>
+                                    <div class="input-group">
+                                        <input type="tel"
+                                               class="form-control"
+                                               name="cardNumber"
+                                               placeholder="Valid Card Number" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-7 col-md-7">
+                                <div class="form-group">
+                                    <label for="cardExpiry">EXPIRATION DATE</label>
+                                    <input type="tel"
+                                           class="form-control"
+                                           name="cardExpiry"
+                                           placeholder="MM / YY" />
+                                </div>
+                            </div>
+                            <div class="col-xs-5 col-md-5 pull-right">
+                                <div class="form-group">
+                                    <label for="cardCVC">CVC CODE</label>
+                                    <input type="tel"
+                                           class="form-control"
+                                           name="cardCVC"
+                                           placeholder="CVC" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <button class="subscribe btn btn-primary btn-lg btn-block" type="button">Pay</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 

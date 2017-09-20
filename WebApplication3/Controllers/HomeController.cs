@@ -10,6 +10,8 @@ namespace WebApplication3.Controllers
 {
     public class HomeController : Controller
     {
+        Order order = new Order();
+
         DB db = new DB();
         public ActionResult Index()
         {
@@ -28,38 +30,47 @@ namespace WebApplication3.Controllers
             {
                 ViewBag.NoData = "No flights on this date. (could also be no flights on this distance..)";
                 return View();
-            }
+            } 
 
             return View(allFlights);
         }
 
         public ActionResult RegisterFlight()
         {
-            //return View();
             return RedirectToAction("Index");
         }
 
         public ActionResult Registration()
         {
+            return RedirectToAction("Index");
+        }
+
+        [HttpPost]
+        public ActionResult Registration(int flightId)
+        {
+            order.Flight = db.Flights.Where(f => f.Id == flightId).First();
+            Session.Add("Flight", order.Flight);
             return View();
         }
 
-        /*[HttpPost] -> kan legge til [ActionName("RegisterCustomer")]. Da kalles /home/RegisterCustomer. Evt bytt bare navn på metoden(er nok best practice å ha metode-navn = view-navn)
-        public ActionResult Registration(Models.Customer customerIn)
+        [HttpPost]
+        public ActionResult Payment(Models.Customer customer)
         {
-
             try
             {
-                db.Customers.Add(customerIn);
+                db.Customers.Add(customer);
                 db.SaveChanges();
             }
             catch (Exception e)
             {
-
+                
             }
 
-            return RedirectToAction("Index");
-        }*/
+            order.Customer = customer;
+            Session.Add("Customer", order.Customer);
+
+            return View();
+        }
 
         [HttpPost]
         public ActionResult Registration(int flightId1,int? flightId2, int? flightId3, int? flightId4)

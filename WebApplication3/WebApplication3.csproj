@@ -164,6 +164,7 @@
     </Compile>
     <Compile Include="Models\Airplane.cs" />
     <Compile Include="Models\Airport.cs" />
+    <Compile Include="Models\Order.cs" />
     <Compile Include="Models\Travel.cs" />
     <Compile Include="Models\PathHelper.cs" />
     <Compile Include="Models\DBInit.cs" />
@@ -294,6 +295,7 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Home\RegisterFlight.cshtml" />
     <Content Include="Views\Home\Registration.cshtml" />
+    <Content Include="Views\Home\Payment.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

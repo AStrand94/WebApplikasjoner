@@ -22,7 +22,7 @@ namespace WebApplication3.Controllers
         {
             PathHelper pathHelper = new PathHelper(fromAirportId, toAirportId,date, db);
 
-            var allFlights = pathHelper.GetDirectFlights().ToList();
+            List<Travel> allFlights = pathHelper.GetAllFlights();
 
             if (!allFlights.Any())
             {
@@ -62,8 +62,14 @@ namespace WebApplication3.Controllers
         }*/
 
         [HttpPost]
-        public ActionResult Registration(int flightId)
+        public ActionResult Registration(int flightId1,int? flightId2, int? flightId3, int? flightId4)
         {
+            Console.Write(flightId1);
+
+            /*
+             foreach flight in flightIds -> hent ut faktiske flight objekter fra db -> legg inn i bestillingsobjekt -> lagre bestillingsobjekt i SESSION
+             */
+
             return View();
         }
 

@@ -68,6 +68,13 @@ namespace WebApplication3.Models
                 FromAirport = airport1,
                 ToAirport = airport4
             };
+
+            var route4 = new Route
+            {
+                Id = 4,
+                FromAirport = airport2,
+                ToAirport = airport3
+            };
             context.Routes.Add(route1);
             context.Routes.Add(route2);
             context.Routes.Add(route3);
@@ -93,9 +100,17 @@ namespace WebApplication3.Models
                 Route = route2
             };
 
+            var flight4 = new Flight
+            {
+                Id = 3,
+                Time = new DateTime(2017, 12, 13),
+                Route = route4
+            };
+
             context.Flights.Add(flight1);
             context.Flights.Add(flight2);
             context.Flights.Add(flight3);
+            context.Flights.Add(flight4);
 
             base.Seed(context);
         }

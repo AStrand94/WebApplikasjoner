@@ -1,4 +1,4 @@
-@{
+﻿@{
     ViewBag.Title = "Home Page";
 }
 @model List<WebApplication3.Models.Airport>
@@ -10,12 +10,15 @@
 <h2>
     Where do you want to travel?
 </h2>
+<p>Default flights are at "SEPTEMBER 12th 2017"</p>
+   <p> Return flight is at "SEPTEMBER 13th 2017"</p>
+<p>Gardermoen - Paris is the default route</p>
 
 <form action="/home/registerflight" onsubmit="return checkForm(this);" method="get">
     <div class="form-group" style="float:left; width:40%;">
         <label for="fromAirportId">Travel from:</label>
         <select class="form-control" id="fromAirportId" name="fromAirportId">
-            <option selected disabled hidden>Select airport..</option>
+            <option value="" selected disabled hidden>Select airport..</option>
             @foreach (var airport in Model)
             {
                 <option value="@airport.Id">@airport.Name</option>
@@ -25,47 +28,72 @@
     <div class="form-group" style="margin-left:40px;">
         <label for="toAirportId">Travel to:</label>
         <select class="form-control" id="toAirportId" name="toAirportId">
-            <option selected disabled hidden>Select airport..</option>
+            <option value="" selected disabled hidden>Select airport..</option>
             @foreach (var airport in Model)
             {
                 <option value="@airport.Id">@airport.Name</option>
             }
         </select>
     </div>
-<label id="errorLabel" style="color:darkred;font-size:large;" hidden></label><br/>
-    <label for="fromDate">Traveling date:</label>
-    <div class="input-group date" data-provide="datepicker" style="width:20%;" id="fromDate">
-        <input id="date" name="date" type="text" class="form-control">
-        <div class="input-group-addon">
-            <span class="glyphicon glyphicon-th"></span>
+
+    <div class="btn-group" data-toggle="buttons" style="margin-top:20px;">
+        <label id="singleTrip" class="btn btn-default dateButton active" for="singleTrip">
+            <input  name="single" type="radio" checked="checked" >Single trip
+        </label>
+        <label id="roundtrip" class="btn btn-default dateButton" for="roundTrip">
+            <input name="round" type="radio">Roundtrip
+        </label>
+    </div>
+
+<p id="errorLabel" style="color:darkred;font-size:large;"></p><br />
+
+    <div class="row">
+        <div class="col-xs-12">
+            <label for="fromDate" >Traveling date:</label>
+            <div class="input-group date" data-provide="datepicker" style="width:20%;" id="datepicker">
+                <input id="date" name="date" type="text" class="form-control">
+                <div class="input-group-addon">
+                    <span class="glyphicon glyphicon-th"></span>
+                </div>
+            </div>
+        </div>
+        <div id="returnDateDiv" class="col-xs-12">
         </div>
     </div>
     <br />
-    <input type="submit" class="btn btn-success" value="Submit Button"/>
+    <input type="submit" class="btn btn-primary" value="Submit Button" />
 </form>
-<a href="/Home/Registration">Registrer</a>
 
 <script>
     $(document).ready(function () {
+        $('#returnDateDiv').empty();
         $('.datepicker').datepicker({
             format: 'mm/dd/yyyy',
             startDate: '+1d'
         });
 
-        $('#fromDate').datepicker().on('changeDate', function (ev) {
-            $('#fromDate').datepicker('hide');
+        $('.date').datepicker().on('changeDate', function (ev) {
+            $('.date').datepicker('hide');
             var date = $('#date').val();
             console.log(date);
             if (!isValidDate(date)) {
                 $('#errorLabel').text("Wrong date");
-                $('#errorLabel').show();
-            } else {
-                $('#errorLabel').hide();
             }
         });
 
         $('#toDate').datepicker().on('changeDate', function (ev) {
             $('#toDate').datepicker('hide');
+        });
+
+        $('#singleTrip').click(function () {
+            $("#returnDateDiv").empty();
+        });
+
+        $('#roundtrip').click(function () {
+            if ($("#returnDateDiv").is(':empty')) {
+                $("#returnDateDiv").prepend('<label for="returnDate">Return date:</label ><div class="input-group date" data-provide="datepicker" style="width:20%;" id="datepicker2"><input id="returnDate" name="returnDate" type="text" class="form-control"><div class="input-group-addon"><span class="glyphicon glyphicon-th"></span></div></div>');
+            }
+
         });
     });
 
@@ -89,10 +117,49 @@
         return day > 0 && day <= monthLength[month - 1];
     };
 
+    function returnDateIsLater(date1, date2) {
+        
+        var parts = date1.split("/");
+        var day = parseInt(parts[1], 10);
+        var month = parseInt(parts[0], 10);
+        var year = parseInt(parts[2], 10);
+
+        var parts2 = date2.split("/");
+        var day2 = parseInt(parts2[1], 10);
+        var month2 = parseInt(parts2[0], 10);
+        var year2 = parseInt(parts2[2], 10);
+
+        if (year < year2) return true;
+        else if (year > year2) return false;
+        else if (month > month2) return false;
+        else if (day >= day2) return false;
+        return true;
+    }
+
     function checkForm(formVals) {
         var from = formVals.fromAirportId.value;
         var to = formVals.toAirportId.value;
         var date = formVals.date.value;
+        var date2 = null;
+
+        if (from == null || to == null || from == "" || to == "") {
+            document.getElementById('errorLabel').innerHTML = 'Specify where you want to travel!';
+            return false;
+        }
+
+        if (document.getElementById('returnDate')) {
+            if (isValidDate(document.getElementById('returnDate').value)) {
+                date2 = document.getElementById('returnDate');
+            } else {
+                document.getElementById('errorLabel').innerHTML = 'Specify returndate!';
+                return false;
+            }
+        }
+
+        if (date2 != null && !returnDateIsLater(date, date2)) {
+            document.getElementById('errorLabel').innerHTML = 'Return-date must be after travel-date!';
+            return false;
+        }
 
         if (from === to || !from || !to) {
             document.getElementById('errorLabel').innerHTML = 'You cannot travel to the same airport!';

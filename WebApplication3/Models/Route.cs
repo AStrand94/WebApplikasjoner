@@ -11,5 +11,6 @@ namespace WebApplication3.Models
         public virtual Airport ToAirport { get; set; }
         public virtual Airport FromAirport { get; set; }
         public virtual List<Flight> Flights { get; set; }
+        public virtual TimeSpan FlightTime { get; set; }
     }
 }

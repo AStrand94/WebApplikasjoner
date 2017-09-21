@@ -11,7 +11,6 @@ namespace WebApplication3.Models
         {
             ToAirport = To;
             FromAirport = From;
-            TravelList = new List<Flight>();
         }
 
         public Travel(Flight FromFlight, Flight ToFlight)
@@ -27,23 +26,11 @@ namespace WebApplication3.Models
             isSingleFlight = true;
         }
 
-        List<Flight> TravelList;
         Airport FromAirport, ToAirport;
         public Flight FromFlight { get; }
         public Flight ToFlight { get; }
         public bool isSingleFlight { get; set; }
-
-        public void addFlight(Flight f)
-        {
-            TravelList.Add(f);
-        }
-
-        public List<Flight> getAllFlights()
-        {
-            return TravelList;
-        }
-
-
-            
+        public bool isReturnFlight { get; set; }
+    
     }
 }

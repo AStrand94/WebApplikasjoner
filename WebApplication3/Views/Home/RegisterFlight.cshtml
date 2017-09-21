@@ -4,33 +4,142 @@
 @model List<WebApplication3.Models.Travel>
 
 <h1>Register flight</h1>
-
+<h2>Choose your flight to ...</h2>
 @if (Model != null)
 {
-    foreach (var f in Model)
-    {
     <div class="list-group">
-        @if (f.isSingleFlight)
+        @foreach (var f in Model)
         {
-            <form action="/home/registration" method="post">
-                <a>Reise: @f.FromFlight.Route.FromAirport.Name - @f.FromFlight.Route.ToAirport.Name  </a>
-                <input type="hidden" id="flightId1" name="flightId1" value="@f.FromFlight.Id" />
-                <input type="submit" />
-                </form>
-
+            if (f.isSingleFlight && !f.isReturnFlight)
+            {
+                <a class="list-group-item submitFlight singleToFlight">
+                    <span class="glyphicon glyphicon-plane"></span>
+                    <p>Reise: @f.FromFlight.Route.FromAirport.Name - @f.FromFlight.Route.ToAirport.Name</p>
+                    <input type="hidden" name="flightId1" value="@f.FromFlight.Id" />
+                    <input type="hidden" name="f1string" value="" />
+                    <input type="hidden" name="f1price" value=""/>
+                </a>
+            }
+            else if(!f.isReturnFlight)
+            {
+                <a class="list-group-item submitFlight stopoverToFlight">
+                    <span class="glyphicon glyphicon-plane"></span>
+                    <p>Reise: @f.FromFlight.Route.FromAirport.Name - @f.FromFlight.Route.ToAirport.Name  </p>
+                    <p>Reise 2: @f.ToFlight.Route.FromAirport.Name - @f.ToFlight.Route.ToAirport.Name  </p>
+                    <input type="hidden" name="flightId1" value="@f.FromFlight.Id" />
+                    <input type="hidden" name="flightId2" value="@f.ToFlight.Id" />
+                </a>
+            }
+        }
+    </div>
+    <h2>Choose your flight back to ...</h2>
+    <div class="list-group">
+        @foreach (var f in Model)
+        {
+            if (f.isReturnFlight)
+            {
+                if (f.isSingleFlight)
+                {
+                    <a class="list-group-item submitFlight singleReturnFlight">
+                        <span class="glyphicon glyphicon-plane"></span>
+                        <p>Reise: @f.FromFlight.Route.FromAirport.Name - @f.FromFlight.Route.ToAirport.Name</p>
+                        <input type="hidden" name="flightId1" value="@f.FromFlight.Id" />
+                    </a>
                 }
                 else
                 {
-                <form action="/home/registration" method="post">
-                    <a>Reise: @f.FromFlight.Route.FromAirport.Name - @f.FromFlight.Route.ToAirport.Name  </a>
-                    <a>Reise 2: @f.ToFlight.Route.FromAirport.Name - @f.ToFlight.Route.ToAirport.Name  </a>
-                    <input type="hidden" id="flightId1" name="flightId1" value="@f.FromFlight.Id" />
-                    <input type="hidden" id="flightId2" name="flightId2" value="@f.ToFlight.Id" />
-                    <input type="submit" />
-                </form>
-                    }
-</div>
-    
-    }
+                    <a class="list-group-item submitFlight stopoverReturnFlight">
+                        <span class="glyphicon glyphicon-plane"></span>
+                        <p>Reise: @f.FromFlight.Route.FromAirport.Name - @f.FromFlight.Route.ToAirport.Name  </p>
+                        <p>Reise 2: @f.ToFlight.Route.FromAirport.Name - @f.ToFlight.Route.ToAirport.Name  </p>
+                        <input type="hidden" name="flightId1" value="@f.FromFlight.Id" />
+                        <input type="hidden" name="flightId2" value="@f.ToFlight.Id" />
+                    </a>
+                }
+
+
+            }
+
+        }
+    </div>
+    <div class="panel panel-success">
+        <div class="panel-heading">
+            <i class="glyphicon glyphicon-shopping-cart"></i>   Your order
+        </div>
+        <div class="panel-body">
+            <div class="list-group-item">
+                <p id="toFlightDesc"></p>
+            </div>
+            <div class="list-group-item">
+                <p id="fromFlightDesc"></p>
+            </div>
+            <form action="/home/registration" method="post">
+                <input type="hidden" id="flightId1" name="flightId1" value="" />
+                <input type="hidden" id="flightId2" name="flightId2" value="" />
+                <input type="hidden" id="flightId3" name="flightId3" value="" />
+                <input type="hidden" id="flightId4" name="flightId4" value="" />
+                <input class="btn btn-success" type="submit" />
+            </form>
+        </div>
+
+
+    </div>
+
 }
-        <!--LEGG TIL RETURREISER OGSÅ SOM HIDDEN INPUT OG EN EGEN FORM. BØR VÆRE VALG OM VIL HA RETURREISE ELLER IKKE-->
+else
+{
+    <p>Sorry, no flights on this date!</p>
+}
+<style>
+    .submitFlight {
+        cursor: pointer;
+    }
+</style>
+<script>
+    $(document).ready(function () {
+
+        var id1, id2, id3, id4;
+
+        $(".submitFlight").on('click', function () {
+            //this.closest("form").submit();
+        });
+
+        $(".singleToFlight").on('click', function () {
+            id1 = $(this).children("input[name='flightId1']").val();
+            //alert(id1);
+
+            $('#toFlightDesc').text();
+            $('#flightId1').val(id1);
+            $('#flightId2').val('');
+
+        });
+
+        $(".stopoverToFlight").on('click', function () {
+            id1 = $(this).children("input[name='flightId1']").val();
+            id2 = $(this).children("input[name='flightId2']").val();
+            //alert(id1 + "\n" + id2);
+
+            $('#flightId1').val(id1);
+            $('#flightId2').val(id2);
+        });
+
+        $(".singleReturnFlight").on('click', function () {
+            id3 = $(this).children("input[name='flightId1']").val();
+            //alert(id3);
+
+            $('#flightId3').val(id3);
+            $('#flightId4').val('');
+        });
+
+        $(".stopoverReturnFlight").on('click', function () {
+            id3 = $(this).children("input[name='flightId1']").val();
+            id4 = $(this).children("input[name='flightId2']").val();
+            //alert(id3 + "\n" + id4);
+
+            $('#flightId3').val(id3);
+            $('#flightId4').val(id4);
+        });
+    });
+
+</script>
+<!--LEGG TIL RETURREISER OGSÅ SOM HIDDEN INPUT OG EN EGEN FORM. BØR VÆRE VALG OM VIL HA RETURREISE ELLER IKKE. RETURREISER BØRE VÆRE SPESIFISERT I TRAVEL-OBJEKT-->

@@ -75,42 +75,92 @@ namespace WebApplication3.Models
                 FromAirport = airport2,
                 ToAirport = airport3
             };
+
+            var route5 = new Route
+            {
+                Id = 5,
+                FromAirport = airport3,
+                ToAirport = airport1
+            };
+
+            var route6 = new Route
+            {
+                Id = 6,
+                FromAirport = airport3,
+                ToAirport = airport2
+            };
+
+            var route7 = new Route
+            {
+                Id = 7,
+                FromAirport = airport2,
+                ToAirport = airport1
+            };
+
             context.Routes.Add(route1);
             context.Routes.Add(route2);
             context.Routes.Add(route3);
+            context.Routes.Add(route4);
+            context.Routes.Add(route5);
+            context.Routes.Add(route6);
+            context.Routes.Add(route7);
 
             var flight1 = new Flight
             {
                 Id = 0,
-                Time = new DateTime(2017,12,12),
+                Time = new DateTime(2017,09,12),
                 Route = route1
             };
 
             var flight2 = new Flight
             {
                 Id = 1,
-                Time = new DateTime(2017, 12, 13),
+                Time = new DateTime(2017, 09, 12),
                 Route = route1
             };
 
             var flight3 = new Flight
             {
                 Id = 2,
-                Time = new DateTime(2017, 12, 12),
+                Time = new DateTime(2017, 09, 12),
                 Route = route2
             };
 
             var flight4 = new Flight
             {
                 Id = 3,
-                Time = new DateTime(2017, 12, 13),
+                Time = new DateTime(2017, 09, 12),
                 Route = route4
+            };
+
+            var flight5 = new Flight
+            {
+                Id = 4,
+                Time = new DateTime(2017, 09, 13),
+                Route = route5
+            };
+
+            var flight6 = new Flight
+            {
+                Id = 5,
+                Time = new DateTime(2017, 09, 13),
+                Route = route6
+            };
+
+            var flight7 = new Flight
+            {
+                Id = 6,
+                Time = new DateTime(2017, 09, 13),
+                Route = route7
             };
 
             context.Flights.Add(flight1);
             context.Flights.Add(flight2);
             context.Flights.Add(flight3);
             context.Flights.Add(flight4);
+            context.Flights.Add(flight5);
+            context.Flights.Add(flight6);
+            context.Flights.Add(flight7);
 
             base.Seed(context);
         }

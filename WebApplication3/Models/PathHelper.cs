@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
+using System.Data.Entity.Core.Objects;
 using System.Linq;
 using System.Web;
 
@@ -39,14 +41,16 @@ namespace WebApplication3.Models
             return FlightList;
         }
 
-
-
         public List<Travel> GetDirectFlights()
         {
             List<Flight> routeList = db.Flights.ToList();
             List<Travel> DirectTravels = new List<Travel>();
 
-            foreach (var f in db.Flights.Where(r => r.Route.FromAirport.Id == fromAirportId && r.Route.ToAirport.Id == toAirportId))
+            IEnumerable<Flight> flights = db.Flights.Where(f => f.Route.FromAirport.Id == fromAirportId
+                                                            && f.Route.ToAirport.Id == toAirportId
+                                                            && DbFunctions.TruncateTime(f.Time) == DbFunctions.TruncateTime(date));
+
+            foreach (var f in flights)
             {
                 DirectTravels.Add(new Travel(f));
             }
@@ -58,8 +62,12 @@ namespace WebApplication3.Models
           
             Travel WholeDistance = new Travel(FromAirport,ToAirport);
 
-            List<Flight> FromFlights = db.Flights.Where(f => f.Route.FromAirport.Id == FromAirport.Id).ToList();
-            List<Flight> ToFlights = db.Flights.Where(f => f.Route.ToAirport.Id == ToAirport.Id).ToList();
+            List<Flight> FromFlights = db.Flights.Where(f => f.Route.FromAirport.Id == FromAirport.Id
+                                                            && f.Route.ToAirport.Id != toAirportId
+                                                            && DbFunctions.TruncateTime(f.Time) == DbFunctions.TruncateTime(date)).ToList();
+            List<Flight> ToFlights = db.Flights.Where(f => f.Route.ToAirport.Id == ToAirport.Id
+                                                            && f.Route.FromAirport.Id != fromAirportId
+                                                            && DbFunctions.TruncateTime(f.Time) == DbFunctions.TruncateTime(date)).ToList();
 
             List<Travel> Stopovers = new List<Travel>();
 

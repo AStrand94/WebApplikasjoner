@@ -20,18 +20,31 @@ namespace WebApplication3.Controllers
         }
 
         [HttpGet]
-        public ActionResult RegisterFlight(int fromAirportId, int toAirportId, DateTime date) //Correct implementation
+        public ActionResult RegisterFlight(int fromAirportId, int toAirportId, DateTime date,DateTime? returnDate) 
         {
             PathHelper pathHelper = new PathHelper(fromAirportId, toAirportId,date, db);
-
             List<Travel> allFlights = pathHelper.GetAllFlights();
 
-            if (!allFlights.Any())
+            PathHelper returnHelper;
+            List<Travel> returnFlights = new List<Travel>(); //ønsker egentlig ikke å assigne denne før if'en under..
+
+            if(returnDate != null)
+            {
+                returnHelper = new PathHelper(toAirportId, fromAirportId, returnDate.GetValueOrDefault(), db);
+                returnFlights = returnHelper.GetAllFlights();
+                returnFlights.ForEach(f => f.isReturnFlight = true);
+            }
+
+            if (returnDate == null && !allFlights.Any() || (!allFlights.Any() || returnDate != null && !returnFlights.Any()))
             {
                 ViewBag.NoData = "No flights on this date. (could also be no flights on this distance..)";
                 return View();
-            } 
-
+            }
+            else
+            {
+                allFlights.AddRange(returnFlights);
+            }
+            
             return View(allFlights);
         }
 
@@ -64,10 +77,11 @@ namespace WebApplication3.Controllers
         }
 
         [HttpPost]
-        public ActionResult Registration(int flightId1,int? flightId2, int? flightId3, int? flightId4)
+        public ActionResult Registration(int flightId1, int? flightId2, int? flightId3, int? flightId4)
         {
 
             Order order = GetOrderObject();
+            order.Flights.Clear();
             
             order.Flights.Add(db.Flights.Where(f => f.Id == flightId1).First());
 
@@ -85,10 +99,6 @@ namespace WebApplication3.Controllers
             {
                 order.Flights.Add(db.Flights.Where(f => f.Id == flightId4).First());
             }
-
-            /*
-             foreach flight in flightIds -> hent ut faktiske flight objekter fra db -> legg inn i bestillingsobjekt -> lagre bestillingsobjekt i SESSION
-             */
 
             return View();
         }

@@ -109,49 +109,56 @@ namespace WebApplication3.Models
             {
                 Id = 0,
                 Time = new DateTime(2017,09,12),
-                Route = route1
+                Route = route1,
+                Price = 99.99
             };
 
             var flight2 = new Flight
             {
                 Id = 1,
                 Time = new DateTime(2017, 09, 12),
-                Route = route1
+                Route = route1,
+                Price = 89.99
             };
 
             var flight3 = new Flight
             {
                 Id = 2,
                 Time = new DateTime(2017, 09, 12),
-                Route = route2
+                Route = route2,
+                Price = 40.0
             };
 
             var flight4 = new Flight
             {
                 Id = 3,
                 Time = new DateTime(2017, 09, 12),
-                Route = route4
+                Route = route4,
+                Price = 120.0
             };
 
             var flight5 = new Flight
             {
                 Id = 4,
                 Time = new DateTime(2017, 09, 13),
-                Route = route5
+                Route = route5,
+                Price = 55.0
             };
 
             var flight6 = new Flight
             {
                 Id = 5,
                 Time = new DateTime(2017, 09, 13),
-                Route = route6
+                Route = route6,
+                Price = 90.0
             };
 
             var flight7 = new Flight
             {
                 Id = 6,
                 Time = new DateTime(2017, 09, 13),
-                Route = route7
+                Route = route7,
+                Price = 60.0
             };
 
             context.Flights.Add(flight1);

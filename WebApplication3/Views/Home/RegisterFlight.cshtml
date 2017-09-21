@@ -7,14 +7,17 @@
 <h2>Choose your flight to ...</h2>
 @if (Model != null)
 {
-    <div class="list-group">
+    <div id="toFlightsDiv" class="list-group">
         @foreach (var f in Model)
         {
             if (f.isSingleFlight && !f.isReturnFlight)
             {
                 <a class="list-group-item submitFlight singleToFlight">
                     <span class="glyphicon glyphicon-plane"></span>
-                    <p>Reise: @f.FromFlight.Route.FromAirport.Name - @f.FromFlight.Route.ToAirport.Name</p>
+                    <p name="travelDescription"><B>@f.TravelDescription</B></p>
+                    <p name="travelFromString">@f.TravelFromString</p>
+                    <p name="travelToString">@f.TravelToString</p>
+                    <p name="price"><span class="glyphicon glyphicon-usd"></span>@f.Price</p>
                     <input type="hidden" name="flightId1" value="@f.FromFlight.Id" />
                     <input type="hidden" name="f1string" value="" />
                     <input type="hidden" name="f1price" value=""/>
@@ -24,8 +27,10 @@
             {
                 <a class="list-group-item submitFlight stopoverToFlight">
                     <span class="glyphicon glyphicon-plane"></span>
-                    <p>Reise: @f.FromFlight.Route.FromAirport.Name - @f.FromFlight.Route.ToAirport.Name  </p>
-                    <p>Reise 2: @f.ToFlight.Route.FromAirport.Name - @f.ToFlight.Route.ToAirport.Name  </p>
+                    <p name="travelDescription"><B>@f.TravelDescription</B></p>
+                    <p name="travelFromString">@f.TravelFromString</p>
+                    <p name="travelToString">@f.TravelToString</p>
+                    <p name="price"><span class="glyphicon glyphicon-usd"></span>@f.Price</p>
                     <input type="hidden" name="flightId1" value="@f.FromFlight.Id" />
                     <input type="hidden" name="flightId2" value="@f.ToFlight.Id" />
                 </a>
@@ -33,7 +38,7 @@
         }
     </div>
     <h2>Choose your flight back to ...</h2>
-    <div class="list-group">
+    <div id="returnFlightsDiv" class="list-group">
         @foreach (var f in Model)
         {
             if (f.isReturnFlight)
@@ -42,7 +47,10 @@
                 {
                     <a class="list-group-item submitFlight singleReturnFlight">
                         <span class="glyphicon glyphicon-plane"></span>
-                        <p>Reise: @f.FromFlight.Route.FromAirport.Name - @f.FromFlight.Route.ToAirport.Name</p>
+                        <p name="travelDescription"><B>@f.TravelDescription</B></p>
+                        <p name="travelFromString">@f.TravelFromString</p>
+                        <p name="travelToString">@f.TravelToString</p>
+                        <p name="price"><span class="glyphicon glyphicon-usd"></span>@f.Price</p>
                         <input type="hidden" name="flightId1" value="@f.FromFlight.Id" />
                     </a>
                 }
@@ -50,14 +58,14 @@
                 {
                     <a class="list-group-item submitFlight stopoverReturnFlight">
                         <span class="glyphicon glyphicon-plane"></span>
-                        <p>Reise: @f.FromFlight.Route.FromAirport.Name - @f.FromFlight.Route.ToAirport.Name  </p>
-                        <p>Reise 2: @f.ToFlight.Route.FromAirport.Name - @f.ToFlight.Route.ToAirport.Name  </p>
+                        <p name="travelDescription"><B>@f.TravelDescription</B></p>
+                        <p name="travelFromString">@f.TravelFromString</p>
+                        <p name="travelToString">@f.TravelToString</p>
+                        <p name="price"><span class="glyphicon glyphicon-usd"></span>@f.Price</p>
                         <input type="hidden" name="flightId1" value="@f.FromFlight.Id" />
                         <input type="hidden" name="flightId2" value="@f.ToFlight.Id" />
                     </a>
                 }
-
-
             }
 
         }
@@ -68,23 +76,26 @@
         </div>
         <div class="panel-body">
             <div class="list-group-item">
-                <p id="toFlightDesc"></p>
+                <p id="travelDescription"></p>
+                <p id="travelFromString"></p>
+                <p id="travelToString"></p>
             </div>
             <div class="list-group-item">
-                <p id="fromFlightDesc"></p>
+                <p id="travelDescription2"></p>
+                <p id="travelFromString2"></p>
+                <p id="travelToString2"></p>
             </div>
-            <form action="/home/registration" method="post">
-                <input type="hidden" id="flightId1" name="flightId1" value="" />
+            <span class="glyphicon glyphicon-usd" />
+            <p id="price"></p>
+            <form action="/home/registration" onsubmit="return checkForm();" method="post">
+                <input required type="hidden" id="flightId1" name="flightId1" value="" />
                 <input type="hidden" id="flightId2" name="flightId2" value="" />
                 <input type="hidden" id="flightId3" name="flightId3" value="" />
-                <input type="hidden" id="flightId4" name="flightId4" value="" />
-                <input class="btn btn-success" type="submit" />
+                <input  type="hidden" id="flightId4" name="flightId4" value="" />
+                <input class="btn btn-success" type="submit" value="To payment"/>
             </form>
         </div>
-
-
     </div>
-
 }
 else
 {
@@ -97,30 +108,67 @@ else
 </style>
 <script>
     $(document).ready(function () {
-
-        var id1, id2, id3, id4;
-
-        $(".submitFlight").on('click', function () {
-            //this.closest("form").submit();
-        });
-
+        
         $(".singleToFlight").on('click', function () {
             id1 = $(this).children("input[name='flightId1']").val();
-            //alert(id1);
 
-            $('#toFlightDesc').text();
             $('#flightId1').val(id1);
             $('#flightId2').val('');
 
+            var travelDesc, tfromstr, price,totalPrice;
+
+            travelDesc = $(this).children("p[name='travelDescription']").text();
+            tfromstr = $(this).children("p[name='travelFromString']").text();
+            price = $(this).children("p[name='price']").text();
+
+            totalPrice = $("#price").text();
+            if (totalPrice == null || totalPrice == "") {
+                $("#price").text(price);
+            } else {
+                $("#price").text(parseInt(price) + parseInt(totalPrice));
+            }
+
+            $("#travelDescription").text(travelDesc);
+            $("#travelFromString").text(tfromstr);
+            $("#travelToString").text("");
+
+            $('#toFlightsDiv').children('a').each(function () {
+                $(this).css('background-color', 'white');
+            });
+
+            $(this).css('background-color', 'palegreen');
         });
 
         $(".stopoverToFlight").on('click', function () {
             id1 = $(this).children("input[name='flightId1']").val();
             id2 = $(this).children("input[name='flightId2']").val();
-            //alert(id1 + "\n" + id2);
 
             $('#flightId1').val(id1);
             $('#flightId2').val(id2);
+
+            var travelDesc, tfromstr, ttostr, price;
+
+            travelDesc = $(this).children("p[name='travelDescription']").text();
+            tfromstr = $(this).children("p[name='travelFromString']").text();
+            ttostr = $(this).children("p[name='travelToString']").text();
+            price = $(this).children("p[name='price']").text();
+
+            totalPrice = $("#price").text();
+            if (totalPrice == null || totalPrice == "") {
+                $("#price").text(price);
+            } else {
+                $("#price").text(parseInt(price) + parseInt(totalPrice));
+            }
+
+            $("#travelDescription").text(travelDesc);
+            $("#travelFromString").text(tfromstr);
+            $("#travelToString").text(ttostr);
+
+            $('#toFlightsDiv').children('a').each(function () {
+                $(this).css('background-color', 'white');
+            });
+
+            $(this).css('background-color', 'palegreen');
         });
 
         $(".singleReturnFlight").on('click', function () {
@@ -129,6 +177,29 @@ else
 
             $('#flightId3').val(id3);
             $('#flightId4').val('');
+
+            var travelDesc2, tfromstr2, price2;
+
+            travelDesc2 = $(this).children("p[name='travelDescription']").text();
+            tfromstr2 = $(this).children("p[name='travelFromString']").text();
+            price2 = $(this).children("p[name='price']").text();
+
+            totalPrice = $("#price").text();
+            if (totalPrice == null || totalPrice == "") {
+                $("#price").text(price2);
+            } else {
+                $("#price").text(parseInt(price2) + parseInt(totalPrice));
+            }
+
+            $("#travelDescription2").text(travelDesc2);
+            $("#travelFromString2").text(tfromstr2);
+            $("#travelToString2").text("");
+
+            $('#returnFlightsDiv').children('a').each(function () {
+                $(this).css('background-color', 'white');
+            });
+
+            $(this).css('background-color', 'palegreen');
         });
 
         $(".stopoverReturnFlight").on('click', function () {
@@ -138,8 +209,43 @@ else
 
             $('#flightId3').val(id3);
             $('#flightId4').val(id4);
+
+            var travelDesc2, tfromstr2, ttostr2, price;
+
+            travelDesc2 = $(this).children("p[name='travelDescription']").text();
+            tfromstr2 = $(this).children("p[name='travelFromString']").text();
+            ttostr2 = $(this).children("p[name='travelToString']").text();
+            price2 = $(this).children("p[name='price']").text();
+
+            totalPrice = $("#price").text();
+            if (totalPrice == null || totalPrice == "") {
+                $("#price").text(price2);
+            } else {
+                $("#price").text(parseInt(price2) + parseInt(totalPrice));
+            }
+
+            $("#travelDescription2").text(travelDesc2);
+            $("#travelFromString2").text(tfromstr2);
+            $("#travelToString2").text(ttostr2);
+
+            $('#returnFlightsDiv').children('a').each(function () {
+                $(this).css('background-color', 'white');
+            });
+
+            $(this).css('background-color', 'palegreen');
         });
     });
 
+    function checkForm() {
+        id1 = document.getElementById('flightId1').value;
+        id3 = document.getElementById('flightId3').value;
+
+        if (id1 == "") {
+            alert("You must select where you want to travel!");
+            return false;
+        }
+        return true;
+
+    }
 </script>
-<!--LEGG TIL RETURREISER OGSÅ SOM HIDDEN INPUT OG EN EGEN FORM. BØR VÆRE VALG OM VIL HA RETURREISE ELLER IKKE. RETURREISER BØRE VÆRE SPESIFISERT I TRAVEL-OBJEKT-->
+<!--TODO: SETT SIDEN SIN MODELL I EN EGEN KLASSE. FOR Å KUNNE SJEKKE OM DEN HAR RETUR-FLYVNINGER ELLER IKKE. SAMT Å VITE TIL - FRA -->

@@ -44,6 +44,8 @@ namespace WebApplication3.Controllers
             {
                 allFlights.AddRange(returnFlights);
             }
+
+            allFlights.ForEach(f => f.Init());
             
             return View(allFlights);
         }

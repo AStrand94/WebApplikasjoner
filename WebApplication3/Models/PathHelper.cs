@@ -60,8 +60,6 @@ namespace WebApplication3.Models
         private List<Travel> getStopovers()
         {
           
-            Travel WholeDistance = new Travel(FromAirport,ToAirport);
-
             List<Flight> FromFlights = db.Flights.Where(f => f.Route.FromAirport.Id == FromAirport.Id
                                                             && f.Route.ToAirport.Id != toAirportId
                                                             && DbFunctions.TruncateTime(f.Time) == DbFunctions.TruncateTime(date)).ToList();

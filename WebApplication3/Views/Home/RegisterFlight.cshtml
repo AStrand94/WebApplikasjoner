@@ -1,9 +1,6 @@
-﻿@{
-    Layout = "~/Views/Shared/_Layout.cshtml";
-}
+﻿
 @model List<WebApplication3.Models.Travel>
 
-<h1>Register flight</h1>
 <h2>Choose your flight to ...</h2>
 @if (Model != null)
 {
@@ -87,7 +84,7 @@
             </div>
             <span class="glyphicon glyphicon-usd" />
             <p id="price"></p>
-            <form action="/home/registration" onsubmit="return checkForm();" method="post">
+            <form action="/home/registration" onsubmit="return checkFlightForm();" method="post">
                 <input required type="hidden" id="flightId1" name="flightId1" value="" />
                 <input type="hidden" id="flightId2" name="flightId2" value="" />
                 <input type="hidden" id="flightId3" name="flightId3" value="" />
@@ -236,7 +233,7 @@ else
         });
     });
 
-    function checkForm() {
+    function checkFlightForm() {
         id1 = document.getElementById('flightId1').value;
         id3 = document.getElementById('flightId3').value;
 

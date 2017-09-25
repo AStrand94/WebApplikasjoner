@@ -11,7 +11,7 @@
     Where do you want to travel?
 </h2>
 
-<form action="/home/registerflight" onsubmit="return checkForm(this);" method="get">
+<form id="searchForm" action="/home/registerflight" method="get"> <!--onsubmit="return checkForm(this);"--> 
     <div class="form-group" style="float:left; width:40%;">
         <label for="fromAirportId">Travel from:</label>
         <select class="form-control" id="fromAirportId" name="fromAirportId">
@@ -42,7 +42,7 @@
         </label>
     </div>
 
-<p id="errorLabel" style="color:darkred;font-size:large;"></p><br />
+    <p id="errorLabel" style="color:darkred;font-size:large;"></p><br />
 
     <div class="row">
         <div class="col-xs-12">
@@ -60,6 +60,8 @@
     <br />
     <input type="submit" class="btn btn-primary" value="Submit Button" />
 </form>
+<div id="created">
+</div>
 
 <script>
     $(document).ready(function () {
@@ -90,7 +92,22 @@
             if ($("#returnDateDiv").is(':empty')) {
                 $("#returnDateDiv").prepend('<label for="returnDate">Return date:</label ><div class="input-group date" data-provide="datepicker" style="width:20%;" id="datepicker2"><input id="returnDate" name="returnDate" type="text" class="form-control"><div class="input-group-addon"><span class="glyphicon glyphicon-th"></span></div></div>');
             }
+        });
 
+        $('#searchForm').submit(function (e) {
+            e.preventDefault();
+
+            if (!checkForm(this)) return false;
+
+            $.ajax({ 
+                data: $(this).serialize(), 
+                type: $(this).attr('method'),
+                url: $(this).attr('action'),
+                success: function (response) {
+                    $('#created').html(response).hide().fadeIn();
+                }
+            });
+            return false; // cancel original event to prevent form submitting
         });
     });
 
@@ -146,7 +163,7 @@
 
         if (document.getElementById('returnDate')) {
             if (isValidDate(document.getElementById('returnDate').value)) {
-                date2 = document.getElementById('returnDate');
+                date2 = document.getElementById('returnDate').value;
             } else {
                 document.getElementById('errorLabel').innerHTML = 'Specify returndate!';
                 return false;

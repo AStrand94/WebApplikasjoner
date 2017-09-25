@@ -7,12 +7,6 @@ namespace WebApplication3.Models
 {
     public class Travel
     {
-        public Travel(Airport From, Airport To)
-        {
-            ToAirport = To;
-            FromAirport = From;
-        }
-
         public Travel(Flight FromFlight, Flight ToFlight)
         {
             this.ToFlight = ToFlight;
@@ -25,8 +19,7 @@ namespace WebApplication3.Models
             FromFlight = flight;
             isSingleFlight = true;
         }
-
-        Airport FromAirport, ToAirport;
+        
         public Flight FromFlight { get; }
         public Flight ToFlight { get; }
         public bool isSingleFlight { get; set; }

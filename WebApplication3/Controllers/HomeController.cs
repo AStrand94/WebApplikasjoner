@@ -47,7 +47,7 @@ namespace WebApplication3.Controllers
 
             allFlights.ForEach(f => f.Init());
             
-            return View(allFlights);
+            return PartialView(allFlights);
         }
 
         public ActionResult RegisterFlight()

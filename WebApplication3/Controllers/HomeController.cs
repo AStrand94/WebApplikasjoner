@@ -106,6 +106,37 @@ namespace WebApplication3.Controllers
         }
 
         [HttpPost]
+        public ActionResult Overview(String cardNumber, String expDate, String cvc)
+        {
+            var reference = new ReferenceGenerator().getReferenceNumber(db);
+            OrderSession order = GetOrderObject();
+
+            Order o = new Order
+            {
+                Reference = reference,
+                Customer = order.Customer
+            };
+
+            db.Orders.Add(o);
+            db.SaveChanges();
+
+            foreach(var f in ((OrderSession)Session["order"]).Flights) {
+                Ticket ticket = new Ticket
+                {
+                    Order = o,
+                    Flight = f
+                };
+
+                db.Tickets.Add(ticket);
+                db.SaveChanges();
+            }
+            
+            db.SaveChanges();
+
+            return View(o);
+        }
+
+        [HttpPost]
         public ActionResult _OrderView(string Reference)
         {
             var model = db.Orders.Where(o => o.Reference.Equals(Reference));

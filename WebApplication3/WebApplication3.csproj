@@ -166,6 +166,7 @@
     <Compile Include="Models\Airport.cs" />
     <Compile Include="Models\Order.cs" />
     <Compile Include="Models\OrderSession.cs" />
+    <Compile Include="Models\ReferenceGenerator.cs" />
     <Compile Include="Models\Ticket.cs" />
     <Compile Include="Models\Travel.cs" />
     <Compile Include="Models\PathHelper.cs" />
@@ -301,6 +302,7 @@
     <Content Include="Views\Home\Payment.cshtml" />
     <Content Include="Views\Home\_Search.cshtml" />
     <Content Include="Views\Home\_OrderView.cshtml" />
+    <Content Include="Views\Home\Overview.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

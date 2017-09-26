@@ -12,6 +12,47 @@
         background-color: #428bca;
         color: white;
     }
+
+    #paymentContainer {
+        display: flex;
+    }
+
+    #contanctInformationDiv {
+        width: 40%;
+        min-width: 300px;
+    }
+
+    #paymentContainerDiv {
+        flex: 1;
+        margin-left: 5%;
+        min-width: 300px;
+    }
+
+    #flightInformationDiv {
+        padding: 0;
+        min-width: 330px;
+    }
+
+    @@media screen and (max-width: 725px) {
+        #paymentContainer {
+            display: inherit;
+        }
+
+        #paymentContainerDiv {
+            margin-left: 0;
+            flex: none;
+            padding-right: 15px;
+        }
+
+        #contanctInformationDiv {
+            width: 100%;
+            margin: 0;
+        }
+
+        #flightInformationDiv {
+            padding: 15px;
+        }
+    }
 </style>
 
 @{
@@ -19,12 +60,12 @@
     if (order != null)
     {
         <!--Flight Information div-->
-        <div class="container" style="min-width: 677px;">
+        <div class="container" id="flightInformationDiv">
             <table class="table table-condensed">
                 <thead>
                     <tr>
-                        <th>From Airport</th>
-                        <th>To Airport</th>
+                        <th>From</th>
+                        <th>To</th>
                         <th>Date</th>
                         <th>Price</th>
                     </tr>
@@ -36,7 +77,7 @@
                             <td>@f.Route.FromAirport.Name</td>
                             <td>@f.Route.ToAirport.Name</td>
                             <td>@f.Time</td>
-                            <td>@f.Price</td>
+                            <td>@f.Price $</td>
                         </tr>
                     }
                 </tbody>
@@ -49,11 +90,11 @@
 @{
     if (order != null)
     {
-        <div class="container" style="display: flex;">
+        <div class="container" id="paymentContainer">
 
             <!--Contact Information div-->
-            <div class="row" style="width: 40%; min-width: 350px;">
-                <div class="col-md-12 col-lg-offset-0">
+            <div class="row" id="contanctInformationDiv">
+                <div class="col-md-12 col-lg-offset-0" style="padding: 0;">
                     <div class="panel panel-default">
                         <div class="panel-body">
                             <h3 class="text-center">
@@ -115,8 +156,8 @@
 
 
             <!--Payment div-->
-            <div class="row" style="flex: 1; margin-left: 5%; min-width: 310px;">
-                <div class="col-md-12 col-lg-offset-0">
+            <div class="row" id="paymentContainerDiv">
+                <div class="col-md-12 col-lg-offset-0" style="padding: 0;">
                     <div class="panel panel-default credit-card-box">
                         <div class="panel-heading display-table">
                             <div class="row display-tr">

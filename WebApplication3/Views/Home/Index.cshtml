@@ -9,8 +9,44 @@
     Where do you want to travel?
 </h2>
 
+<style>
+
+    #fromAirportDiv {
+        min-width: 300px;
+        float: left;
+        width: 40%;
+    }
+
+    #toAirportDiv {
+        min-width: 300px;
+        margin-left: 40px;
+    }
+
+    #travelToFromButtonsDiv {
+        margin-top: 20px;
+        min-width: 300px;
+    }
+
+    #datePickersDiv {
+        min-width: 300px;
+    }
+
+    @@media screen and (max-width: 765px) {
+        #fromAirportDiv {
+            float: none;
+            width: 100%;
+        }
+
+        #toAirportDiv {
+            margin-left: 0;
+        }
+    }
+
+</style>
+
+<br /><br />
 <form id="searchForm" action="/home/registerflight" method="get"> <!--onsubmit="return checkForm(this);"--> 
-    <div class="form-group" style="float:left; width:40%;">
+    <div class="form-group" id="fromAirportDiv">
         <label for="fromAirportId">Travel from:</label>
         <select class="form-control" id="fromAirportId" name="fromAirportId">
             <option value="" selected disabled hidden>Select airport..</option>
@@ -20,7 +56,7 @@
             }
         </select>
     </div>
-    <div class="form-group" style="margin-left:40px;">
+    <div class="form-group" id="toAirportDiv">
         <label for="toAirportId">Travel to:</label>
         <select class="form-control" id="toAirportId" name="toAirportId">
             <option value="" selected disabled hidden>Select airport..</option>
@@ -31,21 +67,21 @@
         </select>
     </div>
 
-    <div class="btn-group" data-toggle="buttons" style="margin-top:20px;">
-        <label id="singleTrip" class="btn btn-default dateButton active" for="singleTrip">
+    <div class="btn-group" id="travelToFromButtonsDiv" data-toggle="buttons">
+        <label id="singleTrip" class="btn btn-default dateButton active" for="singleTrip" style="width: 140.7px;">
             <input  name="single" type="radio" checked="checked" >Single trip
         </label>
-        <label id="roundtrip" class="btn btn-default dateButton" for="roundTrip">
+        <label id="roundtrip" class="btn btn-default dateButton" for="roundTrip" style="width: 140.7px;">
             <input name="round" type="radio">Roundtrip
         </label>
     </div>
 
     <p id="errorLabel" style="color:darkred;font-size:large;"></p><br />
 
-    <div class="row">
+    <div class="row" id="datePickersDiv">
         <div class="col-xs-12">
             <label for="fromDate" >Traveling date:</label>
-            <div class="input-group date" data-provide="datepicker" style="width:20%;" id="datepicker">
+            <div class="input-group date" data-provide="datepicker" style="width:280px;" id="datepicker">
                 <input id="date" name="date" type="text" class="form-control">
                 <div class="input-group-addon">
                     <span class="glyphicon glyphicon-th"></span>
@@ -56,7 +92,7 @@
         </div>
     </div>
     <br />
-    <input type="submit" class="btn btn-primary" value="Search flights" />
+    <input type="submit" class="btn btn-primary" value="Search flights" style="width: 280px;" />
 </form>
 <div id="created">
 </div>
@@ -88,7 +124,7 @@
 
         $('#roundtrip').click(function () {
             if ($("#returnDateDiv").is(':empty')) {
-                $("#returnDateDiv").prepend('<label for="returnDate">Return date:</label ><div class="input-group date" data-provide="datepicker" style="width:20%;" id="datepicker2"><input id="returnDate" name="returnDate" type="text" class="form-control"><div class="input-group-addon"><span class="glyphicon glyphicon-th"></span></div></div>');
+                $("#returnDateDiv").prepend('<label for="returnDate">Return date:</label ><div class="input-group date" data-provide="datepicker" style="width:280px;" id="datepicker2"><input id="returnDate" name="returnDate" type="text" class="form-control"><div class="input-group-addon"><span class="glyphicon glyphicon-th"></span></div></div>');
             }
         });
 

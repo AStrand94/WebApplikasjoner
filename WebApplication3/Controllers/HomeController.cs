@@ -108,11 +108,11 @@ namespace WebApplication3.Controllers
         [HttpPost]
         public ActionResult _OrderView(string Reference)
         {
-            Order model = db.Orders.Where(o => o.Reference.Equals(Reference)).First();
+            var model = db.Orders.Where(o => o.Reference.Equals(Reference));
 
-            if (model == null) return PartialView();
-
-            return PartialView(model);
+            if (!model.Any()) return PartialView();
+            else return PartialView(model.First());
+            
         }
 
         private OrderSession GetOrderObject()

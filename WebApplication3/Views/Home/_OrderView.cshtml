@@ -13,8 +13,8 @@
             <thead>
                 <tr>
                     <th>Traveler</th>
-                    <th>From Airport</th>
-                    <th>To Airport</th>
+                    <th>From</th>
+                    <th>To</th>
                     <th>Date</th>
                 </tr>
             </thead>
@@ -25,7 +25,7 @@
                         <td>@t.Order.Customer.Firstname @t.Order.Customer.Lastname</td>
                         <td>@t.Flight.Route.FromAirport.Name</td>
                         <td>@t.Flight.Route.ToAirport.Name</td>
-                        <td>@t.Flight.Time.Date</td>
+                        <td>@t.Flight.Time</td>
                     </tr>
                 }
             </tbody>

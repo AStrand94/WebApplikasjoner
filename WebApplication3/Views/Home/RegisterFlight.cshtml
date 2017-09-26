@@ -15,6 +15,7 @@
                     <p name="travelFromString">@f.TravelFromString</p>
                     <p name="travelToString">@f.TravelToString</p>
                     <p name="price"><span class="glyphicon glyphicon-usd"></span>@f.Price</p>
+                    <p name="dateTime"></p>
                     <input type="hidden" name="flightId1" value="@f.FromFlight.Id" />
                     <input type="hidden" name="f1string" value="" />
                     <input type="hidden" name="f1price" value="" />
@@ -28,6 +29,7 @@
                     <p name="travelFromString">@f.TravelFromString</p>
                     <p name="travelToString">@f.TravelToString</p>
                     <p name="price"><span class="glyphicon glyphicon-usd"></span>@f.Price</p>
+                    <p name="dateTime"></p>
                     <input type="hidden" name="flightId1" value="@f.FromFlight.Id" />
                     <input type="hidden" name="flightId2" value="@f.ToFlight.Id" />
                 </a>
@@ -49,6 +51,7 @@
                         <p name="travelFromString">@f.TravelFromString</p>
                         <p name="travelToString">@f.TravelToString</p>
                         <p name="price"><span class="glyphicon glyphicon-usd"></span>@f.Price</p>
+                        <p name="dateTime"></p>
                         <input type="hidden" name="flightId1" value="@f.FromFlight.Id" />
                     </a>
                 }
@@ -60,6 +63,7 @@
                         <p name="travelFromString">@f.TravelFromString</p>
                         <p name="travelToString">@f.TravelToString</p>
                         <p name="price"><span class="glyphicon glyphicon-usd"></span>@f.Price</p>
+                        <p name="dateTime"></p>
                         <input type="hidden" name="flightId1" value="@f.FromFlight.Id" />
                         <input type="hidden" name="flightId2" value="@f.ToFlight.Id" />
                     </a>
@@ -128,10 +132,10 @@ else
 
 
             price2 = $("#priceReturn").text();
-            if (totalPrice == null || totalPrice == "") {
+            if (price2 == null || price2 == "") {
                 $("#price").text(price);
             } else {
-                $("#price").text(parseFloat(price) + (parseFloat(price2) || 0));
+                $("#price").text((parseFloat(price) || 0) + (parseFloat(price2) || 0));
             }
 
             $("#travelDescription").text(travelDesc);
@@ -164,7 +168,7 @@ else
             price = $(this).children("p[name='price']").text();
 
             price2 = $("#priceReturn").text();
-            $("#price").text(parseFloat(price) + (parseFloat(price2) || 0));
+            $("#price").text((parseFloat(price) || 0) + (parseFloat(price2) || 0));
 
             $("#travelDescription").text(travelDesc);
             $("#travelFromString").text(tfromstr);

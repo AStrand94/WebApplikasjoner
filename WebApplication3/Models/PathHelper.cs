@@ -9,6 +9,8 @@ namespace WebApplication3.Models
 {
     public class PathHelper
     {
+        private static readonly int HOUR_IN_MILLIS = 3_600_000;
+
         public PathHelper(int fromAirport, int toAirport, DateTime date, DB db)
         {
             this.date = date;
@@ -87,7 +89,7 @@ namespace WebApplication3.Models
 
             foreach(var ToFlight in ToFlights)
             {
-                if(f.Route.ToAirport.Id == ToFlight.Route.FromAirport.Id)
+                if(f.Route.ToAirport.Id == ToFlight.Route.FromAirport.Id && f.Time.AddMilliseconds(f.Route.FlightTime.Milliseconds + HOUR_IN_MILLIS).CompareTo(ToFlight.Time) < 0)
                 {
                     Travel t = new Travel(f,ToFlight);
                     allTravels.Add(t);

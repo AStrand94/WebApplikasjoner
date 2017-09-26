@@ -52,49 +52,56 @@ namespace WebApplication3.Models
             {
                 Id = 0,
                 FromAirport = airport1,
-                ToAirport = airport2
+                ToAirport = airport2,
+                FlightTime = new TimeSpan(0,45,0)
             };
 
             var route2 = new Route
             {
                 Id = 1,
                 FromAirport = airport1,
-                ToAirport = airport3
+                ToAirport = airport3,
+                FlightTime = new TimeSpan(2,0,0)
             };
 
             var route3 = new Route
             {
                 Id = 2,
                 FromAirport = airport1,
-                ToAirport = airport4
+                ToAirport = airport4,
+                FlightTime = new TimeSpan(1,30,0)
             };
 
             var route4 = new Route
             {
                 Id = 4,
                 FromAirport = airport2,
-                ToAirport = airport3
+                ToAirport = airport3,
+                FlightTime = new TimeSpan(1,0,0)
             };
 
             var route5 = new Route
             {
                 Id = 5,
                 FromAirport = airport3,
-                ToAirport = airport1
+                ToAirport = airport1,
+                FlightTime = new TimeSpan(1,45,0)
             };
 
             var route6 = new Route
             {
                 Id = 6,
                 FromAirport = airport3,
-                ToAirport = airport2
+                ToAirport = airport2,
+                FlightTime = new TimeSpan(2,15,0)
             };
 
             var route7 = new Route
             {
                 Id = 7,
                 FromAirport = airport2,
-                ToAirport = airport1
+                ToAirport = airport1,
+                FlightTime = new TimeSpan(0,40,0)
             };
 
             context.Routes.Add(route1);
@@ -108,7 +115,7 @@ namespace WebApplication3.Models
             var flight1 = new Flight
             {
                 Id = 0,
-                Time = new DateTime(2017,09,12),
+                Time = new DateTime(2017,09,12,12,00,00),
                 Route = route1,
                 Price = 99.99
             };
@@ -116,7 +123,7 @@ namespace WebApplication3.Models
             var flight2 = new Flight
             {
                 Id = 1,
-                Time = new DateTime(2017, 09, 12),
+                Time = new DateTime(2017, 09, 12,13,25,00),
                 Route = route1,
                 Price = 89.99
             };
@@ -124,7 +131,7 @@ namespace WebApplication3.Models
             var flight3 = new Flight
             {
                 Id = 2,
-                Time = new DateTime(2017, 09, 12),
+                Time = new DateTime(2017, 09, 12,17,30,00),
                 Route = route2,
                 Price = 40.0
             };
@@ -132,7 +139,7 @@ namespace WebApplication3.Models
             var flight4 = new Flight
             {
                 Id = 3,
-                Time = new DateTime(2017, 09, 12),
+                Time = new DateTime(2017, 09, 12,14,00,00),      //reise fra Flesland til Paris
                 Route = route4,
                 Price = 120.0
             };
@@ -140,7 +147,7 @@ namespace WebApplication3.Models
             var flight5 = new Flight
             {
                 Id = 4,
-                Time = new DateTime(2017, 09, 13),
+                Time = new DateTime(2017, 09, 13,20,30,00),
                 Route = route5,
                 Price = 55.0
             };
@@ -148,7 +155,7 @@ namespace WebApplication3.Models
             var flight6 = new Flight
             {
                 Id = 5,
-                Time = new DateTime(2017, 09, 13),
+                Time = new DateTime(2017, 09, 13,07,50,00),
                 Route = route6,
                 Price = 90.0
             };
@@ -156,7 +163,7 @@ namespace WebApplication3.Models
             var flight7 = new Flight
             {
                 Id = 6,
-                Time = new DateTime(2017, 09, 13),
+                Time = new DateTime(2017, 09, 13,11,00,00),
                 Route = route7,
                 Price = 60.0
             };
@@ -186,7 +193,32 @@ namespace WebApplication3.Models
                 Flight = flight1
             };
 
+            var ticket2 = new Ticket
+            {
+                Id = 1,
+                Order = order1,
+                Flight = flight2
+            };
+
+            var ticket3 = new Ticket
+            {
+                Id = 2,
+                Order = order1,
+                Flight = flight3
+            };
+
+            var ticket4 = new Ticket
+            {
+                Id = 3,
+                Order = order1,
+                Flight = flight4
+            };
+
             context.Tickets.Add(ticket1);
+            context.Tickets.Add(ticket2);
+            context.Tickets.Add(ticket3);
+            context.Tickets.Add(ticket4);
+
 
             base.Seed(context);
         }

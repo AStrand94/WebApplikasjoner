@@ -12,12 +12,14 @@ namespace WebApplication3.Models
             this.ToFlight = ToFlight;
             this.FromFlight = FromFlight;
             isSingleFlight = false;
+            AddPrices();
         }
 
         public Travel(Flight flight)
         {
             FromFlight = flight;
             isSingleFlight = true;
+            AddPrices();
         }
         
         public Flight FromFlight { get; }

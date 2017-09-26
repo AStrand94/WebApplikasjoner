@@ -26,8 +26,8 @@ namespace WebApplication3.Models
         private DB db;
         private List<Flight> AllFlights;
         private List<List<Flight>> FlightList { get; }
-        private Airport FromAirport;
-        private Airport ToAirport;
+        public Airport FromAirport { get; set; }
+        public Airport ToAirport { get; set; }
 
         public List<Travel> GetAllFlights()
         {

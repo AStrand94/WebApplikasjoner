@@ -5,12 +5,12 @@ using System.Web;
 
 namespace WebApplication3.Models
 {
-    public class Order
+    public class OrderSession
     {
         public List<Flight> Flights { get; set; }
         public Customer Customer { get; set; }
 
-        public Order()
+        public OrderSession()
         {
             Flights = new List<Flight>();
         }

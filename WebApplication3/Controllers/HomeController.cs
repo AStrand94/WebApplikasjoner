@@ -27,27 +27,27 @@ namespace WebApplication3.Controllers
 
             PathHelper returnHelper;
             List<Travel> returnFlights = new List<Travel>(); //ønsker egentlig ikke å assigne denne før if'en under..
+            TravelModel model;
 
             if(returnDate != null)
             {
                 returnHelper = new PathHelper(toAirportId, fromAirportId, returnDate.GetValueOrDefault(), db);
                 returnFlights = returnHelper.GetAllFlights();
                 returnFlights.ForEach(f => f.isReturnFlight = true);
+                model = new TravelModel(allFlights, returnFlights, pathHelper.FromAirport, pathHelper.ToAirport);
+            }
+            else
+            {
+                model = new TravelModel(allFlights, pathHelper.FromAirport, pathHelper.ToAirport);
             }
 
             if (returnDate == null && !allFlights.Any() || (!allFlights.Any() || returnDate != null && !returnFlights.Any()))
             {
                 ViewBag.NoData = "No flights on this date. (could also be no flights on this distance..)";
-                return View();
+                return PartialView();
             }
-            else
-            {
-                allFlights.AddRange(returnFlights);
-            }
-
-            allFlights.ForEach(f => f.Init());
             
-            return PartialView(allFlights);
+            return PartialView(model);
         }
 
         public ActionResult RegisterFlight()
@@ -72,7 +72,7 @@ namespace WebApplication3.Controllers
             {
                 
             }
-            Order order = GetOrderObject();
+            OrderSession order = GetOrderObject();
             order.Customer = customer;
 
             return View();
@@ -82,7 +82,7 @@ namespace WebApplication3.Controllers
         public ActionResult Registration(int flightId1, int? flightId2, int? flightId3, int? flightId4)
         {
 
-            Order order = GetOrderObject();
+            OrderSession order = GetOrderObject();
             order.Flights.Clear();
             
             order.Flights.Add(db.Flights.Where(f => f.Id == flightId1).First());
@@ -105,17 +105,17 @@ namespace WebApplication3.Controllers
             return View();
         }
 
-        private Order GetOrderObject()
+        private OrderSession GetOrderObject()
         {
-            Order order;
+            OrderSession order;
 
             if (Session["Order"] != null)
             {
-                order = (Order)Session["Order"];
+                order = (OrderSession)Session["Order"];
             }
             else
             {
-                order = new Order();
+                order = new OrderSession();
                 Session["Order"] = order;
             }
 

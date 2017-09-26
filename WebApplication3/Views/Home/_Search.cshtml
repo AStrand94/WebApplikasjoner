@@ -26,7 +26,7 @@
                     </div>
                 </div>
                 <div class="modal-body">
-                    <div id="created"></div>
+                    <div id="searchResponse"></div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -68,7 +68,7 @@
                     type: "post",
                     url: "/home/_OrderView",
                     success: function (response) {
-                        $('#created').html(response);
+                        $('#searchResponse').html(response);
                     }
                 });
             }

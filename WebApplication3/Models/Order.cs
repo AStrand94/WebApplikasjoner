@@ -5,13 +5,11 @@ using System.Web;
 
 namespace WebApplication3.Models
 {
-    public class Flight
+    public class Order
     {
         public int Id { get; set; }
-        public DateTime Time { get; set; }
-        public double Price { get; set; }
+        public string Reference { get; set; }
+        public virtual Customer Customer { get; set; }
         public virtual List<Ticket> Tickets { get; set; }
-        public virtual Route Route { get; set; }
-        public virtual Airplane Airplane { get; set; }
     }
 }

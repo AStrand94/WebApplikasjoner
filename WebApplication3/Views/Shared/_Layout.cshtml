@@ -25,10 +25,12 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                    <li><a id="modalAnchor" data-toggle="modal" data-target="#myModal">Search  <span class="glyphicon glyphicon-search"/></a></li>
                 </ul>
             </div>
         </div>
     </div>
+    @Html.Partial("_Search")
     <div class="container body-content">
         @RenderBody()
         <hr />
@@ -43,3 +45,13 @@
 
 </body>
 </html>
+
+<script>
+    $(document).ready(function () {
+
+        $('#modalAnchor').on('click', function () {
+
+        });
+    });
+
+</script>

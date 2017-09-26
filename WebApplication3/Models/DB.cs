@@ -26,5 +26,7 @@ namespace WebApplication3.Models
         public virtual DbSet<Customer> Customers { get; set; }
         public virtual DbSet<Flight> Flights { get; set; }
         public virtual DbSet<Route> Routes { get; set; }
+        public virtual DbSet<Ticket> Tickets { get; set; }
+        public virtual DbSet<Order> Orders { get; set; }
     }
 }

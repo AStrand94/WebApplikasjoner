@@ -1,0 +1,38 @@
+﻿
+@model WebApplication3.Models.Order
+<style>
+    th {
+        background-color: #428bca;
+        color: white;
+    }
+</style>
+@if (Model != null)
+{
+    <div class="container">
+        <table class="table table-condensed">
+            <thead>
+                <tr>
+                    <th>Traveler</th>
+                    <th>From Airport</th>
+                    <th>To Airport</th>
+                    <th>Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var t in Model.Tickets)
+                {
+                    <tr>
+                        <td>@t.Order.Customer.Firstname @t.Order.Customer.Lastname</td>
+                        <td>@t.Flight.Route.FromAirport.Name</td>
+                        <td>@t.Flight.Route.ToAirport.Name</td>
+                        <td>@t.Flight.Time.Date</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}
+else
+{
+    <p>Search returned empty</p>
+}

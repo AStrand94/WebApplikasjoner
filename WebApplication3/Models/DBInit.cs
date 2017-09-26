@@ -10,14 +10,14 @@ namespace WebApplication3.Models
     {
         protected override void Seed(DB context)
         {
-            var kunde1 = new Customer
+            var customer1 = new Customer
            {
                 Id = 0,
                 Firstname = "Andreas",
                 Lastname = "Strand"
             };
 
-            context.Customers.Add(kunde1);
+            context.Customers.Add(customer1);
 
             var airport1 = new Airport
             {
@@ -168,6 +168,25 @@ namespace WebApplication3.Models
             context.Flights.Add(flight5);
             context.Flights.Add(flight6);
             context.Flights.Add(flight7);
+
+
+            var order1 = new Order
+            {
+                Id = 0,
+                Reference = "ABCD",
+                Customer = customer1
+            };
+
+            context.Orders.Add(order1);
+
+            var ticket1 = new Ticket
+            {
+                Id = 0,
+                Order = order1,
+                Flight = flight1
+            };
+
+            context.Tickets.Add(ticket1);
 
             base.Seed(context);
         }

@@ -18,6 +18,6 @@ namespace WebApplication3.Models
         public string Country { get; set; }
         public string Telephone { get; set; }
         public string Email { get; set; }
-        public virtual List<Ticket> Tickets { get; set; }
+        public virtual List<Order> Order { get; set; }
     }
 }

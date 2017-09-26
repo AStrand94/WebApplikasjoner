@@ -105,6 +105,16 @@ namespace WebApplication3.Controllers
             return View();
         }
 
+        [HttpPost]
+        public ActionResult _OrderView(string Reference)
+        {
+            Order model = db.Orders.Where(o => o.Reference.Equals(Reference)).First();
+
+            if (model == null) return PartialView();
+
+            return PartialView(model);
+        }
+
         private OrderSession GetOrderObject()
         {
             OrderSession order;
@@ -121,6 +131,8 @@ namespace WebApplication3.Controllers
 
             return order;
         }
+
+
 
     }
 }

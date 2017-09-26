@@ -106,10 +106,6 @@
                                         <p class="form-control">@order.Customer.Email</p>
                                     </div>
                                 </div>
-
-                                <a href="/Home/Registration" class="btn btn-primary btn-lg btn-block" role="button" style="width:100%;">
-                                    Edit
-                                </a>
                             </form>
                         </div>
 
@@ -134,9 +130,11 @@
                                         <div class="form-group">
                                             <label for="cardNumber">CARD NUMBER</label>
                                             <div class="input-group" style="width: 100%;">
-                                                <input type="number"
+                                                <input type="tel"
                                                        style="max-width: 100%; border-radius: 4px;"
                                                        class="form-control"
+                                                       id="cardNumber"
+                                                       maxlength="16"
                                                        name="cardNumber"
                                                        placeholder="Valid Card Number" />
                                             </div>
@@ -161,6 +159,7 @@
                                             <input type="tel"
                                                    class="form-control"
                                                    maxlength="3"
+                                                   id="cvc"
                                                    name="cardCVC"
                                                    placeholder="CVC" />
                                         </div>
@@ -168,7 +167,7 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-xs-12">
-                                        <button class="subscribe btn btn-success btn-lg btn-block" type="button">Pay</button>
+                                        <button class="subscribe btn btn-success btn-lg btn-block" onclick="return onSubmitForm()" type="button">Pay</button>
                                     </div>
                                 </div>
                             </form>
@@ -194,6 +193,26 @@
             lastInput = input;
         }
     });
+
+
+    var onSubmitForm = function () {
+        if (!$('#cardNumber').val()) {
+            alert("Card Number is required");
+            return false;
+        }
+        if (!$.isNumeric($('#cardNumber').val())) {
+            alert("Card Number can only have numbers");
+            return false;
+        }
+        if (!$('#expDate').val()) {
+            alert("Expiration Date is required.");
+            return false;
+        }
+        if (!$('#cvc').val()) {
+            alert("CVC is required.");
+            return false;
+        }
+    }
 
 </script>
 

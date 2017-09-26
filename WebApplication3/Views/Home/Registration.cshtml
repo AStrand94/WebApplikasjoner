@@ -11,20 +11,26 @@
     titles.Add(new SelectListItem() { Text = "Miss", Value = "Miss" });
 }
 
-<br/>
+<br />
 
 <style>
     th {
         background-color: #428bca;
         color: white;
     }
+
+    @@media screen and (min-width: 992px) {
+        #registrationButton {
+            margin-left: 14.5%;
+        }
+}
 </style>
 
 @{
     var order = (WebApplication3.Models.OrderSession)Session["Order"];
     if (order != null)
     {
-        <div class="container">
+        <div class="container" style="padding: 0;">
             <table class="table table-condensed">
                 <thead>
                     <tr>
@@ -37,12 +43,12 @@
                 <tbody>
                     @foreach (var f in order.Flights)
                     {
-                    <tr>
-                        <td>@f.Route.FromAirport.Name</td>
-                        <td>@f.Route.ToAirport.Name</td>
-                        <td>@f.Time</td>
-                        <td>@f.Price</td>
-                    </tr>
+                        <tr>
+                            <td>@f.Route.FromAirport.Name</td>
+                            <td>@f.Route.ToAirport.Name</td>
+                            <td>@f.Time</td>
+                            <td>@f.Price</td>
+                        </tr>
                     }
                 </tbody>
             </table>
@@ -57,82 +63,195 @@
     <div class="form-horizontal">
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
-             @Html.LabelFor(model => model.Title, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
+        <div class="form-group col-md-offset-0 col-md-12">
+            @Html.LabelFor(model => model.Title, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="input-group">
+                <span class="input-group-addon">
+                    <span class="glyphicon glyphicon-user"></span>
+                </span>
                 @Html.DropDownListFor(model => model.Title, titles, new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
             </div>
         </div>
 
-        <div class="form-group">
+        <div class="form-group col-md-offset-0 col-md-12">
             @Html.LabelFor(model => model.Firstname, "First Name", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Firstname, new { htmlAttributes = new { @class = "form-control" } })
+            <div class="input-group">
+                <span class="input-group-addon">
+                    <span class="glyphicon glyphicon-user"></span>
+                </span>
+                @Html.EditorFor(model => model.Firstname, new { htmlAttributes = new { @class = "form-control", @id = "firstname" } })
                 @Html.ValidationMessageFor(model => model.Firstname, "", new { @class = "text-danger" })
             </div>
         </div>
 
-        <div class="form-group">
+        <div class="form-group col-md-offset-0 col-md-12">
             @Html.LabelFor(model => model.Lastname, "Last Name", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Lastname, new { htmlAttributes = new { @class = "form-control" } })
+            <div class="input-group">
+                <span class="input-group-addon">
+                    <span class="glyphicon glyphicon-user"></span>
+                </span>
+                @Html.EditorFor(model => model.Lastname, new { htmlAttributes = new { @class = "form-control", @id = "lastname" } })
                 @Html.ValidationMessageFor(model => model.Lastname, "", new { @class = "text-danger" })
             </div>
         </div>
 
-        <div class="form-group">
+        <div class="form-group col-md-offset-0 col-md-12">
             @Html.LabelFor(model => model.Address, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Address, new { htmlAttributes = new { @class = "form-control" } })
+            <div class="input-group">
+                <span class="input-group-addon">
+                    <span class="glyphicon glyphicon-home"></span>
+                </span>
+                @Html.EditorFor(model => model.Address, new { htmlAttributes = new { @class = "form-control", @id = "address" } })
                 @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
             </div>
         </div>
 
-        <div class="form-group">
+        <div class="form-group col-md-offset-0 col-md-12">
             @Html.LabelFor(model => model.ZipCode, "Zip Code", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.ZipCode, new { htmlAttributes = new { @class = "form-control" } })
+            <div class="input-group">
+                <span class="input-group-addon">
+                    <span class="glyphicon glyphicon-home"></span>
+                </span>
+                @Html.EditorFor(model => model.ZipCode, new { htmlAttributes = new { @class = "form-control", @id = "zipcode" } })
                 @Html.ValidationMessageFor(model => model.ZipCode, "", new { @class = "text-danger" })
             </div>
         </div>
 
-        <div class="form-group">
+        <div class="form-group col-md-offset-0 col-md-12">
             @Html.LabelFor(model => model.City, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.City, new { htmlAttributes = new { @class = "form-control" } })
+            <div class="input-group">
+                <span class="input-group-addon">
+                    <span class="glyphicon glyphicon-home"></span>
+                </span>
+                @Html.EditorFor(model => model.City, new { htmlAttributes = new { @class = "form-control", @id = "city" } })
                 @Html.ValidationMessageFor(model => model.City, "", new { @class = "text-danger" })
             </div>
         </div>
 
-        <div class="form-group">
+        <div class="form-group col-md-offset-0 col-md-12">
             @Html.LabelFor(model => model.Country, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Country, new { htmlAttributes = new { @class = "form-control" } })
+            <div class="input-group">
+                <span class="input-group-addon">
+                    <span class="glyphicon glyphicon-flag"></span>
+                </span>
+                @Html.EditorFor(model => model.Country, new { htmlAttributes = new { @class = "form-control", @id = "country" } })
                 @Html.ValidationMessageFor(model => model.Country, "", new { @class = "text-danger" })
             </div>
         </div>
 
-        <div class="form-group">
+        <div class="form-group col-md-offset-0 col-md-12">
             @Html.LabelFor(model => model.Telephone, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Telephone, new { htmlAttributes = new { @class = "form-control" } })
+            <div class="input-group">
+                <span class="input-group-addon">
+                    <span class="glyphicon glyphicon-earphone"></span>
+                </span>
+                @Html.EditorFor(model => model.Telephone, new { htmlAttributes = new { @class = "form-control", @id = "telephone" } })
                 @Html.ValidationMessageFor(model => model.Telephone, "", new { @class = "text-danger" })
             </div>
         </div>
 
-        <div class="form-group">
+        <div class="form-group col-md-offset-0 col-md-12">
             @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+            <div class="input-group">
+                <span class="input-group-addon">
+                    <span class="glyphicon glyphicon-pencil"></span>
+                </span>
+                @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", @id = "email" } })
                 @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
             </div>
         </div>
 
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Register" class="btn btn-primary" />
-            </div>
+        <div class="form-group col-md-offset-0 col-md-12" id="registrationButton">
+                <input type="submit" onclick="return onSubmitForm()" value="Register" class="btn btn-primary" />
         </div>
     </div>
 }
+
+<script>
+
+    function isEmail(email) {
+         var regex = /^([a-zA-Z0-9_.+-])+\@@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+         return regex.test(email);
+    }
+
+    function isPhoneNumber(phonenumber) {
+        var regex = /^[0-9]+$/;
+        return regex.test(phonenumber);
+    }
+
+    $(document).ready(function () {
+
+        $('#firstname').keyup(function () {
+            if ($.isNumeric($(this).val())) {
+                alert("First Name can not be numeric");
+            }
+        });
+
+        $('#lastname').keyup(function () {
+            if ($.isNumeric($(this).val())) {
+                alert("Last Name can not be numeric");
+            }
+        });
+
+        $('#country').keyup(function () {
+            if ($.isNumeric($(this).val())) {
+                alert("Country can not be numeric");
+            }
+        });
+
+        $('#city').keyup(function () {
+            if ($.isNumeric($(this).val())) {
+                alert("City can not be numeric");
+            }
+        });
+
+
+
+    });
+
+    var onSubmitForm = function () {
+        if (!$('#firstname').val()) {
+            alert("First Name is required.");
+            return false;
+        }
+        if (!$('#lastname').val()) {
+            alert("Last Name is required.");
+            return false;
+        }
+        if (!$('#address').val()) {
+            alert("Address is required.");
+            return false;
+        }
+        if (!$('#zipcode').val()) {
+            alert("Zip Code is required.");
+            return false;
+        }
+        if (!$('#city').val()) {
+            alert("City is required.");
+            return false;
+        }
+        if (!$('#country').val()) {
+            alert("Country is required.");
+            return false;
+        }
+        if (!$('#telephone').val()) {
+            alert("Telephone is required.");
+            return false;
+        }
+        if (!isPhoneNumber($('#telephone').val())) {
+            alert("Not a valid Telephone Number");
+            return false;
+        }
+        if (!$('#email').val()) {
+            alert("Email is required.");
+            return false;
+        }
+        if (!isEmail($('#email').val())) {
+            alert("Not a valid Email");
+            return false;
+        }
+
+        return true;
+    }
+</script>

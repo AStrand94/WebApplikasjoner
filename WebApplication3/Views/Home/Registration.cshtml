@@ -36,7 +36,7 @@
 </style>
 
 @{
-    var order = (WebApplication3.Models.OrderSession)Session["Order"];
+    var order = (List<WebApplication3.Models.Flight>)ViewBag.FlightList;
     if (order != null)
     {
         <div class="container" id="registrationFlightInformationDiv">
@@ -50,7 +50,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach (var f in order.Flights)
+                    @foreach (var f in order)
                     {
                         <tr>
                             <td>@f.Route.FromAirport.Name</td>

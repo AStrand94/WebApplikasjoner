@@ -56,7 +56,7 @@
 </style>
 
 @{
-    var order = (WebApplication3.Models.OrderSession)Session["Order"];
+    var order = (List<WebApplication3.Models.Flight>)ViewBag.FlightList;
     if (order != null)
     {
         <!--Flight Information div-->
@@ -71,7 +71,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach (var f in order.Flights)
+                    @foreach (var f in order)
                     {
                         <tr>
                             <td>@f.Route.FromAirport.Name</td>
@@ -107,7 +107,7 @@
                                         <span class="input-group-addon">
                                             <span class="glyphicon glyphicon-user"></span>
                                         </span>
-                                        <p class="form-control">@order.Customer.Firstname @order.Customer.Lastname</p>
+                                        <p class="form-control">@ViewBag.Customer.Firstname @ViewBag.Customer.Lastname</p>
                                     </div>
                                 </div>
 
@@ -116,7 +116,7 @@
                                         <span class="input-group-addon">
                                             <span class="glyphicon glyphicon-home"></span>
                                         </span>
-                                        <p class="form-control">@order.Customer.Address, @order.Customer.ZipCode, @order.Customer.City</p>
+                                        <p class="form-control">@ViewBag.Customer.Address, @ViewBag.Customer.ZipCode, @ViewBag.Customer.City</p>
                                     </div>
                                 </div>
 
@@ -125,7 +125,7 @@
                                         <span class="input-group-addon">
                                             <span class="glyphicon glyphicon-flag"></span>
                                         </span>
-                                        <p class="form-control">@order.Customer.Country</p>
+                                        <p class="form-control">@ViewBag.Customer.Country</p>
                                     </div>
                                 </div>
 
@@ -134,7 +134,7 @@
                                         <span class="input-group-addon">
                                             <span class="glyphicon glyphicon-earphone"></span>
                                         </span>
-                                        <p class="form-control">@order.Customer.Telephone</p>
+                                        <p class="form-control">@ViewBag.Customer.Telephone</p>
                                     </div>
                                 </div>
 
@@ -144,7 +144,7 @@
                                         <span class="input-group-addon">
                                             <span class="glyphicon glyphicon-pencil"></span>
                                         </span>
-                                        <p class="form-control">@order.Customer.Email</p>
+                                        <p class="form-control">@ViewBag.Customer.Email</p>
                                     </div>
                                 </div>
                             </form>

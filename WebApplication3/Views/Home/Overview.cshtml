@@ -4,9 +4,15 @@
 }
 @model WebApplication3.Models.Order
 
-@Html.Partial("_OrderView")
-
 <h2>Overview</h2>
+
+@Html.Partial("_OrderView",Model)
+
+@if (Model != null)
+{
+    <p id="referenceNumber">@Model.Reference</p>
+}
+
 
 
 

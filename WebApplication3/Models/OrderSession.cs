@@ -7,12 +7,12 @@ namespace WebApplication3.Models
 {
     public class OrderSession
     {
-        public List<Flight> Flights { get; set; }
+        public List<int> Flights { get; set; }
         public Customer Customer { get; set; }
 
         public OrderSession()
         {
-            Flights = new List<Flight>();
+            Flights = new List<int>();
         }
 
     }

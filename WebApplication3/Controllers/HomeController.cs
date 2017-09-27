@@ -70,10 +70,14 @@ namespace WebApplication3.Controllers
             }
             catch (Exception e)
             {
-                
+                RedirectToAction("Index");
             }
             OrderSession order = GetOrderObject();
             order.Customer = customer;
+
+
+            ViewBag.FlightList = GetFlightsFromId(order.Flights);
+            ViewBag.Customer = customer;
 
             return View();
         }
@@ -85,53 +89,65 @@ namespace WebApplication3.Controllers
             OrderSession order = GetOrderObject();
             order.Flights.Clear();
             
-            order.Flights.Add(db.Flights.Where(f => f.Id == flightId1).First());
+            order.Flights.Add(flightId1);
+            List<int> flightIds = new List<int>();
+            flightIds.Add(flightId1);
 
             if(flightId2 != null)
             {
-                order.Flights.Add(db.Flights.Where(f => f.Id == flightId2).First());
+                flightIds.Add(flightId2.GetValueOrDefault());
+                order.Flights.Add(flightId2.GetValueOrDefault());
             }
 
             if (flightId3 != null)
             {
-                order.Flights.Add(db.Flights.Where(f => f.Id == flightId3).First());
+                flightIds.Add(flightId3.GetValueOrDefault());
+                order.Flights.Add(flightId3.GetValueOrDefault());
             }
 
             if (flightId4 != null)
             {
-                order.Flights.Add(db.Flights.Where(f => f.Id == flightId4).First());
+                flightIds.Add(flightId4.GetValueOrDefault());
+                order.Flights.Add(flightId4.GetValueOrDefault());
             }
 
+            ViewBag.FlightList = GetFlightsFromId(flightIds);
             return View();
         }
 
         [HttpPost]
         public ActionResult Overview(String cardNumber, String expDate, String cvc)
         {
-            var reference = new ReferenceGenerator().getReferenceNumber(db);
-            OrderSession order = GetOrderObject();
+            if (Session["Order"] == null) return View(Session["FinishedOrder"]); //If user tries to refresh page
 
+            String referenceNumber = new ReferenceGenerator().getReferenceNumber(db);
+            OrderSession order = GetOrderObject();
+            
             Order o = new Order
             {
-                Reference = reference,
+                Reference = referenceNumber,
                 Customer = order.Customer
             };
+            
+            List<Ticket> tickets = new List<Ticket>();
 
-            db.Orders.Add(o);
-            db.SaveChanges();
+            foreach(int fId in GetOrderObject().Flights) {
+                Flight flight = db.Flights.Where(f => f.Id == fId).First();
 
-            foreach(var f in ((OrderSession)Session["order"]).Flights) {
                 Ticket ticket = new Ticket
                 {
                     Order = o,
-                    Flight = f
+                    Flight = flight
                 };
-
-                db.Tickets.Add(ticket);
-                db.SaveChanges();
+                tickets.Add(ticket);
             }
-            
+            o.Tickets = tickets;
+            db.Orders.Add(o);
+            db.Tickets.AddRange(tickets);
             db.SaveChanges();
+
+            Session.Clear();
+            Session["FinishedOrder"] = o;
 
             return View(o);
         }
@@ -159,11 +175,20 @@ namespace WebApplication3.Controllers
                 order = new OrderSession();
                 Session["Order"] = order;
             }
-
             return order;
         }
 
+        private List<Flight> GetFlightsFromId(List<int> flightIds)
+        {
+            List<Flight> flights = new List<Flight>();
 
-
+            foreach(int id in flightIds)
+            {
+                flights.Add(
+                    db.Flights.Where(f => f.Id == id).First()
+                    );
+            }
+            return flights;
+        }
     }
 }

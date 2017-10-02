@@ -4,13 +4,129 @@
 }
 @model WebApplication3.Models.Order
 
-<h2>Overview</h2>
+@if (Model != null)
+{
+    <br />
+<h2 class="flightOrderedHeader">
+    Congratulations, your flight is ordered!
+    <span><img src="http://www.clker.com/cliparts/9/I/e/1/i/B/dark-green-check-mark-hi.png" style="width: 30px; height: 20px; margin-bottom: 5px;"/></span>
+    <br />
+    <br />
+</h2>
 
-@Html.Partial("_OrderView",Model)
+<h3 class="flightOrderedHeader" style="color: dimgray;">Your reference number is: 
+    <span style="color: green;">@Model.Reference</span>
+</h3>
+}
+
+<br /><br />
+
+<style>
+    .flightOrderedHeader {
+        margin: auto;
+        width: 50%;
+        padding: 10px;
+    }
+
+    #paymentContainer {
+        display: flex;
+    }
+
+    #contactInformationDiv {
+        width: 40%;
+        min-width: 300px;
+    }
+
+    #flightInformationDiv {
+        padding: 0;
+        min-width: 330px;
+    }
+
+    @@media screen and (max-width: 725px) {
+        .flightOrderedHeader {
+            width: 100%;
+        }
+
+        #paymentContainer {
+            display: inherit;
+        }
+
+        #contactInformationDiv {
+            width: 100%;
+            margin: 0;
+        }
+
+        #flightInformationDiv {
+            padding: 15px;
+        }
+    }
+</style>
+
+@Html.Partial("_OrderView", Model)
 
 @if (Model != null)
 {
-    <p id="referenceNumber">@Model.Reference</p>
+    <br /><br />
+    <div class="container" id="paymentContainer">
+        <!--Contact Information div-->
+        <div class="row" id="contactInformationDiv">
+            <div class="col-md-12 col-lg-offset-0" style="padding: 0;">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <h3 class="text-center">Contact Information</h3>
+                        <br />
+                        <form class="form form-signup" role="form">
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <span class="input-group-addon">
+                                        <span class="glyphicon glyphicon-user"></span>
+                                    </span>
+                                    <p class="form-control">@Model.Customer.Firstname @Model.Customer.Lastname</p>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <span class="input-group-addon">
+                                        <span class="glyphicon glyphicon-home"></span>
+                                    </span>
+                                    <p class="form-control">@Model.Customer.Address, @Model.Customer.ZipCode, @Model.Customer.City</p>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <span class="input-group-addon">
+                                        <span class="glyphicon glyphicon-flag"></span>
+                                    </span>
+                                    <p class="form-control">@Model.Customer.Country</p>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <span class="input-group-addon">
+                                        <span class="glyphicon glyphicon-earphone"></span>
+                                    </span>
+                                    <p class="form-control">@Model.Customer.Telephone</p>
+                                </div>
+                            </div>
+
+
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <span class="input-group-addon">
+                                        <span class="glyphicon glyphicon-pencil"></span>
+                                    </span>
+                                    <p class="form-control">@Model.Customer.Email</p>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 }
 
 

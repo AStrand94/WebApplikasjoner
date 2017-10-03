@@ -62,8 +62,8 @@
                                 <span class="input-group-addon">
                                     <span class="glyphicon glyphicon-user"></span>
                                 </span>
-                                @Html.EditorFor(model => model.Firstname, new { htmlAttributes = new { placeholder = "First Name", @class = "form-control", @id = "firstname" } })
-                                @Html.ValidationMessageFor(model => model.Firstname, "", new { @class = "text-danger" })
+                                @Html.EditorFor(model => model.Firstname[i], new { htmlAttributes = new { placeholder = "First Name", @class = "form-control", @id = "firstname" } })
+                                @Html.ValidationMessageFor(model => model.Firstname[i], "", new { @class = "text-danger" })
                             </div>
                         </div>
 
@@ -72,8 +72,8 @@
                                 <span class="input-group-addon">
                                     <span class="glyphicon glyphicon-user"></span>
                                 </span>
-                                @Html.EditorFor(model => model.Lastname, new { htmlAttributes = new { placeholder = "Last Name", @class = "form-control", @id = "lastname" } })
-                                @Html.ValidationMessageFor(model => model.Lastname, "", new { @class = "text-danger" })
+                                @Html.EditorFor(model => model.Lastname[i], new { htmlAttributes = new { placeholder = "Last Name", @class = "form-control", @id = "lastname" } })
+                                @Html.ValidationMessageFor(model => model.Lastname[i], "", new { @class = "text-danger" })
                             </div>
                         </div>
 
@@ -82,8 +82,8 @@
                                 <span class="input-group-addon">
                                     <span class="glyphicon glyphicon-earphone"></span>
                                 </span>
-                                @Html.EditorFor(model => model.Telephone, new { htmlAttributes = new { placeholder = "Telephone", @class = "form-control", @id = "telephone" } })
-                                @Html.ValidationMessageFor(model => model.Telephone, "", new { @class = "text-danger" })
+                                @Html.EditorFor(model => model.Telephone[i], new { htmlAttributes = new { placeholder = "Telephone", @class = "form-control", @id = "telephone" } })
+                                @Html.ValidationMessageFor(model => model.Telephone[i], "", new { @class = "text-danger" })
                             </div>
                         </div>
 
@@ -92,8 +92,8 @@
                                 <span class="input-group-addon">
                                     <span class="glyphicon glyphicon-pencil"></span>
                                 </span>
-                                @Html.EditorFor(model => model.Email, new { htmlAttributes = new { placeholder = "Email", @class = "form-control", @id = "email" } })
-                                @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                                @Html.EditorFor(model => model.Email[i], new { htmlAttributes = new { placeholder = "Email", @class = "form-control", @id = "email" } })
+                                @Html.ValidationMessageFor(model => model.Email[i], "", new { @class = "text-danger" })
                             </div>
                         </div>
                     </div>

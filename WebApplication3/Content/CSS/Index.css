@@ -117,14 +117,3 @@ hr {
     margin: auto;
     max-width: 280px;
 }
-
-@media screen and (max-width: 765px) {
-    #fromAirportDiv {
-        float: none;
-        width: 100%;
-    }
-
-    #toAirportDiv {
-
-    }
-}

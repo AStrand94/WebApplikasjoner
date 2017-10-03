@@ -1,0 +1,30 @@
+﻿#fromAirportDiv {
+    min-width: 300px;
+    float: left;
+    width: 40%;
+}
+
+#toAirportDiv {
+    min-width: 300px;
+    margin-left: 40px;
+}
+
+#travelToFromButtonsDiv {
+    margin-top: 20px;
+    min-width: 300px;
+}
+
+#datePickersDiv {
+    min-width: 300px;
+}
+
+@media screen and (max-width: 765px) {
+    #fromAirportDiv {
+        float: none;
+        width: 100%;
+    }
+
+    #toAirportDiv {
+        margin-left: 0;
+    }
+}

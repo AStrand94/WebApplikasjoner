@@ -82,6 +82,7 @@ function returnDateIsLater(date1, date2) {
     if (year < year2) return true;
     else if (year > year2) return false;
     else if (month > month2) return false;
+    else if (month < month2) return true;
     else if (day >= day2) return false;
     return true;
 }

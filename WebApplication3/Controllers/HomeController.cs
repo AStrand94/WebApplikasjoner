@@ -70,16 +70,16 @@ namespace WebApplication3.Controllers
         }
 
         [HttpPost]
-        public ActionResult Payment(List<Customer> customers)
+        public ActionResult Payment(IEnumerable<Customer> customers)
         {
-            Customer customer = customers.ElementAt(0);
+            Customer mainCustomer = customers.ElementAt(0);
             try
             {
-                db.Customers.Add(customer);
+                foreach(var customer in customers)
+                {
+                    db.Customers.Add(customer);
+                }
                 
-                /*if (customer2 != null) db.Customers.Add(customer2); //VURDER Å LAGRE DISSE SENERE I DB
-                if (customer3 != null) db.Customers.Add(customer3);
-                if (customer4 != null) db.Customers.Add(customer4);*/
                 db.SaveChanges();
             }
             catch (Exception e)
@@ -90,16 +90,12 @@ namespace WebApplication3.Controllers
 
             int numberTravellers = GetOrderObject().NumberTravellers;
             OrderSession order = GetOrderObject();
-            /*order.Customer = customer;
+            order.Customer = mainCustomer;
             order.Travelers = new List<Customer>();
-            order.Travelers.Add(customer);
+            order.Travelers.AddRange(customers);
 
-            if (numberTravellers > 1) order.Travelers.Add(customer2);
-            if (numberTravellers > 2) order.Travelers.Add(customer3);
-            if (numberTravellers > 3) order.Travelers.Add(customer4);
-
-            ViewBag.FlightList = GetFlightsFromId(order.Flights);*/
-            ViewBag.Customer = customer;
+            ViewBag.FlightList = GetFlightsFromId(order.Flights);
+            ViewBag.Customer = mainCustomer;
             ViewBag.NumberTravellers = order.NumberTravellers;
 
             return View();

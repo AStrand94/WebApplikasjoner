@@ -4,7 +4,7 @@
 }
 
 function isPhoneNumber(phonenumber) {
-    var regex = /^[0-9]+$/;
+    var regex = /^[0-9]{6,9}$/;
     return regex.test(phonenumber);
 }
 

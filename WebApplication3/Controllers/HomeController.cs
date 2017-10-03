@@ -20,11 +20,13 @@ namespace WebApplication3.Controllers
         }
 
         [HttpGet]
-        public ActionResult RegisterFlight(int fromAirportId, int toAirportId, DateTime date,DateTime? returnDate) 
+        public ActionResult RegisterFlight(int fromAirportId, int toAirportId, DateTime date,DateTime? returnDate, int? numberOfTravellers) 
         {
+            var orderObject = GetOrderObject();
+            orderObject.NumberTravellers = numberOfTravellers.GetValueOrDefault();
             PathHelper pathHelper = new PathHelper(fromAirportId, toAirportId,date, db);
             List<Travel> allFlights = pathHelper.GetAllFlights();
-
+            
             PathHelper returnHelper;
             List<Travel> returnFlights = new List<Travel>(); //ønsker egentlig ikke å assigne denne før if'en under..
             TravelModel model;
@@ -46,7 +48,8 @@ namespace WebApplication3.Controllers
                 ViewBag.NoData = "No flights on this date. (could also be no flights on this distance..)";
                 return PartialView();
             }
-            
+
+            ViewBag.NumberTravellers = numberOfTravellers;
             return PartialView(model);
         }
 
@@ -61,20 +64,29 @@ namespace WebApplication3.Controllers
         }
 
         [HttpPost]
-        public ActionResult Payment(Models.Customer customer)
+        public ActionResult Payment(Customer customer, Customer customer2, Customer customer3, Customer customer4)
         {
             try
             {
                 db.Customers.Add(customer);
+                if (customer2 != null) db.Customers.Add(customer2); //VURDER Å LAGRE DISSE SENERE I DB
+                if (customer3 != null) db.Customers.Add(customer3);
+                if (customer4 != null) db.Customers.Add(customer4);
                 db.SaveChanges();
             }
             catch (Exception e)
             {
+                Console.Write(e.ToString());
                 RedirectToAction("Index");
             }
             OrderSession order = GetOrderObject();
             order.Customer = customer;
+            order.Travelers = new List<Customer>();
+            order.Travelers.Add(customer);
 
+            if (customer2 != null) order.Travelers.Add(customer2);
+            if (customer3 != null) order.Travelers.Add(customer3);
+            if (customer4 != null) order.Travelers.Add(customer4);
 
             ViewBag.FlightList = GetFlightsFromId(order.Flights);
             ViewBag.Customer = customer;
@@ -85,7 +97,6 @@ namespace WebApplication3.Controllers
         [HttpPost]
         public ActionResult Registration(int flightId1, int? flightId2, int? flightId3, int? flightId4)
         {
-
             OrderSession order = GetOrderObject();
             order.Flights.Clear();
             
@@ -111,6 +122,8 @@ namespace WebApplication3.Controllers
                 order.Flights.Add(flightId4.GetValueOrDefault());
             }
 
+            ViewBag.NumberTravellers = order.NumberTravellers;
+
             ViewBag.FlightList = GetFlightsFromId(flightIds);
             return View();
         }
@@ -131,17 +144,29 @@ namespace WebApplication3.Controllers
             
             List<Ticket> tickets = new List<Ticket>();
 
-            foreach(int fId in GetOrderObject().Flights) {
-                Flight flight = db.Flights.Where(f => f.Id == fId).First();
+            foreach (Customer tr in order.Travelers) {
+                foreach (int fId in GetOrderObject().Flights) {
+                    Flight flight = db.Flights.Where(f => f.Id == fId).First();
 
-                Ticket ticket = new Ticket
-                {
-                    Order = o,
-                    Flight = flight
-                };
-                tickets.Add(ticket);
+                    Ticket ticket = new Ticket
+                    {
+                        Order = o,
+                        Flight = flight,
+                        Traveler = tr
+                    };
+                    tickets.Add(ticket);
+                }
             }
+
             o.Tickets = tickets;
+
+            double totalPrice = 0;
+            foreach(var ticket in tickets)
+            {
+                totalPrice += ticket.Flight.Price;
+            }
+
+            o.TotalPrice = totalPrice;
             db.Orders.Add(o);
             db.Tickets.AddRange(tickets);
             db.SaveChanges();

@@ -11,5 +11,6 @@ namespace WebApplication3.Models
         public string Reference { get; set; }
         public virtual Customer Customer { get; set; }
         public virtual List<Ticket> Tickets { get; set; }
+        public double TotalPrice { get; set; }
     }
 }

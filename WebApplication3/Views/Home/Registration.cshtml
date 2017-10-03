@@ -37,7 +37,7 @@
                             <td>@f.Route.FromAirport.Name</td>
                             <td>@f.Route.ToAirport.Name</td>
                             <td>@f.Time</td>
-                            <td>@f.Price $</td>
+                            <td>@(f.Price * ViewBag.NumberTravellers) $</td>
                         </tr>
                     }
                 </tbody>

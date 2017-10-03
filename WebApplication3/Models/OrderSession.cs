@@ -9,6 +9,8 @@ namespace WebApplication3.Models
     {
         public List<int> Flights { get; set; }
         public Customer Customer { get; set; }
+        public List<Customer> Travelers { get; set; }
+        public int NumberTravellers { get; set; }
 
         public OrderSession()
         {

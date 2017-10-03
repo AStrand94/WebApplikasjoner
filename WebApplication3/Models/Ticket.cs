@@ -10,5 +10,6 @@ namespace WebApplication3.Models
         public int Id { get; set; }
         public virtual Order Order { get; set; }
         public virtual Flight Flight { get; set; }
+        public virtual Customer Traveler { get; set; }
     }
 }

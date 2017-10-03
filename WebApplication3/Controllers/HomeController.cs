@@ -49,10 +49,10 @@ namespace WebApplication3.Controllers
                 return PartialView();
             }
 
-            double totalPrice;
-            foreach(var fli in model.Travels)
+            double totalPrice = 0;
+            foreach(var tr in model.Travels)
             {
-                //totalPrice += fli.Price * numberOfTravellers;
+                totalPrice += tr.Price * (double)numberOfTravellers;
             }
 
             ViewBag.NumberTravellers = numberOfTravellers;
@@ -75,7 +75,14 @@ namespace WebApplication3.Controllers
             try
             {
                 db.Customers.Add(customer);
-                if (customer2 != null) db.Customers.Add(customer2); //VURDER Å LAGRE DISSE SENERE I DB
+                customer2 = new Customer
+                {
+                    Firstname = "Stian",
+                    Lastname = "Grimsgaard",
+                    Telephone = "12345678",
+                    Email = "gfgfgf@gmail.no"
+                };
+                //if (customer2 != null) db.Customers.Add(customer2); //VURDER Å LAGRE DISSE SENERE I DB
                 if (customer3 != null) db.Customers.Add(customer3);
                 if (customer4 != null) db.Customers.Add(customer4);
                 db.SaveChanges();
@@ -85,14 +92,16 @@ namespace WebApplication3.Controllers
                 Console.Write(e.ToString());
                 RedirectToAction("Index");
             }
+
+            int numberTravellers = GetOrderObject().NumberTravellers;
             OrderSession order = GetOrderObject();
             order.Customer = customer;
             order.Travelers = new List<Customer>();
             order.Travelers.Add(customer);
 
-            if (customer2 != null) order.Travelers.Add(customer2);
-            if (customer3 != null) order.Travelers.Add(customer3);
-            if (customer4 != null) order.Travelers.Add(customer4);
+            if (numberTravellers > 1) order.Travelers.Add(customer2);
+            if (numberTravellers > 2) order.Travelers.Add(customer3);
+            if (numberTravellers > 3) order.Travelers.Add(customer4);
 
             ViewBag.FlightList = GetFlightsFromId(order.Flights);
             ViewBag.Customer = customer;
@@ -167,13 +176,7 @@ namespace WebApplication3.Controllers
 
             o.Tickets = tickets;
 
-            double totalPrice = 0;
-            foreach(var ticket in tickets)
-            {
-                totalPrice += ticket.Flight.Price;
-            }
-
-            o.TotalPrice = totalPrice;
+            o.TotalPrice = order.TotalPrice;
             db.Orders.Add(o);
             db.Tickets.AddRange(tickets);
             db.SaveChanges();

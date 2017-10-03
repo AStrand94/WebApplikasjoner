@@ -164,6 +164,7 @@
     </Compile>
     <Compile Include="Models\Airplane.cs" />
     <Compile Include="Models\Airport.cs" />
+    <Compile Include="Models\DBWorker.cs" />
     <Compile Include="Models\Order.cs" />
     <Compile Include="Models\OrderSession.cs" />
     <Compile Include="Models\ReferenceGenerator.cs" />

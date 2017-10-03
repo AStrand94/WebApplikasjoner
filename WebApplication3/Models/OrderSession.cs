@@ -11,6 +11,7 @@ namespace WebApplication3.Models
         public Customer Customer { get; set; }
         public List<Customer> Travelers { get; set; }
         public int NumberTravellers { get; set; }
+        public int TotalPrice { get; set; }
 
         public OrderSession()
         {

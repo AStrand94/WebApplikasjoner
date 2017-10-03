@@ -13,6 +13,7 @@
 #price {
     vertical-align: top;
     font-weight: bold;
+    float:left;
 }
 
 #sumSpan {
@@ -27,6 +28,11 @@
 
 #sumDiv {
     margin-top: 10px;
+}
+
+#submitButton {
+    margin-top:60px;
+    float:right;
 }
 
 

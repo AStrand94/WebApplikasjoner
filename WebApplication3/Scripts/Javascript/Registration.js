@@ -22,20 +22,6 @@ $(document).ready(function () {
         }
     });
 
-    $('#country').keyup(function () {
-        if ($.isNumeric($(this).val())) {
-            alert("Country can not be numeric");
-        }
-    });
-
-    $('#city').keyup(function () {
-        if ($.isNumeric($(this).val())) {
-            alert("City can not be numeric");
-        }
-    });
-
-
-
 });
 
 var onSubmitForm = function () {
@@ -45,22 +31,6 @@ var onSubmitForm = function () {
     }
     if (!$('#lastname').val()) {
         alert("Last Name is required.");
-        return false;
-    }
-    if (!$('#address').val()) {
-        alert("Address is required.");
-        return false;
-    }
-    if (!$('#zipcode').val()) {
-        alert("Zip Code is required.");
-        return false;
-    }
-    if (!$('#city').val()) {
-        alert("City is required.");
-        return false;
-    }
-    if (!$('#country').val()) {
-        alert("Country is required.");
         return false;
     }
     if (!$('#telephone').val()) {

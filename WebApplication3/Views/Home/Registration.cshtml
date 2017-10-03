@@ -3,12 +3,6 @@
 
 @{
     ViewBag.Title = "Registration";
-
-    List<SelectListItem> titles = new List<SelectListItem>();
-    titles.Add(new SelectListItem() { Text = "Mr", Value = "Mr" });
-    titles.Add(new SelectListItem() { Text = "Mrs", Value = "Mrs" });
-    titles.Add(new SelectListItem() { Text = "Ms", Value = "Ms" });
-    titles.Add(new SelectListItem() { Text = "Miss", Value = "Miss" });
 }
 
 <script src="~/Scripts/Javascript/Registration.js"></script>
@@ -53,16 +47,6 @@
     <div class="form-horizontal" id="contactInformationInputForm">
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group col-md-offset-0 col-md-12">
-            @Html.LabelFor(model => model.Title, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="input-group">
-                <span class="input-group-addon">
-                    <span class="glyphicon glyphicon-user"></span>
-                </span>
-                @Html.DropDownListFor(model => model.Title, titles, new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
-            </div>
-        </div>
 
         <div class="form-group col-md-offset-0 col-md-12">
             @Html.LabelFor(model => model.Firstname, "First Name", htmlAttributes: new { @class = "control-label col-md-2" })
@@ -83,50 +67,6 @@
                 </span>
                 @Html.EditorFor(model => model.Lastname, new { htmlAttributes = new { @class = "form-control", @id = "lastname" } })
                 @Html.ValidationMessageFor(model => model.Lastname, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group col-md-offset-0 col-md-12">
-            @Html.LabelFor(model => model.Address, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="input-group">
-                <span class="input-group-addon">
-                    <span class="glyphicon glyphicon-home"></span>
-                </span>
-                @Html.EditorFor(model => model.Address, new { htmlAttributes = new { @class = "form-control", @id = "address" } })
-                @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group col-md-offset-0 col-md-12">
-            @Html.LabelFor(model => model.ZipCode, "Zip Code", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="input-group">
-                <span class="input-group-addon">
-                    <span class="glyphicon glyphicon-home"></span>
-                </span>
-                @Html.EditorFor(model => model.ZipCode, new { htmlAttributes = new { @class = "form-control", @id = "zipcode" } })
-                @Html.ValidationMessageFor(model => model.ZipCode, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group col-md-offset-0 col-md-12">
-            @Html.LabelFor(model => model.City, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="input-group">
-                <span class="input-group-addon">
-                    <span class="glyphicon glyphicon-home"></span>
-                </span>
-                @Html.EditorFor(model => model.City, new { htmlAttributes = new { @class = "form-control", @id = "city" } })
-                @Html.ValidationMessageFor(model => model.City, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group col-md-offset-0 col-md-12">
-            @Html.LabelFor(model => model.Country, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="input-group">
-                <span class="input-group-addon">
-                    <span class="glyphicon glyphicon-flag"></span>
-                </span>
-                @Html.EditorFor(model => model.Country, new { htmlAttributes = new { @class = "form-control", @id = "country" } })
-                @Html.ValidationMessageFor(model => model.Country, "", new { @class = "text-danger" })
             </div>
         </div>
 

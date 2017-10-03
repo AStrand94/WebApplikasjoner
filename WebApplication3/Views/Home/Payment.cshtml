@@ -3,57 +3,13 @@
     ViewBag.Title = "Payment";
 }
 
+<link rel="stylesheet" type="text/css" href="~/Content/CSS/Payment.css" />
+<script src="~/Scripts/Javascript/Payment.js"></script>
+
 <br />
 <h2 style="text-align: center;">Payment</h2>
 <br /><br />
 
-<style>
-    th {
-        background-color: #428bca;
-        color: white;
-    }
-
-    #paymentContainer {
-        display: flex;
-    }
-
-    #contactInformationDiv {
-        width: 40%;
-        min-width: 300px;
-    }
-
-    #paymentContainerDiv {
-        flex: 1;
-        margin-left: 5%;
-        min-width: 300px;
-    }
-
-    #flightInformationDiv {
-        padding: 0;
-        min-width: 330px;
-    }
-
-    @@media screen and (max-width: 725px) {
-        #paymentContainer {
-            display: inherit;
-        }
-
-        #paymentContainerDiv {
-            margin-left: 0;
-            flex: none;
-            padding-right: 15px;
-        }
-
-        #contactInformationDiv {
-            width: 100%;
-            margin: 0;
-        }
-
-        #flightInformationDiv {
-            padding: 15px;
-        }
-    }
-</style>
 
 @{
     var order = (List<WebApplication3.Models.Flight>)ViewBag.FlightList;
@@ -220,40 +176,4 @@
     }
 }
 
-<script>
-    var lastInput = $("#expDate").val();
-    $("#expDate").keyup(function () {
-        var input = $("#expDate").val();
-        if (input.length == 2 && lastInput.length != 3) {
-            $('#expDate').val($('#expDate').val() + '/');
-        }
-        if (input.length < lastInput.length || input.length == 2 && lastInput.length == 2) {
-            $('#expDate').val('');
-            lastInput = 0;
-        } else {
-            lastInput = input;
-        }
-    });
-
-
-    var onSubmitForm = function () {
-        if (!$('#cardNumber').val()) {
-            alert("Card Number is required");
-            return false;
-        }
-        if (!$.isNumeric($('#cardNumber').val())) {
-            alert("Card Number can only have numbers");
-            return false;
-        }
-        if (!$('#expDate').val()) {
-            alert("Expiration Date is required.");
-            return false;
-        }
-        if (!$('#cvc').val()) {
-            alert("CVC is required.");
-            return false;
-        }
-    }
-
-</script>
 

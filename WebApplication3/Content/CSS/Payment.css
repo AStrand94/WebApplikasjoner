@@ -1,0 +1,45 @@
+﻿th {
+    background-color: #428bca;
+    color: white;
+}
+
+#paymentContainer {
+    display: flex;
+}
+
+#contactInformationDiv {
+    width: 40%;
+    min-width: 300px;
+}
+
+#paymentContainerDiv {
+    flex: 1;
+    margin-left: 5%;
+    min-width: 300px;
+}
+
+#flightInformationDiv {
+    padding: 0;
+    min-width: 330px;
+}
+
+@media screen and (max-width: 725px) {
+    #paymentContainer {
+        display: inherit;
+    }
+
+    #paymentContainerDiv {
+        margin-left: 0;
+        flex: none;
+        padding-right: 15px;
+    }
+
+    #contactInformationDiv {
+        width: 100%;
+        margin: 0;
+    }
+
+    #flightInformationDiv {
+        padding: 15px;
+    }
+}

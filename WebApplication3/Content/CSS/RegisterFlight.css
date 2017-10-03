@@ -1,0 +1,24 @@
+﻿.submitFlight {
+    cursor: pointer;
+}
+
+#price {
+    vertical-align: top;
+    font-weight: bold;
+}
+
+#sumSpan {
+    float: left;
+    display: none;
+}
+
+#sumLabel {
+    float: left;
+    display: none;
+}
+
+#sumDiv {
+    margin-top: 10px;
+}
+
+

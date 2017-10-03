@@ -1,0 +1,39 @@
+﻿.flightOrderedHeader {
+    margin: auto;
+    width: 50%;
+    padding: 10px;
+}
+
+#paymentContainer {
+    display: flex;
+}
+
+#contactInformationDiv {
+    width: 40%;
+    min-width: 300px;
+}
+
+#flightInformationDiv {
+    padding: 0;
+    min-width: 330px;
+}
+
+@media screen and (max-width: 725px) {
+    .flightOrderedHeader {
+        width: 100%;
+    }
+
+    #paymentContainer {
+        display: inherit;
+    }
+
+    #contactInformationDiv {
+        width: 100%;
+        margin: 0;
+    }
+
+    #flightInformationDiv {
+        padding: 15px;
+    }
+}
+

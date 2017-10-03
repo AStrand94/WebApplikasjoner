@@ -189,6 +189,12 @@
     <Content Include="Content\bootstrap-datepicker3.standalone.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\CSS\OrderView.css" />
+    <Content Include="Content\CSS\Overview.css" />
+    <Content Include="Content\CSS\Payment.css" />
+    <Content Include="Content\CSS\RegisterFlight.css" />
+    <Content Include="Content\CSS\Registration.css" />
+    <Content Include="Content\CSS\Search.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -209,6 +215,10 @@
     <Content Include="Content\bootstrap-datepicker.min.css.map" />
     <Content Include="Content\bootstrap-datepicker.css.map" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\Javascript\Payment.js" />
+    <Content Include="Scripts\Javascript\RegisterFlight.js" />
+    <Content Include="Scripts\Javascript\Registration.js" />
+    <Content Include="Scripts\Javascript\Search.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />

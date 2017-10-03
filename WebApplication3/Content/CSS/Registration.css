@@ -1,0 +1,19 @@
+﻿th {
+    background-color: #428bca;
+    color: white;
+}
+
+#contactInformationInputForm {
+    min-width: 325px;
+}
+
+#registrationFlightInformationDiv {
+    padding: 0;
+    min-width: 325px;
+}
+
+@media screen and (min-width: 992px) {
+    #registrationButton {
+        margin-left: 14.5%;
+    }
+}

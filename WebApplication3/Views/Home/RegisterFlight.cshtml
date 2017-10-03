@@ -1,6 +1,9 @@
 ﻿
 @model WebApplication3.Models.TravelModel
 
+<script src="~/Scripts/Javascript/RegisterFlight.js"></script>
+<link rel="stylesheet" type="text/css" href="~/Content/CSS/RegisterFlight.css" />
+
 @if (Model != null)
 {
 <h2>Choose your flight to @Model.ToAirport.Name</h2>
@@ -92,10 +95,10 @@
                     <p id="priceReturn"></p>
                 </div>
             }
-            ¨<div style="margin-top:10px;">
-                <label id="sumLabel" style="float:left;display:none;">Sum:</label>
-                <span id="sumSpan" class="glyphicon glyphicon-usd" style="float:left;display:none" />
-                <p id="price" style="vertical-align:top;font-weight:bold;"></p>
+            ¨<div id="sumDiv">
+                <label id="sumLabel">Sum:</label>
+                <span id="sumSpan" class="glyphicon glyphicon-usd"/>
+                <p id="price"></p>
             </div>
             <form action="/home/registration" onsubmit="return checkFlightForm();" method="post">
                 <input required type="hidden" id="flightId1" name="flightId1" value="" />
@@ -111,156 +114,3 @@ else
 {
     <p>Sorry, no flights on this date!</p>
 }
-<style>
-    .submitFlight {
-        cursor: pointer;
-    }
-</style>
-<script>
-    $(document).ready(function () {
-
-        $(".singleToFlight").on('click', function () {
-            id1 = $(this).children("input[name='flightId1']").val();
-            $('#flightId1').val(id1);
-            $('#flightId2').val('');
-
-            var travelDesc, tfromstr, price, totalPrice;
-
-            travelDesc = $(this).children("p[name='travelDescription']").text();
-            tfromstr = $(this).children("p[name='travelFromString']").text();
-            price = $(this).children("p[name='price']").text();
-
-
-            price2 = $("#priceReturn").text();
-            if (price2 == null || price2 == "") {
-                $("#price").text(price);
-            } else {
-                $("#price").text((parseFloat(price) || 0) + (parseFloat(price2) || 0));
-            }
-
-            $("#travelDescription").text(travelDesc);
-            $("#travelFromString").text(tfromstr);
-            $("#travelToString").text("");
-            $('#priceTo').text(price);
-
-            $('#toFlightsDiv').children('a').each(function () {
-                $(this).css('background-color', 'white');
-            });
-
-            $(this).css('background-color', 'palegreen');
-
-            $('#sumLabel').show();
-            $('#sumSpan').show();
-        });
-
-        $(".stopoverToFlight").on('click', function () {
-            id1 = $(this).children("input[name='flightId1']").val();
-            id2 = $(this).children("input[name='flightId2']").val();
-
-            $('#flightId1').val(id1);
-            $('#flightId2').val(id2);
-
-            var travelDesc, tfromstr, ttostr, price;
-
-            travelDesc = $(this).children("p[name='travelDescription']").text();
-            tfromstr = $(this).children("p[name='travelFromString']").text();
-            ttostr = $(this).children("p[name='travelToString']").text();
-            price = $(this).children("p[name='price']").text();
-
-            price2 = $("#priceReturn").text();
-            $("#price").text((parseFloat(price) || 0) + (parseFloat(price2) || 0));
-
-            $("#travelDescription").text(travelDesc);
-            $("#travelFromString").text(tfromstr);
-            $("#travelToString").text(ttostr);
-            $('#priceTo').text(price);
-
-            $('#toFlightsDiv').children('a').each(function () {
-                $(this).css('background-color', 'white');
-            });
-
-            $(this).css('background-color', 'palegreen');
-
-            $('#sumLabel').show();
-            $('#sumSpan').show();
-        });
-
-        $(".singleReturnFlight").on('click', function () {
-            id3 = $(this).children("input[name='flightId1']").val();
-
-            $('#flightId3').val(id3);
-            $('#flightId4').val('');
-
-            var travelDesc2, tfromstr2, price2;
-
-            travelDesc2 = $(this).children("p[name='travelDescription']").text();
-            tfromstr2 = $(this).children("p[name='travelFromString']").text();
-            price2 = $(this).children("p[name='price']").text();
-
-            price = $("#priceTo").text();
-            $("#price").text((parseFloat(price2) || 0) + (parseFloat(price) || 0));
-
-            $("#travelDescription2").text(travelDesc2);
-            $("#travelFromString2").text(tfromstr2);
-            $("#travelToString2").text("");
-            $('#priceReturn').text(price2);
-
-            $('#returnFlightsDiv').children('a').each(function () {
-                $(this).css('background-color', 'white');
-            });
-
-            $(this).css('background-color', 'palegreen');
-
-            $('#sumLabel').show();
-            $('#sumSpan').show();
-        });
-
-        $(".stopoverReturnFlight").on('click', function () {
-            id3 = $(this).children("input[name='flightId1']").val();
-            id4 = $(this).children("input[name='flightId2']").val();
-            //alert(id3 + "\n" + id4);
-
-            $('#flightId3').val(id3);
-            $('#flightId4').val(id4);
-
-            var travelDesc2, tfromstr2, ttostr2, price;
-
-            travelDesc2 = $(this).children("p[name='travelDescription']").text();
-            tfromstr2 = $(this).children("p[name='travelFromString']").text();
-            ttostr2 = $(this).children("p[name='travelToString']").text();
-            price2 = $(this).children("p[name='price']").text();
-
-            price = $("#priceTo").text();
-
-            $("#price").text((parseFloat(price2) || 0) + (parseFloat(price) || 0));
-
-
-            $("#travelDescription2").text(travelDesc2);
-            $("#travelFromString2").text(tfromstr2);
-            $("#travelToString2").text(ttostr2);
-            $('#priceReturn').text(price2);
-
-            $('#returnFlightsDiv').children('a').each(function () {
-                $(this).css('background-color', 'white');
-            });
-
-            $(this).css('background-color', 'palegreen');
-
-            $('#sumLabel').show();
-            $('#sumSpan').show();
-        });
-    });
-
-    function checkFlightForm() {
-        id1 = document.getElementById('flightId1').value;
-        id3 = document.getElementById('flightId3').value;
-
-        if (id1 == "") {
-            alert("You must select where you want to travel!");
-            return false;
-        }
-        return true;
-    }
-</script>
-
-<!--TODO: SETT SIDEN SIN MODELL I EN EGEN KLASSE. FOR Å KUNNE SJEKKE OM DEN HAR RETUR-FLYVNINGER ELLER IKKE. SAMT Å VITE TIL - FRA -->

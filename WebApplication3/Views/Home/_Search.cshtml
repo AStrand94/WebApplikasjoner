@@ -1,4 +1,6 @@
-﻿
+﻿<link rel="stylesheet" type="text/css" href="~/Content/CSS/Search.css" />
+<script src="~/Scripts/Javascript/Search.js"></script>
+
 <div class="container">
     <!-- Modal -->
     <div class="modal fade" id="myModal" role="dialog">
@@ -35,52 +37,3 @@
         </div>
     </div>
 </div>
-<style>
-    .stylish-input-group .input-group-addon {
-        background: white !important;
-    }
-
-    .stylish-input-group .form-control {
-        border-right: 0;
-        box-shadow: 0 0 0;
-        border-color: #ccc;
-    }
-
-    .stylish-input-group button {
-        border: 0;
-        background: transparent;
-    }
-</style>
-<script>
-    $(document).ready(function () {
-
-        $('#searchButton').on('click', function () {
-            var str = $('#searchText').val();
-
-            $.ajax({
-                data: { Reference: str },
-                type: "post",
-                url: "/home/_OrderView",
-                success: function (response) {
-                    $('#searchResponse').html(response);
-                }
-            });
-        });
-
-        $('#searchText').keypress(function (e) {
-            if (e.which == 13) {
-
-                var str = $('#searchText').val();
-
-                $.ajax({
-                    data: { Reference: str },
-                    type: "post",
-                    url: "/home/_OrderView",
-                    success: function (response) {
-                        $('#searchResponse').html(response);
-                    }
-                });
-            }
-        });
-    });
-</script>

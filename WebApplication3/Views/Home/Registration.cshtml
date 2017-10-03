@@ -57,6 +57,14 @@
                         <hr />
                         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
+                        @if (i == 0)
+                        {
+                            <h3>Contact</h3>
+                        }
+                        else
+                        {
+                            <h4>Traveller @(i)</h4>
+                        }
                         <div class="form-group" id="travellerForm">
                             <div class="input-group">
                                 <span class="input-group-addon">

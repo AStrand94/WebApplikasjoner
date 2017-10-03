@@ -24,7 +24,7 @@
 
     $('#roundtrip').click(function () {
         if ($("#returnDateDiv").is(':empty')) {
-            $("#returnDateDiv").prepend('<label for="returnDate">Return date:</label ><div class="input-group date" data-provide="datepicker" style="width:280px;" id="datepicker2"><input id="returnDate" name="returnDate" type="text" class="form-control"><div class="input-group-addon"><span class="glyphicon glyphicon-th"></span></div></div>');
+            $("#returnDateDiv").prepend('<label for="returnDate">Return date:</label ><div class="input-group date" data-provide="datepicker" style="width:285px;" id="datepicker2"><input id="returnDate" name="returnDate" type="text" class="form-control"><div class="input-group-addon"><span class="glyphicon glyphicon-th"></span></div></div>');
         }
     });
 

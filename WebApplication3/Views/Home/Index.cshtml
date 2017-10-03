@@ -7,69 +7,78 @@
 <script src="~/Scripts/Javascript/Index.js"></script>
 <link rel="stylesheet" type="text/css" href="~/Content/CSS/Index.css" />
 
-<h2>
-    Where do you want to travel?
-</h2>
+<div id="indexContainer">
 
-<style>
+    <h2>
+        Where do you want to travel?
+    </h2>
 
-   
-
-</style>
-
-<br /><br />
-<form id="searchForm" action="/home/registerflight" method="get"> <!--onsubmit="return checkForm(this);"--> 
-    <div class="form-group" id="fromAirportDiv">
-        <label for="fromAirportId">Travel from:</label>
-        <select class="form-control" id="fromAirportId" name="fromAirportId">
-            <option value="" selected disabled hidden>Select airport..</option>
-            @foreach (var airport in Model)
+    <br /><br />
+    <form id="searchForm" action="/home/registerflight" method="get">
+        <!--onsubmit="return checkForm(this);"-->
+        <div class="form-group" id="fromAirportDiv">
+            <label for="fromAirportId">Travel from:</label>
+            <select class="form-control" id="fromAirportId" name="fromAirportId">
+                <option value="" selected disabled hidden>Select airport..</option>
+                @foreach (var airport in Model)
             {
-                <option value="@airport.Id">@airport.Name</option>
-            }
-        </select>
-    </div>
-    <div class="form-group" id="toAirportDiv">
-        <label for="toAirportId">Travel to:</label>
-        <select class="form-control" id="toAirportId" name="toAirportId">
-            <option value="" selected disabled hidden>Select airport..</option>
-            @foreach (var airport in Model)
+                    <option value="@airport.Id">@airport.Name</option>
+                }
+            </select>
+        </div>
+
+        <div class="form-group" id="toAirportDiv">
+            <label for="toAirportId">Travel to:</label>
+            <select class="form-control" id="toAirportId" name="toAirportId">
+                <option value="" selected disabled hidden>Select airport..</option>
+                @foreach (var airport in Model)
             {
-                <option value="@airport.Id">@airport.Name</option>
-            }
-        </select>
-    </div>
+                    <option value="@airport.Id">@airport.Name</option>
+                }
+            </select>
+        </div>
 
-    <div class="btn-group" id="travelToFromButtonsDiv" data-toggle="buttons">
-        <label id="singleTrip" class="btn btn-default dateButton active" for="singleTrip" style="width: 140.7px;">
-            <input  name="single" type="radio" checked="checked" >Single trip
-        </label>
-        <label id="roundtrip" class="btn btn-default dateButton" for="roundTrip" style="width: 140.7px;">
-            <input name="round" type="radio">Roundtrip
-        </label>
-    </div>
+        <div class="form-group" id="travellersDiv">
+            <label for="numberOfTravellers">Number of travellers:</label>
+            <select class="form-control" id="numberOfTravellers" name="numberOfTravellers">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+            </select>
+        </div>
 
-    <p id="errorLabel" style="color:darkred;font-size:large;"></p><br />
+        <div class="form-group" id="travelToFromButtonsDiv" data-toggle="buttons">
+            <label id="singleTrip" class="btn btn-default dateButton active" for="singleTrip" style="width: 140.7px;">
+                <input name="single" type="radio" checked="checked">Single trip
+            </label>
+            <label id="roundtrip" class="btn btn-default dateButton" for="roundTrip" style="width: 140.7px;">
+                <input name="round" type="radio">Roundtrip
+            </label>
+        </div>
 
-    <div class="row" id="datePickersDiv">
-        <div class="col-xs-12">
-            <label for="fromDate" >Traveling date:</label>
-            <div class="input-group date" data-provide="datepicker" style="width:280px;" id="datepicker">
-                <input id="date" name="date" type="text" class="form-control">
-                <div class="input-group-addon">
-                    <span class="glyphicon glyphicon-th"></span>
+        <p id="errorLabel" style="color:darkred;font-size:large;"></p><br />
+
+        <div class="form-group" id="datePickersDiv">
+            <div>
+                <label for="fromDate">Traveling date:</label>
+                <div class="input-group date" data-provide="datepicker" style="width:285px;" id="datepicker">
+                    <input id="date" name="date" type="text" class="form-control">
+                    <div class="input-group-addon">
+                        <span class="glyphicon glyphicon-th"></span>
+                    </div>
                 </div>
             </div>
+            <div id="returnDateDiv">
+            </div>
         </div>
-        <div id="returnDateDiv" class="col-xs-12">
+        <br />
+        <div class="form-group" id="searchFlightsButton">
+            <input type="submit" class="btn btn-primary" value="Search flights" style="width: 270px;" />
         </div>
+    </form>
+    <div id="created">
     </div>
-    <br />
-    <input type="submit" class="btn btn-primary" value="Search flights" style="width: 280px;" />
-</form>
-<div id="created">
-</div>
 
-<script>
-    
-</script>
+
+</div>

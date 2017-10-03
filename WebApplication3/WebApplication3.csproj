@@ -197,6 +197,8 @@
     <Content Include="Content\CSS\RegisterFlight.css" />
     <Content Include="Content\CSS\Registration.css" />
     <Content Include="Content\CSS\Search.css" />
+    <Content Include="Content\images\background_image.jpg" />
+    <Content Include="Content\images\green_checkmark.png" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />

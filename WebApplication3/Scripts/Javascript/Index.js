@@ -8,7 +8,6 @@
     $('.date').datepicker().on('changeDate', function (ev) {
         $('.date').datepicker('hide');
         var date = $('#date').val();
-        console.log(date);
         if (!isValidDate(date)) {
             $('#errorLabel').text("Wrong date");
         }

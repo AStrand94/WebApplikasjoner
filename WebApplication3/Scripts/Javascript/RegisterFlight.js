@@ -28,7 +28,7 @@
             $(this).css('background-color', 'white');
         });
 
-        $(this).css('background-color', 'palegreen');
+        $(this).css('background-color', '#66C166');
 
         $('#sumLabel').show();
         $('#sumSpan').show();
@@ -60,7 +60,7 @@
             $(this).css('background-color', 'white');
         });
 
-        $(this).css('background-color', 'palegreen');
+        $(this).css('background-color', '#66C166');
 
         $('#sumLabel').show();
         $('#sumSpan').show();
@@ -90,7 +90,7 @@
             $(this).css('background-color', 'white');
         });
 
-        $(this).css('background-color', 'palegreen');
+        $(this).css('background-color', '#66C166');
 
         $('#sumLabel').show();
         $('#sumSpan').show();
@@ -125,7 +125,7 @@
             $(this).css('background-color', 'white');
         });
 
-        $(this).css('background-color', 'palegreen');
+        $(this).css('background-color', '#66C166');
 
         $('#sumLabel').show();
         $('#sumSpan').show();

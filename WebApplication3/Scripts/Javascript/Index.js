@@ -38,6 +38,9 @@
             url: $(this).attr('action'),
             success: function (response) {
                 $('#created').html(response).hide().fadeIn();
+                $('html, body').animate({
+                    scrollTop: $("#created").offset().top
+                }, 1500);
             }
         });
         return false; // cancel original event to prevent form submitting

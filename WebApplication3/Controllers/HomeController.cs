@@ -49,6 +49,12 @@ namespace WebApplication3.Controllers
                 return PartialView();
             }
 
+            double totalPrice;
+            foreach(var fli in model.Travels)
+            {
+                //totalPrice += fli.Price * numberOfTravellers;
+            }
+
             ViewBag.NumberTravellers = numberOfTravellers;
             return PartialView(model);
         }
@@ -90,6 +96,7 @@ namespace WebApplication3.Controllers
 
             ViewBag.FlightList = GetFlightsFromId(order.Flights);
             ViewBag.Customer = customer;
+            ViewBag.NumberTravellers = order.NumberTravellers;
 
             return View();
         }

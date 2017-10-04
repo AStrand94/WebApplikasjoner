@@ -69,9 +69,21 @@ namespace WebApplication3.Controllers
             return RedirectToAction("Index");
         }
 
+        public ActionResult Payment()
+        {
+            return RedirectToAction("Index");
+        }
+
+        public ActionResult Overview()
+        {
+            return RedirectToAction("Index");
+        }
+
         [HttpPost]
         public ActionResult Payment(IEnumerable<Customer> customers)
         {
+            if (Session["Order"] == null) return RedirectToAction("Index");
+
             Customer mainCustomer = customers.ElementAt(0);
             try
             {

@@ -218,6 +218,7 @@
     <Content Include="Content\bootstrap-datepicker.standalone.css.map" />
     <Content Include="Content\bootstrap-datepicker.min.css.map" />
     <Content Include="Content\bootstrap-datepicker.css.map" />
+    <None Include="Properties\PublishProfiles\WebAppH17 - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\Javascript\Payment.js" />
     <Content Include="Scripts\Javascript\RegisterFlight.js" />

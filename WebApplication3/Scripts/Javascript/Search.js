@@ -23,9 +23,14 @@
                 type: "post",
                 url: "/home/_OrderView",
                 success: function (response) {
-                    $('#searchResponse').html(response);
+                    $('#searchResponse').html(response).hide().fadeIn();
                 }
             });
         }
+    });
+
+    $('.closeModal').on('click', function () {
+        $('#searchResponse').empty();
+        $('#searchText').val('');
     });
 });

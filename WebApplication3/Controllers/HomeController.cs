@@ -96,7 +96,7 @@ namespace WebApplication3.Controllers
             order.Travelers.AddRange(customers);
 
             ViewBag.FlightList = GetFlightsFromId(order.Flights);
-            ViewBag.Customer = mainCustomer;
+            ViewBag.Customers = customers;
             ViewBag.NumberTravellers = order.NumberTravellers;
             ViewBag.TotalPrice = order.TotalPrice;
 

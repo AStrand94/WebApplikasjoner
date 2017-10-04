@@ -43,7 +43,6 @@
             </div>
 
 
-
             using (Html.BeginForm("Payment", "Home"))
             {
                 @Html.AntiForgeryToken()
@@ -53,7 +52,6 @@
                     <div id="travellersContainer">
                         <div class="form-horizontal" id="contactInformationInputForm">
                             <hr />
-                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
                             @if (i == 0)
                         {

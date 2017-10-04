@@ -9,6 +9,16 @@
     height: 100%;
 }
 
+#skyScannerContainer {
+    height: 100vh;
+}
+
+@media screen and (max-height: 600px) {
+    #skyScannerContainer {
+        height: unset;
+    }
+}
+
 body {
     padding-bottom: 0px;
 }

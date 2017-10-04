@@ -27,12 +27,27 @@
 }
 
 #sumDiv {
-    margin-top: 10px;
+    margin-top: 20px;
+    float: left;
 }
 
 #submitButton {
-    margin-top:60px;
     float:right;
+    margin-top: -5px;
+    margin-bottom: 10px;
+    width: 250px;
+}
+
+@media screen and (max-width: 560px) {
+    #submitButton {
+        width: 150px;
+    }
+}
+
+@media screen and (max-width: 440px) {
+    #submitButton {
+        width: 120px;
+    }
 }
 
 

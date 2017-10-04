@@ -9,15 +9,13 @@
     height: 100%;
 }
 
-#skyScannerContainer {
-    height: 100vh;
+* {
+    box-sizing: border-box;
 }
 
-@media screen and (max-height: 600px) {
     #skyScannerContainer {
         height: unset;
     }
-}
 
 body {
     padding-bottom: 0px;
@@ -94,6 +92,7 @@ th {
     min-width: 350px;
     max-width: 600px;
     padding-top: 0;
+    margin-bottom: 30vh;
 }
 
 #registrationButton {

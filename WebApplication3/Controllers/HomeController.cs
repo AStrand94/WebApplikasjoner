@@ -54,6 +54,7 @@ namespace WebApplication3.Controllers
             {
                 totalPrice += tr.Price * (double)numberOfTravellers;
             }
+            orderObject.TotalPrice = totalPrice;
 
             ViewBag.NumberTravellers = numberOfTravellers;
             return PartialView(model);
@@ -97,6 +98,7 @@ namespace WebApplication3.Controllers
             ViewBag.FlightList = GetFlightsFromId(order.Flights);
             ViewBag.Customer = mainCustomer;
             ViewBag.NumberTravellers = order.NumberTravellers;
+            ViewBag.TotalPrice = order.TotalPrice;
 
             return View();
         }

@@ -6,46 +6,47 @@
 <link rel="stylesheet" type="text/css" href="~/Content/CSS/Payment.css" />
 <script src="~/Scripts/Javascript/Payment.js"></script>
 
+<div id="skyScannerContainer">
 
-@{
-    var order = (List<WebApplication3.Models.Flight>)ViewBag.FlightList;
-    if (order != null)
-    {
-        <div id="flightInformationContainer">
-            <div class="container" id="registrationFlightInformationDiv">
-                <table class="table table-condensed">
-                    <thead>
-                        <tr>
-                            <th>From</th>
-                            <th>To</th>
-                            <th>Date</th>
-                            <th>Price</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var f in order)
-                        {
+    @{
+        var order = (List<WebApplication3.Models.Flight>)ViewBag.FlightList;
+        if (order != null)
+        {
+            <div id="flightInformationContainer">
+                <div class="container" id="registrationFlightInformationDiv">
+                    <table class="table table-condensed">
+                        <thead>
                             <tr>
-                                <td>@f.Route.FromAirport.Name</td>
-                                <td>@f.Route.ToAirport.Name</td>
-                                <td>@f.Time</td>
-                                <td>@(f.Price * ViewBag.NumberTravellers) $</td>
+                                <th>From</th>
+                                <th>To</th>
+                                <th>Date</th>
+                                <th>Price</th>
                             </tr>
-                        }
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                            @foreach (var f in order)
+                            {
+                                <tr>
+                                    <td>@f.Route.FromAirport.Name</td>
+                                    <td>@f.Route.ToAirport.Name</td>
+                                    <td>@f.Time</td>
+                                    <td>@(f.Price * ViewBag.NumberTravellers) $</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
             </div>
-        </div>
+        }
     }
-}
 
-@{
-    if (order != null)
-    {
+    @{
+        if (order != null)
+        {
             <!--Contact Information div-->
-        <div id="contactContainer">
-            <p id="travellerParagraph">Contact</p>
-            <div class="panel">
+            <div id="contactContainer">
+                <p id="travellerParagraph">Contact</p>
+                <div class="panel">
                     <form class="form form-signup" role="form">
                         <div class="form-group">
                             <div class="input-group">
@@ -75,14 +76,14 @@
                             </div>
                         </div>
                     </form>
+                </div>
             </div>
-        </div>
 
-        for (var i = 1; i < ViewBag.NumberTravellers; i++)
-        {
-            <div id="contactContainer">
-                <p id="travellerParagraph">Traveller @(i)</p>
-                <div class="panel">
+            for (var i = 1; i < ViewBag.NumberTravellers; i++)
+            {
+                <div id="contactContainer">
+                    <p id="travellerParagraph">Traveller @(i)</p>
+                    <div class="panel">
                         <form class="form form-signup" role="form">
                             <div class="form-group">
                                 <div class="input-group">
@@ -93,71 +94,72 @@
                                 </div>
                             </div>
                         </form>
+                    </div>
                 </div>
-            </div>
-        }
+            }
 
 
             <!--Payment div-->
-                <div class="row" id="paymentContainer">
-                    <div class="panel panel-default credit-card-box">
-                        <div class="panel-heading display-table">
-                            <div class="row display-tr">
-                                <h3 class="panel-title display-td col-xs-12">Payment Details</h3>
-                            </div>
-                        </div>
-                        <div class="panel-body">
-                            <form role="form" id="payment-form" method="POST" action="/home/overview">
-                                <div class="row">
-                                    <div class="col-xs-12">
-                                        <div class="form-group">
-                                            <label for="cardNumber">CARD NUMBER</label>
-                                            <div class="input-group" style="width: 100%;">
-                                                <input type="tel"
-                                                       style="max-width: 100%; border-radius: 4px;"
-                                                       class="form-control"
-                                                       id="cardNumber"
-                                                       maxlength="16"
-                                                       name="cardNumber"
-                                                       placeholder="Valid Card Number" />
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-xs-7 col-md-7">
-                                        <div class="form-group">
-                                            <label for="cardExpiry">EXPIRATION DATE</label>
-                                            <input type="text"
-                                                   class="form-control"
-                                                   maxlength="5"
-                                                   id="expDate"
-                                                   name="cardExpiry"
-                                                   placeholder="MM/YY" />
-                                        </div>
-                                    </div>
-                                    <div class="col-xs-5 col-md-5 pull-right">
-                                        <div class="form-group">
-                                            <label for="cardCVC">CVC CODE</label>
-                                            <input type="tel"
-                                                   class="form-control"
-                                                   maxlength="3"
-                                                   id="cvc"
-                                                   name="cardCVC"
-                                                   placeholder="CVC" />
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-xs-12">
-                                        <button class="subscribe btn btn-success btn-lg btn-block" style="margin-bottom: 10px;" return onSubmitForm()" type="submit">Pay</button>
-                                    </div>
-                                </div>
-                            </form>
+            <div class="row" id="paymentContainer">
+                <div class="panel panel-default credit-card-box">
+                    <div class="panel-heading display-table">
+                        <div class="row display-tr">
+                            <h3 class="panel-title display-td col-xs-12">Payment Details</h3>
                         </div>
                     </div>
+                    <div class="panel-body">
+                        <form role="form" id="payment-form" method="POST" action="/home/overview">
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    <div class="form-group">
+                                        <label for="cardNumber">CARD NUMBER</label>
+                                        <div class="input-group" style="width: 100%;">
+                                            <input type="tel"
+                                                   style="max-width: 100%; border-radius: 4px;"
+                                                   class="form-control"
+                                                   id="cardNumber"
+                                                   maxlength="16"
+                                                   name="cardNumber"
+                                                   placeholder="Valid Card Number" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-7 col-md-7">
+                                    <div class="form-group">
+                                        <label for="cardExpiry">EXPIRATION DATE</label>
+                                        <input type="text"
+                                               class="form-control"
+                                               maxlength="5"
+                                               id="expDate"
+                                               name="cardExpiry"
+                                               placeholder="MM/YY" />
+                                    </div>
+                                </div>
+                                <div class="col-xs-5 col-md-5 pull-right">
+                                    <div class="form-group">
+                                        <label for="cardCVC">CVC CODE</label>
+                                        <input type="tel"
+                                               class="form-control"
+                                               maxlength="3"
+                                               id="cvc"
+                                               name="cardCVC"
+                                               placeholder="CVC" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    <button class="subscribe btn btn-success btn-lg btn-block" style="margin-bottom: 10px;" return onSubmitForm()" type="submit">Pay</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
                 </div>
+            </div>
         }
     }
 
 
+</div>

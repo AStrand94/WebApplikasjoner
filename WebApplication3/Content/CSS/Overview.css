@@ -1,16 +1,82 @@
 ﻿.flightOrderedHeader {
     margin: auto;
-    width: 50%;
+    width: 100%;
     padding: 10px;
 }
 
-#paymentContainer {
-    display: flex;
+#skyScannerContainer {
+    height: 100vh;
 }
 
-#contactInformationDiv {
-    width: 40%;
-    min-width: 300px;
+@media screen and (max-height: 600px) {
+    #skyScannerContainer {
+        height: unset;
+    }
+}
+
+th {
+    background-color: #696969;
+    color: white;
+}
+
+.body-content {
+    padding-left: 0px;
+    padding-right: 0px;
+    margin-right: 0px;
+    margin-left: 0px;
+    background: url(/Content/images/background_image.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 100%;
+}
+
+body {
+    padding-bottom: 0px;
+}
+
+hr {
+    margin: 0;
+    border-top: none;
+}
+
+h3, h4 {
+    text-align: center;
+    margin: auto;
+    margin-top: 20px;
+    width: 80%;
+    color: #5c5c5c;
+}
+
+p {
+    margin: 0px;
+    font-weight: bold;
+    text-align: center;
+}
+
+#flightInformationDiv {
+    margin: auto;
+    width: 80%;
+    border: 1px solid gray;
+    margin-top: 20px;
+    margin-bottom: 50px;
+    background-color: #fdfdfd;
+    box-shadow: 2px 2px 10px lightgray;
+    min-width: 350px;
+    max-width: 800px;
+}
+
+#overviewContainer {
+    margin: auto;
+    width: 60%;
+    border: 1px solid gray;
+    padding: 10px;
+    margin-top: 50px;
+    margin-bottom: 10px;
+    background-color: #fdfdfd;
+    box-shadow: 2px 2px 10px lightgray;
+    min-width: 330px;
+    max-width: 600px;
+    padding-top: 0;
 }
 
 #flightInformationDiv {
@@ -19,21 +85,33 @@
 }
 
 @media screen and (max-width: 725px) {
-    .flightOrderedHeader {
-        width: 100%;
-    }
-
-    #paymentContainer {
-        display: inherit;
-    }
-
-    #contactInformationDiv {
-        width: 100%;
-        margin: 0;
-    }
-
     #flightInformationDiv {
         padding: 15px;
     }
 }
 
+@media (max-width: 800px) {
+    #travellersContainer {
+        width: 80%;
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+
+    #flightInformationContainer {
+        width: 80%;
+        margin-top: 10px;
+        margin-bottom: 50px;
+    }
+}
+
+@media (min-width: 992px) {
+    .container {
+        max-width: none;
+    }
+}
+
+@media (min-width: 768px) {
+    .container {
+        max-width: none;
+    }
+}

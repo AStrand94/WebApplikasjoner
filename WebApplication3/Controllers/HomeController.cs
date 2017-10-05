@@ -20,10 +20,10 @@ namespace WebApplication3.Controllers
         }
 
         [HttpGet]
-        public ActionResult RegisterFlight(int fromAirportId, int toAirportId, DateTime date,DateTime? returnDate, int? numberOfTravellers) 
+        public ActionResult RegisterFlight(int fromAirportId, int toAirportId, DateTime date,DateTime? returnDate, int numberOfTravellers) 
         {
             var orderObject = GetOrderObject();
-            orderObject.NumberTravellers = numberOfTravellers.GetValueOrDefault();
+            orderObject.NumberTravellers = numberOfTravellers;
             PathHelper pathHelper = new PathHelper(fromAirportId, toAirportId,date, db);
             List<Travel> allFlights = pathHelper.GetAllFlights();
             
@@ -45,16 +45,9 @@ namespace WebApplication3.Controllers
 
             if (returnDate == null && !allFlights.Any() || (!allFlights.Any() || returnDate != null && !returnFlights.Any()))
             {
-                ViewBag.NoData = "No flights on this date. (could also be no flights on this distance..)";
+                ViewBag.NoData = "No flights on this date.";
                 return PartialView();
             }
-
-            double totalPrice = 0;
-            foreach(var tr in model.Travels)
-            {
-                totalPrice += tr.Price * (double)numberOfTravellers;
-            }
-            orderObject.TotalPrice = totalPrice;
 
             ViewBag.NumberTravellers = numberOfTravellers;
             return PartialView(model);
@@ -106,6 +99,7 @@ namespace WebApplication3.Controllers
             order.Customer = mainCustomer;
             order.Travelers = new List<Customer>();
             order.Travelers.AddRange(customers);
+            order.TotalPrice = getTotalPrice(numberTravellers, GetFlightsFromId(order.Flights));
 
             ViewBag.FlightList = GetFlightsFromId(order.Flights);
             ViewBag.Customers = customers;
@@ -113,6 +107,16 @@ namespace WebApplication3.Controllers
             ViewBag.TotalPrice = order.TotalPrice;
 
             return View();
+        }
+
+        private double getTotalPrice(int numberTravellers, IEnumerable<Flight> flights)
+        {
+            double totalPrice = 0;
+            foreach (var tr in flights)
+            {
+                totalPrice += tr.Price * (double)numberTravellers;
+            }
+            return totalPrice;
         }
 
         [HttpPost]

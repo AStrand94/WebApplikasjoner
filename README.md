@@ -4,7 +4,7 @@ Applikasjon for å kunne bestille flybilletter
 
 Laget av: 
 Andreas Strand s305036
-Stian Grimsgaard s......
+Stian Grimsgaard s305537
 
 Applikasjonen vår består av 4 forskjellige sider som brukeren navigerer seg gjennom for å bestillle en billett, samt 3 partial views hvor 2 av dem lastes inn dynamisk.
 

@@ -22,7 +22,7 @@
         $("#travelDescription").text(travelDesc).hide().fadeIn();
         $("#travelFromString").text(tfromstr).hide().fadeIn();
         $("#travelToString").text("").hide().fadeIn();
-        $('#priceTo').text(price).hide().fadeIn();
+        $('#priceTo').text('$' + price).hide().fadeIn();
 
         $('#toFlightsDiv').children('a').each(function () {
             $(this).css('background-color', 'white');
@@ -54,7 +54,7 @@
         $("#travelDescription").text(travelDesc).hide().fadeIn();
         $("#travelFromString").text(tfromstr).hide().fadeIn();
         $("#travelToString").text(ttostr).hide().fadeIn();
-        $('#priceTo').text(price).hide().fadeIn();
+        $('#priceTo').text('$' + price).hide().fadeIn();
 
         $('#toFlightsDiv').children('a').each(function () {
             $(this).css('background-color', 'white');
@@ -84,7 +84,7 @@
         $("#travelDescription2").text(travelDesc2).hide().fadeIn();
         $("#travelFromString2").text(tfromstr2).hide().fadeIn();
         $("#travelToString2").text("").hide().fadeIn();
-        $('#priceReturn').text(price2).hide().fadeIn();
+        $('#priceReturn').text('$' + price2).hide().fadeIn();
 
         $('#returnFlightsDiv').children('a').each(function () {
             $(this).css('background-color', 'white');
@@ -119,7 +119,7 @@
         $("#travelDescription2").text(travelDesc2).hide().fadeIn();
         $("#travelFromString2").text(tfromstr2).hide().fadeIn();
         $("#travelToString2").text(ttostr2).hide().fadeIn();
-        $('#priceReturn').text(price2).hide().fadeIn();
+        $('#priceReturn').text('$' + price2).hide().fadeIn();
 
         $('#returnFlightsDiv').children('a').each(function () {
             $(this).css('background-color', 'white');

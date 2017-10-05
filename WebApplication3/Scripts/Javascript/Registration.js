@@ -22,33 +22,60 @@ $(document).ready(function () {
         }
     });
 
+    $('#regForm').on('submit', function () {
+
+        var message = '';
+        $('.firstname').each(function () {
+            if (!$(this).val()) {
+                message = "Firstname is required.";
+                return false;
+            }
+        });
+
+        if(message === '')
+        $('.lastname').each(function () {
+            if (!$(this).val()) {
+                message = "Lastname is required.";
+                return false;
+            }
+        });
+
+        if (message === '')
+        $('.telephone').each(function () {
+            if (!$(this).val()) {
+                message = "Telephone is required.";
+                return false;
+            }
+        });
+
+        if (message === '')
+        $('.telephone').each(function () {
+            if (!isPhoneNumber($(this).val())) {
+                message = "Not a valid phonenumber.";
+                return false;
+            }
+        });
+
+        if (message === '')
+        $('.email').each(function () {
+            if (!$(this).val()) {
+                message = "Email is required.";
+                return false;
+            }
+        });
+
+        if (message === '')
+        $('.email').each(function () {
+            if (!isEmail($(this).val())) {
+                message = "Not a valid email.";
+                return false;
+            }
+        });
+
+        if (message !== '') {
+            alert(message);
+            return false;
+        }
+    });
+
 });
-
-var onSubmitForm = function () {
-    if (!$('#firstname').val()) {
-        alert("First Name is required.");
-        return false;
-    }
-    if (!$('#lastname').val()) {
-        alert("Last Name is required.");
-        return false;
-    }
-    if (!$('#telephone').val()) {
-        alert("Telephone is required.");
-        return false;
-    }
-    if (!isPhoneNumber($('#telephone').val())) {
-        alert("Not a valid Telephone Number");
-        return false;
-    }
-    if (!$('#email').val()) {
-        alert("Email is required.");
-        return false;
-    }
-    if (!isEmail($('#email').val())) {
-        alert("Not a valid Email");
-        return false;
-    }
-
-    return true;
-}

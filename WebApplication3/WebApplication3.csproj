@@ -191,12 +191,12 @@
     <Content Include="Content\bootstrap-datepicker3.standalone.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
-    <Content Include="Content\CSS\OrderView.css" />
-    <Content Include="Content\CSS\Overview.css" />
-    <Content Include="Content\CSS\Payment.css" />
-    <Content Include="Content\CSS\RegisterFlight.css" />
-    <Content Include="Content\CSS\Registration.css" />
-    <Content Include="Content\CSS\Search.css" />
+    <Content Include="Content\CSS_files\OrderView.css" />
+    <Content Include="Content\CSS_files\Overview.css" />
+    <Content Include="Content\CSS_files\Payment.css" />
+    <Content Include="Content\CSS_files\RegisterFlight.css" />
+    <Content Include="Content\CSS_files\Registration.css" />
+    <Content Include="Content\CSS_files\Search.css" />
     <Content Include="Content\images\background_image.jpg" />
     <Content Include="Content\images\green_checkmark.png" />
     <Content Include="favicon.ico" />
@@ -300,7 +300,7 @@
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
-    <Content Include="Content\CSS\Index.css" />
+    <Content Include="Content\CSS_files\Index.css" />
     <Content Include="Scripts\Javascript\Index.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">

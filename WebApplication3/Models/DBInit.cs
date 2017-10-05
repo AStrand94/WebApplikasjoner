@@ -14,7 +14,8 @@ namespace WebApplication3.Models
            {
                 Id = 0,
                 Firstname = "Andreas",
-                Lastname = "Strand"
+                Lastname = "Strand",
+                Telephone = "90834049"
             };
 
             context.Customers.Add(customer1);

@@ -28,6 +28,23 @@ var onSubmitForm = function () {
         alert("Expiration Date is required.");
         return false;
     }
+
+    var expReg = /^\d{2}\/\d{2}$/;
+    if (!expReg.test($('#expDate').val())) {
+        alert('Format on CVC must be xx/xx');
+        return false;
+    } else {
+        var parts = $('#expDate').val().split('/');
+        if (parseInt(parts[0]) > 12) {
+            alert("Wrong expiration date, month cannot be " + parts[0])
+            return false;
+        }
+    }
+
+    if (!$.isNumeric($("#cvc").val())) {
+        alert("CVC can only have numbers");
+        return false;
+    }
     if ($('#cvc').val().length != 3) {
         alert("CVC must be 3 digit!");
         return false;

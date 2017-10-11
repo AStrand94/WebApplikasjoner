@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
+﻿using System.Collections.Generic;
 
-namespace WebApplication3.Models
+namespace WebApplication3.Model
 {
     public class Customer
     {

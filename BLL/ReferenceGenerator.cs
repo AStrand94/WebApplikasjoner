@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Web;
+using WebApplication3.DAL;
 
-namespace WebApplication3.Models
+namespace WebApplication3.BLL
 {
     public class ReferenceGenerator
     {

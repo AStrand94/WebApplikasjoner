@@ -4,8 +4,10 @@ using System.Data.Entity;
 using System.Data.Entity.Core.Objects;
 using System.Linq;
 using System.Web;
+using WebApplication3.DAL;
+using WebApplication3.Model;
 
-namespace WebApplication3.Models
+namespace WebApplication3.Model
 {
     public class PathHelper
     {

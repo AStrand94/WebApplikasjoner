@@ -4,8 +4,9 @@ using System.Data.Entity;
 using System.Data.Entity.ModelConfiguration.Conventions;
 using System.Linq;
 using System.Web;
+using WebApplication3.Model;
 
-namespace WebApplication3.Models
+namespace WebApplication3.DAL
 {
     public class DB : DbContext
     {

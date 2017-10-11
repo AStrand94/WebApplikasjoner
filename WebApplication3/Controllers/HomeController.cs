@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
+using WebApplication3.DAL;
+using WebApplication3.BLL;
+using WebApplication3.Model;
 using WebApplication3.Models;
+using DTO.Models;
 
 namespace WebApplication3.Controllers
 {
@@ -15,35 +17,17 @@ namespace WebApplication3.Controllers
 
         public ActionResult Index()
         {
-            var airports = db.Airports.ToList();
-            return View(airports);
+            return View(new AirportBLL().getAllAirports());
         }
 
         [HttpGet]
         public ActionResult RegisterFlight(int fromAirportId, int toAirportId, DateTime date,DateTime? returnDate, int numberOfTravellers) 
         {
-            var orderObject = GetOrderObject();
-            orderObject.NumberTravellers = numberOfTravellers;
-            PathHelper pathHelper = new PathHelper(fromAirportId, toAirportId,date, db);
-            List<Travel> allFlights = pathHelper.GetAllFlights();
+            FlightBLL bll = new FlightBLL(fromAirportId, toAirportId, date, returnDate, numberOfTravellers);
+            GetOrderObject().NumberTravellers = numberOfTravellers;
+            TravelModel model = bll.GetTravelModel();
             
-            PathHelper returnHelper;
-            List<Travel> returnFlights = new List<Travel>(); //ønsker egentlig ikke å assigne denne før if'en under..
-            TravelModel model;
-
-            if(returnDate != null)
-            {
-                returnHelper = new PathHelper(toAirportId, fromAirportId, returnDate.GetValueOrDefault(), db);
-                returnFlights = returnHelper.GetAllFlights();
-                returnFlights.ForEach(f => f.isReturnFlight = true);
-                model = new TravelModel(allFlights, returnFlights, pathHelper.FromAirport, pathHelper.ToAirport);
-            }
-            else
-            {
-                model = new TravelModel(allFlights, pathHelper.FromAirport, pathHelper.ToAirport);
-            }
-
-            if (returnDate == null && !allFlights.Any() || (!allFlights.Any() || returnDate != null && !returnFlights.Any()))
+            if (!model.IsValidRoute())
             {
                 ViewBag.NoData = "No flights on this date.";
                 return PartialView();
@@ -79,20 +63,7 @@ namespace WebApplication3.Controllers
             if (Session["Order"] == null) return RedirectToAction("Index");
 
             Customer mainCustomer = customers.ElementAt(0);
-            try
-            {
-                foreach(var customer in customers)
-                {
-                    db.Customers.Add(customer);
-                }
-                
-                db.SaveChanges();
-            }
-            catch (Exception e)
-            {
-                Console.Write(e.ToString());
-                RedirectToAction("Index");
-            }
+            new CustomerBLL().AddCustomers(customers);
 
             int numberTravellers = GetOrderObject().NumberTravellers;
             OrderSession order = GetOrderObject();
@@ -158,7 +129,7 @@ namespace WebApplication3.Controllers
         {
             if (Session["Order"] == null) return View(Session["FinishedOrder"]); //If user tries to refresh page
 
-            String referenceNumber = new ReferenceGenerator().getReferenceNumber(db);
+            String referenceNumber = new ReferenceGenerator().getReferenceNumber(db); //I BLL
             OrderSession order = GetOrderObject();
             
             Order o = new Order

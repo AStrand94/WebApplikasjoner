@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using WebApplication3.Model;
 
-namespace WebApplication3.Models
+namespace WebApplication3.Model
 {
     public class TravelModel
     {
@@ -31,6 +32,11 @@ namespace WebApplication3.Models
             this.ToAirport = toAirport;
             this.Travels.ForEach(f => f.Init());
             this.ReturnTravels.ForEach(f => f.Init());
+        }
+
+        public bool IsValidRoute()
+        {
+            return !(IsReturn == true && !ReturnTravels.Any()) || !Travels.Any();
         }
     }
 }

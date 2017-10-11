@@ -1,5 +1,5 @@
 ﻿
-@model List<WebApplication3.Models.Customer>
+@model List<WebApplication3.Model.Customer>
 
 @{
     ViewBag.Title = "Registration";
@@ -13,7 +13,7 @@
 <div id="skyScannerContainer">
 
     @{
-        var order = (List<WebApplication3.Models.Flight>)ViewBag.FlightList;
+        var order = (List<WebApplication3.Model.Flight>)ViewBag.FlightList;
         if (order != null)
         {
             <div id="flightInformationContainer">

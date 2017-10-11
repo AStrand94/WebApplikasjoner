@@ -162,22 +162,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\Airplane.cs" />
-    <Compile Include="Models\Airport.cs" />
-    <Compile Include="Models\DBWorker.cs" />
-    <Compile Include="Models\Order.cs" />
-    <Compile Include="Models\OrderSession.cs" />
-    <Compile Include="Models\ReferenceGenerator.cs" />
-    <Compile Include="Models\Ticket.cs" />
-    <Compile Include="Models\Travel.cs" />
-    <Compile Include="Models\PathHelper.cs" />
-    <Compile Include="Models\DBInit.cs" />
-    <Compile Include="Models\Customer.cs" />
-    <Compile Include="Models\DB.cs" />
-    <Compile Include="Models\Flight.cs" />
-    <Compile Include="Models\Route.cs" />
     <Compile Include="Models\Traveler.cs" />
-    <Compile Include="Models\TravelModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -337,6 +322,24 @@
   <ItemGroup>
     <None Include="packages.config" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\BLL\BLL.csproj">
+      <Project>{3fcd4e8b-9d0b-42df-9ae0-f97dce9a114d}</Project>
+      <Name>BLL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DAL1\DAL.csproj">
+      <Project>{FA5892D3-DDF3-49DB-8B0E-18C0EEE5D183}</Project>
+      <Name>DAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DTO\DTO.csproj">
+      <Project>{D02652BB-E371-419F-A81C-D02DFF90EB5A}</Project>
+      <Name>DTO</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Model\Model.csproj">
+      <Project>{F6066FE7-CA7C-434B-933F-4BB91442CEE4}</Project>
+      <Name>Model</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

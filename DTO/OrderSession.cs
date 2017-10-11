@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Collections.Generic;
+using WebApplication3.Model;
 
-namespace WebApplication3.Models
+namespace DTO.Models
 {
     public class OrderSession
     {

@@ -30,5 +30,20 @@ namespace WebApplication3.DAL
             return db.Customers.ToList();
         }
 
+        public Customer DeleteCustomer(int id)
+        {
+            //Må slette avhengigheter først. Ikke slett for kunder som har ordre.
+            Customer customer = new Customer()
+            {
+                Id = id
+            };
+
+            db.Customers.Attach(customer)
+            customer = db.Customers.Remove(customer);
+            db.SaveChanges();
+
+            return customer;
+        }
+
     }
 }

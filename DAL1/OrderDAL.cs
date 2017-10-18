@@ -27,5 +27,10 @@ namespace WebApplication3.DAL
             return db.Orders.Where(o => o.Reference.Equals(ReferenceNumber));
         }
 
+        public Order GetOrder(int id)
+        {
+            return db.Orders.Where(o => o.Id == id).Single();
+        }
+
     }
 }

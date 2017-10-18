@@ -63,7 +63,7 @@ namespace WebApplication3.Controllers
             if (Session["Order"] == null) return RedirectToAction("Index");
 
             Customer mainCustomer = customers.ElementAt(0);
-            new CustomerBLL().AddCustomers(customers);
+            //new CustomerBLL().AddCustomers(customers);
 
             int numberTravellers = GetOrderObject().NumberTravellers;
             OrderSession order = GetOrderObject();

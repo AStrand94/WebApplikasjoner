@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using WebApplication3.BLL;
+using WebApplication3.Model;
 
 namespace WebApplication3.Controllers
 {
@@ -86,6 +87,35 @@ namespace WebApplication3.Controllers
             }
 
             return View(new RouteBLL().GetAllRoutes());
+        }
+
+        [HttpGet]
+        public ActionResult Order(int id)
+        {
+            Order o = new OrderBLL().GetOrder(id);
+            if (o != null)
+            {
+                return View(o);
+            }
+            else
+            {
+                return RedirectToAction("Index");
+            }
+        }
+
+        [HttpGet]
+        public ActionResult DeleteCustomer(int id)
+        {
+            //delete customer
+            Customer customer = new CustomerBLL().DeleteCustomer(id);
+            if (customer != null) {
+                ViewBag.Message = customer.Firstname + " " + customer.Lastname + " successfully deleted";
+            }
+            else
+            {
+                ViewBag.Message = "Ann error occured";
+            }
+               return RedirectToAction("Customers");
         }
 
         public bool UserIsLoggedIn()

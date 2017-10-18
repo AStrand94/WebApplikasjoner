@@ -183,6 +183,7 @@
     <Content Include="Content\CSS_files\RegisterFlight.css" />
     <Content Include="Content\CSS_files\Registration.css" />
     <Content Include="Content\CSS_files\Search.css" />
+    <Content Include="Content\CSS_files\Login.css" />
     <Content Include="Content\images\background_image.jpg" />
     <Content Include="Content\images\green_checkmark.png" />
     <Content Include="favicon.ico" />
@@ -210,6 +211,7 @@
     <Content Include="Scripts\Javascript\RegisterFlight.js" />
     <Content Include="Scripts\Javascript\Registration.js" />
     <Content Include="Scripts\Javascript\Search.js" />
+    <Content Include="Scripts\Javascript\Login.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
@@ -305,6 +307,7 @@
     <Content Include="Views\Home\Payment.cshtml" />
     <Content Include="Views\Home\_Search.cshtml" />
     <Content Include="Views\Home\_OrderView.cshtml" />
+    <Content Include="Views\Home\_Login.cshtml"/>
     <Content Include="Views\Home\Overview.cshtml" />
     <Content Include="Views\Admin\Index.cshtml" />
     <Content Include="Views\Home\_Navbar.cshtml" />
@@ -314,6 +317,7 @@
     <Content Include="Views\Admin\Airplanes.cshtml" />
     <Content Include="Views\Admin\Airports.cshtml" />
     <Content Include="Views\Admin\Routes.cshtml" />
+    <Content Include="Views\Admin\Order.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

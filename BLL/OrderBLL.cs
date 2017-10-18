@@ -55,5 +55,10 @@ namespace WebApplication3.BLL
         {
             return new OrderDAL(db).GetOrder(ReferenceNumber);
         }
+
+        public Order GetOrder(int id)
+        {
+            return new OrderDAL(db).GetOrder(id);
+        }
     }
 }

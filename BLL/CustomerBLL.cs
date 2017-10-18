@@ -21,5 +21,10 @@ namespace WebApplication3.BLL
         {
             return new CustomerDAL(db).GetAllCustomers();
         }
+
+        public Customer DeleteCustomer(int id)
+        {
+            return new CustomerDAL(db).DeleteCustomer(id);
+        }
     }
 }

@@ -6,6 +6,11 @@
 
 <h2>Customers</h2>
 
+@if(ViewBag.Message != null)
+{
+    <small>@ViewBag.Message</small>
+}
+
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
@@ -16,18 +21,78 @@
         <div class="panel panel-default">
             <div class="panel-heading" id="heading@(item.Id)">
                 <h4 class="panel-title">
-                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse@(item.Id)" >
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse@(item.Id)">
                         @Html.DisplayFor(modelItem => item.Firstname)
                         @Html.DisplayFor(modelItem => item.Lastname)
                     </a>
                 </h4>
             </div>
-            <div id="collapse@(item.Id)" class="panel-collapse collapse" role="tabpanel"  data-parent="#accordion">
+            <div id="collapse@(item.Id)" class="panel-collapse collapse" role="tabpanel" data-parent="#accordion">
                 <div class="panel-body">
-                    @Html.DisplayFor(modelItem => item.Telephone)
-                    @Html.DisplayFor(modelItem => item.Email)
+                    @using (Html.BeginForm("Admin", "UpdatePerson", FormMethod.Post))
+                    {
+                        <div class="container">
+                            <div class="row form-group">
+                                @Html.LabelFor(i => item.Firstname, new { @class = "control-label col-md-1 " })
+                                <div class="col-md-8 col-md-offset-1">
+                                    @Html.TextBoxFor(i => item.Firstname, new { @class = "form-control", style = "max-width:100%" })
+                                    @Html.ValidationMessageFor(i => item.Firstname)
+                                </div>
+                            </div>
+                            <div class="row form-group">
+                                @Html.LabelFor(i => item.Lastname, new { @class = "control-label col-md-1 " })
+                                <div class="col-md-8 col-md-offset-1">
+                                    @Html.TextBoxFor(i => item.Lastname, new { @class = "form-control", style = "max-width:100%" })
+                                    @Html.ValidationMessageFor(i => item.Firstname)
+                                </div>
+                            </div>
+                            <div class="row form-group">
+                                @Html.LabelFor(i => item.Telephone, new { @class = "control-label col-md-1 " })
+                                <div class="col-md-8 col-md-offset-1">
+                                    @Html.TextBoxFor(i => item.Telephone, new { @class = "form-control", style = "max-width:100%" })
+                                    @Html.ValidationMessageFor(i => item.Firstname)
+                                </div>
+                            </div>
+                            <div class="row form-group">
+                                @Html.LabelFor(i => item.Email, new { @class = "control-label col-md-1 " })
+                                <div class="col-md-8 col-md-offset-1">
+                                    @Html.TextBoxFor(i => item.Email, new { @class = "form-control", style = "max-width:100%" })
+                                    @Html.ValidationMessageFor(i => item.Firstname)
+                                </div>
+                            </div>
+                            <div class="row form-group">
+                                <div class="col">
+                                    <button type="submit" class="btn btn-success">Edit</button>
+                                    <button type="button" class="btn btn-danger" onclick="deletePerson(@(item.Id))" @(item.Order.Any() ? "disabled" : "")>Delete</button>
+                                </div>
+                            </div>
+                            <div class="row form-group">
+                                @if (item.Order.Any())
+                                {
+                                    <hr/>
+                                    <h4>All orders for @item.Lastname, @item.Firstname:</h4>
+                                    <ul class="list-group">
+                                        @foreach (var order in item.Order)
+                                        {
+                                            <li class="list-group-item"><a href="/Admin/Order?id=@(order.Id)">Reference: @(order.Reference)</a></li>
+                                        }
+                                    </ul>
+                                }
+                            </div>
+                        </div>
+                    }
                 </div>
             </div>
         </div>
     }
 </div>
+
+<script>
+
+    function deletePerson(id) {
+        var res = confirm("Are you sure you want to delete this person?");
+        if (res) {
+            window.location.href = "/Admin/DeleteCustomer?id=" + id;
+        }
+    }
+</script>

@@ -38,7 +38,17 @@ namespace WebApplication3.DAL
                 Telephone = "90834049"
             };
 
+            var customer2 = new Customer
+            {
+                Id = 1,
+                Firstname = "Stian",
+                Lastname = "Grimsgaard",
+                Telephone = "12345678",
+                Email = "stian@gmail.com"
+            };
+
             context.Customers.Add(customer1);
+            context.Customers.Add(customer2);
 
             var airport1 = new Airport
             {

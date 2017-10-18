@@ -1,0 +1,58 @@
+﻿@model WebApplication3.Model.Order
+
+@{
+    ViewBag.Title = "Order";
+}
+
+
+<h2>Order <u><B>@Model.Reference</B></u> for customer <u><B>@Model.Customer.Firstname @Model.Customer.Lastname</B></u></h2>
+
+<div class="container">
+    <h3>Tickets:</h3>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Traveller</th>
+                <th>Flight</th>
+                <th>Date</th>
+            </tr>
+        </thead>
+        <tbody>
+        @foreach (var ticket in Model.Tickets)
+        {
+            <tr>
+                <td>@ticket.Traveler.Firstname @ticket.Traveler.Lastname</td>
+                <td>@ticket.Flight.Route.FromAirport.Name - @ticket.Flight.Route.ToAirport.Name</td>
+                <td>@ticket.Flight.Time</td>
+            </tr>
+        }
+        </tbody>
+    </table>
+</div>
+
+<div>
+    <hr />
+
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Reference)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Reference)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TotalPrice)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TotalPrice)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Customers")
+</p>

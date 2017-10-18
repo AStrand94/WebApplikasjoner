@@ -51,6 +51,7 @@
     <Compile Include="AirportBLL.cs" />
     <Compile Include="CustomerBLL.cs" />
     <Compile Include="FlightBLL.cs" />
+    <Compile Include="LoginBLL.cs" />
     <Compile Include="OrderBLL.cs" />
     <Compile Include="PathHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

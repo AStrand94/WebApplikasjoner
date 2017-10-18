@@ -29,5 +29,6 @@ namespace WebApplication3.DAL
         public virtual DbSet<Route> Routes { get; set; }
         public virtual DbSet<Ticket> Tickets { get; set; }
         public virtual DbSet<Order> Orders { get; set; }
+        public virtual DbSet<User> Users { get; set; }
     }
 }

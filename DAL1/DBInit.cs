@@ -9,10 +9,29 @@ namespace WebApplication3.DAL
 {
     public class DBInit : DropCreateDatabaseAlways<DB>
     {
+        private byte[] GetCryptedPassword(String password)
+        {
+            var algorithm = System.Security.Cryptography.SHA512.Create();
+
+            byte[] inData = System.Text.Encoding.ASCII.GetBytes(password);
+            byte[] outData = algorithm.ComputeHash(inData);
+            return outData;
+        }
+
         protected override void Seed(DB context)
         {
+
+            var adminUser = new User
+            {
+                Id = 0,
+                Username = "admin",
+                Password = GetCryptedPassword("admin")
+            };
+
+            context.Users.Add(adminUser);
+
             var customer1 = new Customer
-           {
+            {
                 Id = 0,
                 Firstname = "Andreas",
                 Lastname = "Strand",

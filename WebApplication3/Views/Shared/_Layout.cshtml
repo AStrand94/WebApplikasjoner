@@ -17,6 +17,7 @@
     @if (@ViewContext.RouteData.Values["controller"].ToString() == "Home")
     {
         @Html.Partial("_Search")
+        @Html.Partial("_Login")
     }
     <div class="container body-content">
         @RenderBody()

@@ -16,5 +16,10 @@ namespace WebApplication3.BLL
         {
             new CustomerDAL(db).AddCustomers(customers);
         }
+
+        public IEnumerable<Customer> GetAllCustomers()
+        {
+            return new CustomerDAL(db).GetAllCustomers();
+        }
     }
 }

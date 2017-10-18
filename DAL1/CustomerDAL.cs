@@ -25,5 +25,10 @@ namespace WebApplication3.DAL
             db.SaveChanges();
         }
 
+        public IEnumerable<Customer> GetAllCustomers()
+        {
+            return db.Customers.ToList();
+        }
+
     }
 }

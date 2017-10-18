@@ -7,24 +7,18 @@ using WebApplication3.Model;
 
 namespace WebApplication3.DAL
 {
-    public class FlightDAL
+    public class RouteDAL
     {
         private DB db;
 
-        public FlightDAL(DB db)
+        public RouteDAL(DB db)
         {
             this.db = db;
         }
 
-        public Flight GetFlight(int flightId)
+        public IEnumerable<Route> GetAllRoutes()
         {
-            return db.Flights.Where(f => f.Id == flightId).First();
+            return db.Routes.ToList();
         }
-
-        public IEnumerable<Flight> GetAllFlights()
-        {
-            return db.Flights.ToList();
-        }
-
     }
 }

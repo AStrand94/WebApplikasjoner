@@ -84,6 +84,11 @@ namespace WebApplication3.BLL
             return flights;
         }
 
+        public IEnumerable<Flight> GetAllFlights()
+        {
+            return new FlightDAL(db).GetAllFlights();
+        }
+
 
 
     }

@@ -47,6 +47,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AirplaneDAL.cs" />
     <Compile Include="AirportDAL.cs" />
     <Compile Include="CustomerDAL.cs" />
     <Compile Include="DB.cs" />
@@ -54,6 +55,7 @@
     <Compile Include="FlightDAL.cs" />
     <Compile Include="OrderDAL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RouteDAL.cs" />
     <Compile Include="TicketDAL.cs" />
   </ItemGroup>
   <ItemGroup>

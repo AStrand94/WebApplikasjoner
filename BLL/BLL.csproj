@@ -62,6 +62,10 @@
       <Project>{FA5892D3-DDF3-49DB-8B0E-18C0EEE5D183}</Project>
       <Name>DAL</Name>
     </ProjectReference>
+    <ProjectReference Include="..\DTO\DTO.csproj">
+      <Project>{D02652BB-E371-419F-A81C-D02DFF90EB5A}</Project>
+      <Name>DTO</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Model\Model.csproj">
       <Project>{F6066FE7-CA7C-434B-933F-4BB91442CEE4}</Project>
       <Name>Model</Name>

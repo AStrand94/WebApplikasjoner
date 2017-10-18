@@ -129,37 +129,7 @@ namespace WebApplication3.Controllers
         {
             if (Session["Order"] == null) return View(Session["FinishedOrder"]); //If user tries to refresh page
 
-            String referenceNumber = new ReferenceGenerator().getReferenceNumber(db); //I BLL
-            OrderSession order = GetOrderObject();
-            
-            Order o = new Order
-            {
-                Reference = referenceNumber,
-                Customer = order.Customer
-            };
-            
-            List<Ticket> tickets = new List<Ticket>();
-
-            foreach (Customer tr in order.Travelers) {
-                foreach (int fId in GetOrderObject().Flights) {
-                    Flight flight = db.Flights.Where(f => f.Id == fId).First();
-
-                    Ticket ticket = new Ticket
-                    {
-                        Order = o,
-                        Flight = flight,
-                        Traveler = tr
-                    };
-                    tickets.Add(ticket);
-                }
-            }
-
-            o.Tickets = tickets;
-
-            o.TotalPrice = order.TotalPrice;
-            db.Orders.Add(o);
-            db.Tickets.AddRange(tickets);
-            db.SaveChanges();
+            Order o = new OrderBLL().CreateOrder(GetOrderObject());
 
             Session.Clear();
             Session["FinishedOrder"] = o;
@@ -170,10 +140,10 @@ namespace WebApplication3.Controllers
         [HttpPost]
         public ActionResult _OrderView(string Reference)
         {
-            var model = db.Orders.Where(o => o.Reference.Equals(Reference));
+            var order = new OrderBLL().GetOrder(Reference);
 
-            if (!model.Any()) return PartialView();
-            else return PartialView(model.First());
+            if (!order.Any()) return PartialView();
+            else return PartialView(order.First());
             
         }
 
@@ -195,15 +165,7 @@ namespace WebApplication3.Controllers
 
         private List<Flight> GetFlightsFromId(List<int> flightIds)
         {
-            List<Flight> flights = new List<Flight>();
-
-            foreach(int id in flightIds)
-            {
-                flights.Add(
-                    db.Flights.Where(f => f.Id == id).First()
-                    );
-            }
-            return flights;
+            return new FlightBLL().GetFlights(flightIds);
         }
     }
 }

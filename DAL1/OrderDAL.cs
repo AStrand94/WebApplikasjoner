@@ -1,0 +1,31 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using WebApplication3.Model;
+
+namespace WebApplication3.DAL
+{
+    public class OrderDAL
+    {
+        private DB db;
+
+        public OrderDAL(DB db)
+        {
+            this.db = db;
+        }
+
+        public void addOrder(Order order)
+        {
+            db.Orders.Add(order);
+            db.SaveChanges();
+        }
+
+        public IEnumerable<Order> GetOrder(String ReferenceNumber)
+        {
+            return db.Orders.Where(o => o.Reference.Equals(ReferenceNumber));
+        }
+
+    }
+}

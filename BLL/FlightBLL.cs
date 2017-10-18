@@ -26,6 +26,11 @@ namespace WebApplication3.BLL
             this.numberOfTravellers = numberOfTravellers;
         }
 
+        public FlightBLL()
+        {
+
+        }
+
         private List<Travel> GetFlightsTo()
         {
             PathHelper pathHelper = new PathHelper(fromAirportId, toAirportId, date, db);
@@ -66,7 +71,18 @@ namespace WebApplication3.BLL
             }
         }
 
+        public List<Flight> GetFlights(List<int> flightIds)
+        {
+            List<Flight> flights = new List<Flight>();
+            FlightDAL flightDAL = new FlightDAL(db);
 
+            foreach (int id in flightIds)
+            {
+                flights.Add(flightDAL.GetFlight(id));
+            }
+
+            return flights;
+        }
 
 
 

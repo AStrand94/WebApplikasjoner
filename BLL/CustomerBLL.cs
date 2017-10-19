@@ -17,6 +17,11 @@ namespace WebApplication3.BLL
             new CustomerDAL(db).AddCustomers(customers);
         }
 
+        public void AddCustomer(Customer customer)
+        {
+            new CustomerDAL(db).AddCustomer(customer);
+        }
+
         public IEnumerable<Customer> GetAllCustomers()
         {
             return new CustomerDAL(db).GetAllCustomers();
@@ -25,6 +30,13 @@ namespace WebApplication3.BLL
         public Customer DeleteCustomer(int id)
         {
             return new CustomerDAL(db).DeleteCustomer(id);
+        }
+
+        public bool CanDelete(int id)
+        {
+            Customer customer = new CustomerDAL(db).GetCustomer(id);
+
+            return customer != null  && !customer.Order.Any();
         }
     }
 }

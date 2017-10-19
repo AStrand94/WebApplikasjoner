@@ -307,7 +307,7 @@
     <Content Include="Views\Home\Payment.cshtml" />
     <Content Include="Views\Home\_Search.cshtml" />
     <Content Include="Views\Home\_OrderView.cshtml" />
-    <Content Include="Views\Home\_Login.cshtml"/>
+    <Content Include="Views\Home\_Login.cshtml" />
     <Content Include="Views\Home\Overview.cshtml" />
     <Content Include="Views\Admin\Index.cshtml" />
     <Content Include="Views\Home\_Navbar.cshtml" />
@@ -318,6 +318,8 @@
     <Content Include="Views\Admin\Airports.cshtml" />
     <Content Include="Views\Admin\Routes.cshtml" />
     <Content Include="Views\Admin\Order.cshtml" />
+    <Content Include="Views\Admin\CreateCustomer.cshtml" />
+    <Content Include="Views\Admin\Orders.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

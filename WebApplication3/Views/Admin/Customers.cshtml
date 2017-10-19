@@ -6,13 +6,22 @@
 
 <h2>Customers</h2>
 
-@if(ViewBag.Message != null)
+@if (TempData["message"] != null)
 {
-    <small>@ViewBag.Message</small>
+    <div class="alert alert-success">
+        <strong>Success!</strong> @TempData["message"]
+    </div>
+}
+
+@if (TempData["errorMessage"] != null)
+{
+    <div class="alert alert-danger">
+        <strong>Error!</strong> @TempData["errorMessage"]
+    </div>
 }
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Add customer", "CreateCustomer",null, new { @class="btn btn-primary" })
 </p>
 
 <div id="accordion" class="panel-group">
@@ -31,6 +40,7 @@
                 <div class="panel-body">
                     @using (Html.BeginForm("Admin", "UpdatePerson", FormMethod.Post))
                     {
+                        <input type="hidden" name="id" value="@item.Id" />
                         <div class="container">
                             <div class="row form-group">
                                 @Html.LabelFor(i => item.Firstname, new { @class = "control-label col-md-1 " })
@@ -62,7 +72,7 @@
                             </div>
                             <div class="row form-group">
                                 <div class="col">
-                                    <button type="submit" class="btn btn-success">Edit</button>
+                                    <button type="submit" class="btn btn-success">Apply changes</button>
                                     <button type="button" class="btn btn-danger" onclick="deletePerson(@(item.Id))" @(item.Order.Any() ? "disabled" : "")>Delete</button>
                                 </div>
                             </div>

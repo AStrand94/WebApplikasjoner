@@ -14,7 +14,8 @@ namespace WebApplication3.DAL
             var algorithm = System.Security.Cryptography.SHA512.Create();
 
             byte[] inData = System.Text.Encoding.ASCII.GetBytes(password);
-            byte[] outData = algorithm.ComputeHash(inData);
+            byte[] outData = algorithm.ComputeHash(inData);
+
             return outData;
         }
 

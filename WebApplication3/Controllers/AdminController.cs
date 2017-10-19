@@ -92,6 +92,11 @@ namespace WebApplication3.Controllers
         [HttpGet]
         public ActionResult Order(int id)
         {
+            if (!UserIsLoggedIn())
+            {
+                return RedirectToAction("Index", "Home", new { area = "" });
+            }
+
             Order o = new OrderBLL().GetOrder(id);
             if (o != null)
             {
@@ -106,16 +111,64 @@ namespace WebApplication3.Controllers
         [HttpGet]
         public ActionResult DeleteCustomer(int id)
         {
+            if (!UserIsLoggedIn())
+            {
+                return RedirectToAction("Index", "Home", new { area = "" });
+            }
+
             //delete customer
-            Customer customer = new CustomerBLL().DeleteCustomer(id);
+            CustomerBLL customerBLL = new CustomerBLL();
+
+            if (!customerBLL.CanDelete(id))
+            {
+                SetErrorMessage("This customer has orders connected, and so cannot be deleted!");
+                return RedirectToAction("Customers");
+            }
+
+            Customer customer = customerBLL.DeleteCustomer(id);
             if (customer != null) {
-                ViewBag.Message = customer.Firstname + " " + customer.Lastname + " successfully deleted";
+                SetMessage(customer.Firstname + " " + customer.Lastname + " successfully deleted");
             }
             else
             {
-                ViewBag.Message = "Ann error occured";
+                SetErrorMessage("Ann error occured");
             }
                return RedirectToAction("Customers");
+        }
+
+        public ActionResult CreateCustomer()
+        {
+            if (!UserIsLoggedIn())
+            {
+                return RedirectToAction("Index", "Home", new { area = "" });
+            }
+
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult CreateCustomer(Customer customer)
+        {
+            if (!UserIsLoggedIn())
+            {
+                return RedirectToAction("Index", "Home", new { area = "" });
+            }
+
+            //Validate in server!!
+            if (customer == null || customer.Firstname == null || customer.Lastname == null || customer.Telephone == null || customer.Email == null)
+            {
+                SetErrorMessage("All fields must be filled out!");
+                return View();
+            }
+            new CustomerBLL().AddCustomer(customer);
+            SetMessage(customer.Firstname + " " + customer.Lastname + " successfully created");
+            return RedirectToAction("Customers");
+        }
+
+        public ActionResult Orders()
+        {
+            IEnumerable<Order> orders = new OrderBLL().GetAllOrders();
+            return View(orders);
         }
 
         public bool UserIsLoggedIn()
@@ -125,6 +178,16 @@ namespace WebApplication3.Controllers
                 return false;
             }
             return true;
+        }
+
+        private void SetMessage(string message)
+        {
+            TempData["message"] = message;
+        }
+
+        private void SetErrorMessage(string message)
+        {
+            TempData["errorMessage"] = message;
         }
 
     }

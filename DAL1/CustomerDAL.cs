@@ -33,16 +33,27 @@ namespace WebApplication3.DAL
         public Customer DeleteCustomer(int id)
         {
             //Må slette avhengigheter først. Ikke slett for kunder som har ordre.
-            Customer customer = new Customer()
-            {
-                Id = id
-            };
+            Customer customer = db.Customers.Where(c => c.Id == id).Single();
 
-            db.Customers.Attach(customer);
-            customer = db.Customers.Remove(customer);
-            db.SaveChanges();
+            if (customer != null)
+            {
+                db.Customers.Attach(customer);
+                customer = db.Customers.Remove(customer);
+                db.SaveChanges();
+            }
 
             return customer;
+        }
+
+        public Customer GetCustomer(int id)
+        {
+            return db.Customers.Where(c => c.Id == id).Single();
+        }
+
+        public void AddCustomer(Customer customer)
+        {
+            db.Customers.Add(customer);
+            db.SaveChanges();
         }
 
     }

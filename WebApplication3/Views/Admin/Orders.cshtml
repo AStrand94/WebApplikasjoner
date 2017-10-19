@@ -1,0 +1,51 @@
+﻿@model IEnumerable<WebApplication3.Model.Order>
+
+@{
+    ViewBag.Title = "Orders";
+}
+
+<h2>Orders</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<div id="accordion" class="panel-group">
+    @foreach (var item in Model)
+    {
+        <div class="panel panel-default">
+            <div class="panel-heading" id="heading@(item.Id)">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse@(item.Id)">
+                        @item.Reference
+                    </a>
+                </h4>
+            </div>
+            <div id="collapse@(item.Id)" class="panel-collapse collapse" role="tabpanel" data-parent="#accordion">
+                <div class="panel-body">
+                    <div class="container">
+                        <div class="row form-group">
+                            <h3>Contact person</h3>
+                        </div>
+                        <div class="row form-group">
+                            @Html.LabelFor(modelItem => item.Customer.Firstname, new { @class = "control-label col-md-1 " })
+                            <div class="col-md-8 col-md-offset-1">
+                                @Html.TextBoxFor(i => item.Customer.Firstname, new { @class = "form-control", style = "max-width:100%", @readonly = "true" })
+                                @Html.ValidationMessageFor(i => item.Customer.Firstname)
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            @Html.LabelFor(modelItem => item.Customer.Lastname, new { @class = "control-label col-md-1 " })
+                            <div class="col-md-8 col-md-offset-1">
+                                @Html.TextBoxFor(i => item.Customer.Lastname, new { @class = "form-control", style = "max-width:100%", @readonly = "true" })
+                                @Html.ValidationMessageFor(i => item.Customer.Lastname)
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            Liste av tickets/reisende (bør være egen entitet), flyreise, dato, pris, 
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>

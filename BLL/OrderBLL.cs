@@ -60,5 +60,10 @@ namespace WebApplication3.BLL
         {
             return new OrderDAL(db).GetOrder(id);
         }
+
+        public IEnumerable<Order> GetAllOrders()
+        {
+            return new OrderDAL(db).GetAllOrders();
+        }
     }
 }

@@ -6,6 +6,9 @@
 
 <h2>Routes</h2>
 
+<p>
+    @Html.ActionLink("Add route", "CreateRoute", null, new { @class = "btn btn-primary" })
+</p>
 
 <div id="accordion" class="panel-group">
     @foreach (var item in Model)
@@ -14,7 +17,7 @@
             <div class="panel-heading" id="heading@(item.Id)">
                 <h4 class="panel-title">
                     <a data-toggle="collapse" data-parent="#accordion" href="#collapse@(item.Id)">
-                        Her skal fly, fra og til, evt dato
+                        @item.FromAirport.Name - @item.ToAirport.Name
                     </a>
                 </h4>
             </div>

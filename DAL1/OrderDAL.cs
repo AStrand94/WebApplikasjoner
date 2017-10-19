@@ -32,5 +32,10 @@ namespace WebApplication3.DAL
             return db.Orders.Where(o => o.Id == id).Single();
         }
 
+        public IEnumerable<Order> GetAllOrders()
+        {
+            return db.Orders.ToList();
+        }
+
     }
 }

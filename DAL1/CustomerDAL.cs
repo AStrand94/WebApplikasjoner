@@ -38,7 +38,7 @@ namespace WebApplication3.DAL
                 Id = id
             };
 
-            db.Customers.Attach(customer)
+            db.Customers.Attach(customer);
             customer = db.Customers.Remove(customer);
             db.SaveChanges();
 

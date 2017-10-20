@@ -76,6 +76,7 @@ namespace WebApplication3.Controllers
                 return RedirectToAction("Index", "Home", new { area = "" });
             }
 
+            TempData["allRoutes"] = new RouteBLL().GetAllRoutes();
             return View(new FlightBLL().GetAllFlights());
         }
 

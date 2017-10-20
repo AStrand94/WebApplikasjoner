@@ -21,7 +21,7 @@
         @foreach (var ticket in Model.Tickets)
         {
             <tr>
-                <td>@ticket.Traveler.Firstname @ticket.Traveler.Lastname</td>
+                <td>@ticket.FirstName @ticket.LastName</td>
                 <td>@ticket.Flight.Route.FromAirport.Name - @ticket.Flight.Route.ToAirport.Name</td>
                 <td>@ticket.Flight.Time</td>
             </tr>

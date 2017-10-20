@@ -38,5 +38,10 @@ namespace WebApplication3.BLL
 
             return customer != null  && !customer.Order.Any();
         }
+        
+        public void UpdateCustomer(Customer customer)
+        {
+            new CustomerDAL(db).UpdateCustomer(customer);
+        }
     }
 }

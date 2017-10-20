@@ -171,6 +171,14 @@ namespace WebApplication3.Controllers
             return View(orders);
         }
 
+        [HttpPost]
+        public ActionResult UpdateCustomer(Customer customer)
+        {
+            new CustomerBLL().UpdateCustomer(customer);
+            SetMessage("Customer with id " + customer.Id + " was successfully updated");
+            return RedirectToAction("Customers");
+        }
+
         public bool UserIsLoggedIn()
         {
             if (Session["loggedIn"] == null || Session["loggedIn"].Equals(false))

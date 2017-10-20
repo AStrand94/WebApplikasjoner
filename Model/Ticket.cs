@@ -11,5 +11,7 @@ namespace WebApplication3.Model
         public virtual Order Order { get; set; }
         public virtual Flight Flight { get; set; }
         public virtual Customer Traveler { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
     }
 }

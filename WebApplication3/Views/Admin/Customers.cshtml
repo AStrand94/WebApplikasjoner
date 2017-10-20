@@ -25,64 +25,64 @@
 </p>
 
 <div id="accordion" class="panel-group">
-    @foreach (var item in Model)
+    @foreach (var customer in Model)
     {
         <div class="panel panel-default">
-            <div class="panel-heading" id="heading@(item.Id)">
+            <div class="panel-heading" id="heading@(customer.Id)">
                 <h4 class="panel-title">
-                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse@(item.Id)">
-                        @Html.DisplayFor(modelItem => item.Firstname)
-                        @Html.DisplayFor(modelItem => item.Lastname)
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse@(customer.Id)">
+                        @Html.DisplayFor(modelItem => customer.Firstname)
+                        @Html.DisplayFor(modelItem => customer.Lastname)
                     </a>
                 </h4>
             </div>
-            <div id="collapse@(item.Id)" class="panel-collapse collapse" role="tabpanel" data-parent="#accordion">
+            <div id="collapse@(customer.Id)" class="panel-collapse collapse" role="tabpanel" data-parent="#accordion">
                 <div class="panel-body">
-                    @using (Html.BeginForm("Admin", "UpdatePerson", FormMethod.Post))
+                    @using (Html.BeginForm("UpdateCustomer", "Admin", FormMethod.Post))
                     {
-                        <input type="hidden" name="id" value="@item.Id" />
+                        @Html.HiddenFor(i => customer.Id)
                         <div class="container">
                             <div class="row form-group">
-                                @Html.LabelFor(i => item.Firstname, new { @class = "control-label col-md-1 " })
+                                @Html.LabelFor(i => customer.Firstname, new { @class = "control-label col-md-1 " })
                                 <div class="col-md-8 col-md-offset-1">
-                                    @Html.TextBoxFor(i => item.Firstname, new { @class = "form-control", style = "max-width:100%" })
-                                    @Html.ValidationMessageFor(i => item.Firstname)
+                                    @Html.TextBoxFor(i => customer.Firstname, new { @class = "form-control", style = "max-width:100%" })
+                                    @Html.ValidationMessageFor(i => customer.Firstname)
                                 </div>
                             </div>
                             <div class="row form-group">
-                                @Html.LabelFor(i => item.Lastname, new { @class = "control-label col-md-1 " })
+                                @Html.LabelFor(i => customer.Lastname, new { @class = "control-label col-md-1 " })
                                 <div class="col-md-8 col-md-offset-1">
-                                    @Html.TextBoxFor(i => item.Lastname, new { @class = "form-control", style = "max-width:100%" })
-                                    @Html.ValidationMessageFor(i => item.Firstname)
+                                    @Html.TextBoxFor(i => customer.Lastname, new { @class = "form-control", style = "max-width:100%" })
+                                    @Html.ValidationMessageFor(i => customer.Firstname)
                                 </div>
                             </div>
                             <div class="row form-group">
-                                @Html.LabelFor(i => item.Telephone, new { @class = "control-label col-md-1 " })
+                                @Html.LabelFor(i => customer.Telephone, new { @class = "control-label col-md-1 " })
                                 <div class="col-md-8 col-md-offset-1">
-                                    @Html.TextBoxFor(i => item.Telephone, new { @class = "form-control", style = "max-width:100%" })
-                                    @Html.ValidationMessageFor(i => item.Firstname)
+                                    @Html.TextBoxFor(i => customer.Telephone, new { @class = "form-control", style = "max-width:100%" })
+                                    @Html.ValidationMessageFor(i => customer.Firstname)
                                 </div>
                             </div>
                             <div class="row form-group">
-                                @Html.LabelFor(i => item.Email, new { @class = "control-label col-md-1 " })
+                                @Html.LabelFor(i => customer.Email, new { @class = "control-label col-md-1 " })
                                 <div class="col-md-8 col-md-offset-1">
-                                    @Html.TextBoxFor(i => item.Email, new { @class = "form-control", style = "max-width:100%" })
-                                    @Html.ValidationMessageFor(i => item.Firstname)
+                                    @Html.TextBoxFor(i => customer.Email, new { @class = "form-control", style = "max-width:100%" })
+                                    @Html.ValidationMessageFor(i => customer.Firstname)
                                 </div>
                             </div>
                             <div class="row form-group">
                                 <div class="col">
                                     <button type="submit" class="btn btn-success">Apply changes</button>
-                                    <button type="button" class="btn btn-danger" onclick="deletePerson(@(item.Id))" @(item.Order.Any() ? "disabled" : "")>Delete</button>
+                                    <button type="button" class="btn btn-danger" onclick="deletePerson(@(customer.Id))" @(customer.Order.Any() ? "disabled" : "")>Delete</button>
                                 </div>
                             </div>
                             <div class="row form-group">
-                                @if (item.Order.Any())
+                                @if (customer.Order.Any())
                                 {
                                     <hr/>
-                                    <h4>All orders for @item.Lastname, @item.Firstname:</h4>
+                                    <h4>All orders for @customer.Lastname, @customer.Firstname:</h4>
                                     <ul class="list-group">
-                                        @foreach (var order in item.Order)
+                                        @foreach (var order in customer.Order)
                                         {
                                             <li class="list-group-item"><a href="/Admin/Order?id=@(order.Id)">Reference: @(order.Reference)</a></li>
                                         }

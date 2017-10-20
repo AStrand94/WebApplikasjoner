@@ -56,5 +56,16 @@ namespace WebApplication3.DAL
             db.SaveChanges();
         }
 
+        public void UpdateCustomer(Customer customer)
+        {
+            Customer customerInDb = db.Customers.Single(c => c.Id == customer.Id);
+            customerInDb.Firstname = customer.Firstname;
+            customerInDb.Lastname = customer.Lastname;
+            customerInDb.Telephone = customer.Telephone;
+            customerInDb.Email = customer.Email;
+
+            db.SaveChanges();
+        }
+
     }
 }

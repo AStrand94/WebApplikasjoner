@@ -36,7 +36,8 @@ namespace WebApplication3.BLL
                     {
                         Order = o,
                         Flight = flight,
-                        Traveler = tr
+                        FirstName = tr.Firstname,
+                        LastName = tr.Lastname
                     };
                     tickets.Add(ticket);
                 }

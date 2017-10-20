@@ -17,6 +17,7 @@ namespace WebApplication3.Controllers
             if(loginBLL.checkLogin(username, password))
             {
                 Session["loggedIn"] = true;
+                Session["loggedInUser"] = username;
                 return RedirectToAction("Index");
             }
 
@@ -35,6 +36,15 @@ namespace WebApplication3.Controllers
             {
                 return RedirectToAction("Index", "Home", new { area = "" });
             }
+
+            ViewBag.loggedInUser = Session["loggedInUser"];
+
+            ViewBag.Customers = new CustomerBLL().GetAllCustomers().Count();
+            ViewBag.Orders = new OrderBLL().GetAllOrders().Count();
+            ViewBag.Flights = new FlightBLL().GetAllFlights().Count();
+            ViewBag.Routes = new RouteBLL().GetAllRoutes().Count();
+            ViewBag.Airplanes = new AirplaneBLL().GetAllAirplanes().Count();
+            ViewBag.Airports = new AirportBLL().GetAllAirports().Count();
 
             return View();
         }
@@ -56,7 +66,7 @@ namespace WebApplication3.Controllers
                 return RedirectToAction("Index", "Home", new { area = "" });
             }
 
-            return View(new AirportBLL().getAllAirports());
+            return View(new AirportBLL().GetAllAirports());
         }
 
         public ActionResult Customers()
@@ -136,6 +146,34 @@ namespace WebApplication3.Controllers
                return RedirectToAction("Customers");
         }
 
+        [HttpGet]
+        public ActionResult DeleteAirport(int id)
+        {
+            if (!UserIsLoggedIn())
+            {
+                return RedirectToAction("Index", "Home", new { area = "" });
+            }
+
+            AirportBLL airportBLL = new AirportBLL();
+
+            if (!airportBLL.CanDelete(id))
+            {
+                SetErrorMessage("This airport has routes connected and cannot be deleted!");
+                return RedirectToAction("Airports");
+            }
+
+            Airport airport = airportBLL.DeleteAirport(id);
+            if (airport != null)
+            {
+                SetMessage(airport.Name + " successfully deleted");
+            }
+            else
+            {
+                SetErrorMessage("Ann error occured");
+            }
+            return RedirectToAction("Airports");
+        }
+
         public ActionResult CreateCustomer()
         {
             if (!UserIsLoggedIn())
@@ -165,6 +203,34 @@ namespace WebApplication3.Controllers
             return RedirectToAction("Customers");
         }
 
+        public ActionResult CreateAirport()
+        {
+            if (!UserIsLoggedIn())
+            {
+                return RedirectToAction("Index", "Home", new { area = "" });
+            }
+
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult CreateAirport(Airport airport)
+        {
+            if (!UserIsLoggedIn())
+            {
+                return RedirectToAction("Index", "Home", new { area = "" });
+            }
+
+            if (airport == null || airport.Name == null || airport.Code == null || airport.Country == null || airport.City == null)
+            {
+                SetErrorMessage("All fields must be filled out!");
+                return View();
+            }
+            new AirportBLL().AddAirport(airport);
+            SetMessage(airport.Name + " successfully created");
+            return RedirectToAction("Airports");
+        }
+
         public ActionResult Orders()
         {
             IEnumerable<Order> orders = new OrderBLL().GetAllOrders();
@@ -177,6 +243,14 @@ namespace WebApplication3.Controllers
             new CustomerBLL().UpdateCustomer(customer);
             SetMessage("Customer with id " + customer.Id + " was successfully updated");
             return RedirectToAction("Customers");
+        }
+
+        [HttpPost]
+        public ActionResult UpdateAirport(Airport airport)
+        {
+            new AirportBLL().UpdateAirport(airport);
+            SetMessage("Airport " + airport.Name + " was successfully updated");
+            return RedirectToAction("Airports");
         }
 
         public bool UserIsLoggedIn()

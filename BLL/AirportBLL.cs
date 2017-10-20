@@ -12,14 +12,36 @@ namespace WebApplication3.BLL
     {
         private DB db = new DB();
         
-        public List<Airport> getAllAirports()
+        public List<Airport> GetAllAirports()
         {
-            return new AirportDAL(db).getAllAirports();
+            return new AirportDAL(db).GetAllAirports();
         }
 
         public Airport GetById(int Id)
         {
             return new AirportDAL(db).GetById(Id);
+        }
+
+        public void AddAirport(Airport airport)
+        {
+            new AirportDAL(db).AddAirport(airport);
+        }
+
+        public void UpdateAirport(Airport airport)
+        {
+            new AirplaneDAL(db).UpdateAirport(airport);
+        }
+
+        public bool CanDelete(int id)
+        {
+            Airport airport = new AirportDAL(db).GetAirport(id);
+
+            return airport != null && !airport.Routes.Any();
+        }
+
+        public Airport DeleteAirport(int id)
+        {
+            return new AirportDAL(db).DeleteAirport(id);
         }
     }
 }

@@ -56,7 +56,7 @@ namespace WebApplication3.Controllers
                 return RedirectToAction("Index", "Home", new { area = "" });
             }
 
-            return View(new AirplaneBLL().GetAllAirplanes());
+            return View(new AirplaneBLL().GetAllAirplanes().OrderBy(a => a.Model));
         }
 
         public ActionResult Airports()
@@ -66,7 +66,8 @@ namespace WebApplication3.Controllers
                 return RedirectToAction("Index", "Home", new { area = "" });
             }
 
-            return View(new AirportBLL().GetAllAirports());
+            return View(new AirportBLL().GetAllAirports().OrderBy(a => a.Name));
+
         }
 
         public ActionResult Customers()
@@ -76,7 +77,7 @@ namespace WebApplication3.Controllers
                 return RedirectToAction("Index", "Home", new { area = "" });
             }
 
-            return View(new CustomerBLL().GetAllCustomers());
+            return View(new CustomerBLL().GetAllCustomers().OrderBy(c => c.Firstname));
         }
 
         public ActionResult Flights()
@@ -86,6 +87,7 @@ namespace WebApplication3.Controllers
                 return RedirectToAction("Index", "Home", new { area = "" });
             }
 
+            TempData["allRoutes"] = new RouteBLL().GetAllRoutes();
             return View(new FlightBLL().GetAllFlights());
         }
 
@@ -96,7 +98,7 @@ namespace WebApplication3.Controllers
                 return RedirectToAction("Index", "Home", new { area = "" });
             }
 
-            return View(new RouteBLL().GetAllRoutes());
+            return View(new RouteBLL().GetAllRoutes().OrderBy(r => r.FromAirport.Name));
         }
 
         [HttpGet]
@@ -234,7 +236,7 @@ namespace WebApplication3.Controllers
         public ActionResult Orders()
         {
             IEnumerable<Order> orders = new OrderBLL().GetAllOrders();
-            return View(orders);
+            return View(orders.OrderBy(o => o.Reference));
         }
 
         [HttpPost]

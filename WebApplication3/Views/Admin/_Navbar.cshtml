@@ -6,16 +6,17 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("Skytravel", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                @Html.ActionLink("Skytravel", "Index", "Home", new { area = "" }, new { @class = "navbar-brand", @style = "border-right: solid white;" })
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li><a href="/Admin/Airports" style="cursor:pointer;">Airports  </a></li>
-                    <li><a href="/Admin/Airplanes" style="cursor:pointer;">Airplanes  </a></li>
-                    <li><a href="/Admin/Customers" style="cursor:pointer;">Customers   </a></li>
-                    <li><a href="/Admin/Flights" style="cursor:pointer;">Flights  </a></li>
-                    <li><a href="/Admin/Orders" style="cursor:pointer;">Orders  </a></li>
-                    <li><a href="/Admin/Routes" style="cursor:pointer;">Routes   </a></li>
+                    <li><a href="/Admin/Index" style="cursor:pointer; color: white;">Home  </a></li>
+                    <li><a href="/Admin/Airports" style="cursor:pointer; color: white;">Airports  </a></li>
+                    <li><a href="/Admin/Airplanes" style="cursor:pointer; color: white;">Airplanes  </a></li>
+                    <li><a href="/Admin/Customers" style="cursor:pointer; color: white;">Customers   </a></li>
+                    <li><a href="/Admin/Flights" style="cursor:pointer; color: white;">Flights  </a></li>
+                    <li><a href="/Admin/Orders" style="cursor:pointer; color: white;">Orders  </a></li>
+                    <li><a href="/Admin/Routes" style="cursor:pointer; color: white;">Routes   </a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <li><a href="/Admin/LogOut" style="cursor:pointer; color: white;">Sign out</a></li>

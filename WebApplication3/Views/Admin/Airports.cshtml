@@ -22,20 +22,88 @@
     </div>
 }
 
+<p>
+    @Html.ActionLink("Add airport", "CreateAirport", null, new { @class = "btn btn-primary" })
+</p>
+
 <div id="accordion" class="panel-group">
-    @foreach (var item in Model)
+    @foreach (var airport in Model)
     {
         <div class="panel panel-default">
-            <div class="panel-heading" id="heading@(item.Id)">
+            <div class="panel-heading" id="heading@(airport.Id)">
                 <h4 class="panel-title">
-                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse@(item.Id)" class="searchItem">@Html.DisplayFor(modelItem => item.Name)</a>
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse@(airport.Id)" class="searchItem">@Html.DisplayFor(modelItem => airport.Name)</a>
                 </h4>
             </div>
-            <div id="collapse@(item.Id)" class="panel-collapse collapse" role="tabpanel" data-parent="#accordion">
+            <div id="collapse@(airport.Id)" class="panel-collapse collapse" role="tabpanel" data-parent="#accordion">
                 <div class="panel-body">
-                    @Html.DisplayFor(modelItem => item.Name)
+                    @using (Html.BeginForm("UpdateAirport", "Admin", FormMethod.Post))
+                    {
+                        @Html.HiddenFor(i => airport.Id)
+                        <div class="container">
+                            <div class="row form-group">
+                                @Html.LabelFor(i => airport.Name, new { @class = "control-label col-md-1 " })
+                                <div class="col-md-8 col-md-offset-1">
+                                    @Html.TextBoxFor(i => airport.Name, new { @class = "form-control", style = "max-width:100%" })
+                                    @Html.ValidationMessageFor(i => airport.Name)
+                                </div>
+                            </div>
+                            <div class="row form-group">
+                                @Html.LabelFor(i => airport.Code, new { @class = "control-label col-md-1 " })
+                                <div class="col-md-8 col-md-offset-1">
+                                    @Html.TextBoxFor(i => airport.Code, new { @class = "form-control", style = "max-width:100%" })
+                                    @Html.ValidationMessageFor(i => airport.Code)
+                                </div>
+                            </div>
+                            <div class="row form-group">
+                                @Html.LabelFor(i => airport.Country, new { @class = "control-label col-md-1 " })
+                                <div class="col-md-8 col-md-offset-1">
+                                    @Html.TextBoxFor(i => airport.Country, new { @class = "form-control", style = "max-width:100%" })
+                                    @Html.ValidationMessageFor(i => airport.Country)
+                                </div>
+                            </div>
+                            <div class="row form-group">
+                                @Html.LabelFor(i => airport.City, new { @class = "control-label col-md-1 " })
+                                <div class="col-md-8 col-md-offset-1">
+                                    @Html.TextBoxFor(i => airport.City, new { @class = "form-control", style = "max-width:100%" })
+                                    @Html.ValidationMessageFor(i => airport.City)
+                                </div>
+                            </div>
+                            
+                            <div class="row form-group">
+                                <div class="col">
+                                    <button type="submit" class="btn btn-success">Apply changes</button>
+                                    <button type="button" class="btn btn-danger" onclick="deleteAirport(@(airport.Id))">Delete</button>
+                                </div>
+                            </div>
+                        </div>
+                    }
                 </div>
             </div>
         </div>
     }
 </div>
+
+<script>
+
+    function deleteAirport(id) {
+        bootbox.confirm({
+            message: "Are you sure you want to delete this airport?",
+            buttons: {
+                confirm: {
+                    label: 'Yes',
+                    className: 'btn-success'
+                },
+                cancel: {
+                    label: 'No',
+                    className: 'btn-danger'
+                }
+            },
+            callback: function (result) {
+                window.location.href = "/Admin/DeleteAirport?id=" + id;
+            }
+        });
+
+        
+    }
+</script>

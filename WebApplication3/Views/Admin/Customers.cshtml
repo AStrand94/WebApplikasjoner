@@ -6,6 +6,8 @@
 
 <h2>Customers</h2>
 
+@Html.Partial("_Search")
+
 @if (TempData["message"] != null)
 {
     <div class="alert alert-success">
@@ -30,10 +32,7 @@
         <div class="panel panel-default">
             <div class="panel-heading" id="heading@(customer.Id)">
                 <h4 class="panel-title">
-                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse@(customer.Id)">
-                        @Html.DisplayFor(modelItem => customer.Firstname)
-                        @Html.DisplayFor(modelItem => customer.Lastname)
-                    </a>
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse@(customer.Id)" class="searchItem">@Html.DisplayFor(modelItem => customer.Firstname) @Html.DisplayFor(modelItem => customer.Lastname)</a>
                 </h4>
             </div>
             <div id="collapse@(customer.Id)" class="panel-collapse collapse" role="tabpanel" data-parent="#accordion">

@@ -1,0 +1,18 @@
+﻿input[type=text] {
+    width: 180px;
+    box-sizing: border-box;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    background-color: transparent;
+    background-position: 10px 10px;
+    background-repeat: no-repeat;
+    margin-bottom: 10px;
+    padding: 6px 12px 6px 12px;
+    -webkit-transition: width 0.4s ease-in-out;
+    transition: width 0.4s ease-in-out;
+}
+
+input[type=text]:focus {
+    width: 100%;
+}

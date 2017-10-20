@@ -6,6 +6,8 @@
 
 <h2>Orders</h2>
 
+@Html.Partial("_Search")
+
 @if (TempData["message"] != null)
 {
     <div class="alert alert-success">
@@ -29,9 +31,7 @@
         <div class="panel panel-default">
             <div class="panel-heading" id="heading@(item.Id)">
                 <h4 class="panel-title">
-                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse@(item.Id)">
-                        @item.Reference
-                    </a>
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse@(item.Id)" class="searchItem">@item.Reference</a>
                 </h4>
             </div>
             <div id="collapse@(item.Id)" class="panel-collapse collapse" role="tabpanel" data-parent="#accordion">

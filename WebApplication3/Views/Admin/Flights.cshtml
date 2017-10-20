@@ -6,6 +6,8 @@
 
 <h2>Flights</h2>
 
+@Html.Partial("_Search")
+
 <p>
     @Html.ActionLink("Add flight", "CreateFlight", null, new { @class = "btn btn-primary" })
 </p>
@@ -16,9 +18,7 @@
         <div class="panel panel-default">
             <div class="panel-heading" id="heading@(item.Id)">
                 <h4 class="panel-title">
-                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse@(item.Id)">
-                        @item.Route.FromAirport.Name - @item.Route.ToAirport.Name, @item.Time.ToShortDateString()
-                    </a>
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse@(item.Id)" class="searchItem">@item.Route.FromAirport.Name - @item.Route.ToAirport.Name, @item.Time.ToShortDateString()</a>
                 </h4>
             </div>
             <div id="collapse@(item.Id)" class="panel-collapse collapse" role="tabpanel" data-parent="#accordion">

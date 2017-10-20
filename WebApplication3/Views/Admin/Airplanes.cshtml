@@ -6,6 +6,8 @@
 
 <h2>Airplanes</h2>
 
+@Html.Partial("_Search")
+
 <p>
     @Html.ActionLink("Add airplane", "CreateAirplane", null, new { @class = "btn btn-primary" })
 </p>
@@ -16,10 +18,7 @@
         <div class="panel panel-default">
             <div class="panel-heading" id="heading@(item.Id)">
                 <h4 class="panel-title">
-                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse@(item.Id)">
-                        @Html.DisplayFor(modelItem => item.Model)
-                        @Html.DisplayFor(modelItem => item.Seats)   <!--Må nok endres etterhvert, evt slett om ikke trenger fly-->
-                    </a>
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse@(item.Id)" class="searchItem">@Html.DisplayFor(modelItem => item.Model)</a>
                 </h4>
             </div>
             <div id="collapse@(item.Id)" class="panel-collapse collapse" role="tabpanel" data-parent="#accordion">

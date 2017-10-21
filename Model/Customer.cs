@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace WebApplication3.Model
 {
@@ -10,5 +11,12 @@ namespace WebApplication3.Model
         public string Telephone { get; set; }
         public string Email { get; set; }
         public virtual List<Order> Order { get; set; }
+        public string FullInfo
+        {
+            get
+            {
+                return String.Format("{0} {1}, {2}, {3}", Firstname, Lastname, Telephone, Email);
+            }
+        }
     }
 }

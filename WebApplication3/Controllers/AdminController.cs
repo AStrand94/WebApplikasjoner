@@ -270,6 +270,18 @@ namespace WebApplication3.Controllers
             return RedirectToAction("Airports");
         }
 
+        public ActionResult CreateOrder()
+        {
+            if (!UserIsLoggedIn())
+            {
+                return RedirectToAction("Index", "Home", new { area = "" });
+            }
+
+            ViewBag.AllCustomers = new CustomerBLL().GetAllCustomers();
+
+            return View();
+        }
+
         public ActionResult Orders()
         {
             IEnumerable<Order> orders = new OrderBLL().GetAllOrders();

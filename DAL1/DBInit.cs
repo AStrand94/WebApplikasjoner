@@ -51,6 +51,24 @@ namespace WebApplication3.DAL
             context.Customers.Add(customer1);
             context.Customers.Add(customer2);
 
+
+            var airplane1 = new Airplane
+            {
+                Id = 0,
+                Model = "Boeing 777",
+                Seats = 120
+            };
+
+            var airplane2 = new Airplane
+            {
+                Id = 1,
+                Model = "Airbus A380",
+                Seats = 110
+            };
+
+            context.Airplanes.Add(airplane1);
+            context.Airplanes.Add(airplane2);
+            
             var airport1 = new Airport
             {
                 Id = 0,
@@ -149,7 +167,8 @@ namespace WebApplication3.DAL
                 Id = 0,
                 Time = new DateTime(2017,09,12,12,00,00),
                 Route = route1,
-                Price = 99.99
+                Price = 99.99,
+                Airplane = airplane1
             };
 
             var flight2 = new Flight
@@ -157,7 +176,8 @@ namespace WebApplication3.DAL
                 Id = 1,
                 Time = new DateTime(2017, 09, 12,13,25,00),
                 Route = route1,
-                Price = 89.99
+                Price = 89.99,
+                Airplane = airplane2
             };
 
             var flight3 = new Flight
@@ -165,7 +185,8 @@ namespace WebApplication3.DAL
                 Id = 2,
                 Time = new DateTime(2017, 09, 12,17,30,00),
                 Route = route2,
-                Price = 40.0
+                Price = 40.0,
+                Airplane = airplane2
             };
 
             var flight4 = new Flight
@@ -173,7 +194,8 @@ namespace WebApplication3.DAL
                 Id = 3,
                 Time = new DateTime(2017, 09, 12,14,00,00),      //reise fra Flesland til Paris
                 Route = route4,
-                Price = 120.0
+                Price = 120.0,
+                Airplane = airplane1
             };
 
             var flight5 = new Flight
@@ -181,7 +203,8 @@ namespace WebApplication3.DAL
                 Id = 4,
                 Time = new DateTime(2017, 09, 13,20,30,00),
                 Route = route5,
-                Price = 55.0
+                Price = 55.0,
+                Airplane = airplane2
             };
 
             var flight6 = new Flight
@@ -189,7 +212,8 @@ namespace WebApplication3.DAL
                 Id = 5,
                 Time = new DateTime(2017, 09, 13,07,50,00),
                 Route = route6,
-                Price = 90.0
+                Price = 90.0,
+                Airplane = airplane1
             };
 
             var flight7 = new Flight
@@ -197,7 +221,8 @@ namespace WebApplication3.DAL
                 Id = 6,
                 Time = new DateTime(2017, 09, 13,11,00,00),
                 Route = route7,
-                Price = 60.0
+                Price = 60.0,
+                Airplane = airplane2
             };
 
             context.Flights.Add(flight1);
@@ -250,7 +275,6 @@ namespace WebApplication3.DAL
             context.Tickets.Add(ticket2);
             context.Tickets.Add(ticket3);
             context.Tickets.Add(ticket4);
-
 
             base.Seed(context);
         }

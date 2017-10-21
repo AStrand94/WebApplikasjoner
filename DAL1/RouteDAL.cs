@@ -25,5 +25,9 @@ namespace WebApplication3.DAL
         {
             return db.Routes.Any(r => r.FromAirport.Id == id || r.ToAirport.Id == id);
         }
+        public Route GetRoute(int id)
+        {
+            return db.Routes.Where(r => r.Id == id).Single();
+        }
     }
 }

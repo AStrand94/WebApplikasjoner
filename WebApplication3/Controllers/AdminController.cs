@@ -332,14 +332,46 @@ namespace WebApplication3.Controllers
         [HttpPost]
         public ActionResult CreateAirplane(Airplane airplane)
         {
+            if (!UserIsLoggedIn())
+            {
+                return RedirectToAction("Index", "Home", new { area = "" });
+            }
+
             AirplaneBLL bll = new AirplaneBLL();
             bll.InsertAirplane(airplane);
 
             return RedirectToAction("Airplanes");
         }
 
+        public ActionResult CreateRoute()
+        {
+            if (!UserIsLoggedIn())
+            {
+                return RedirectToAction("Index", "Home", new { area = "" });
+            }
+
+            TempData["allAirports"] = new AirportBLL().GetAllAirports();
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult CreateRoute(Route route)
+        {
+            if (!UserIsLoggedIn())
+            {
+                return RedirectToAction("Index", "Home", new { area = "" });
+            }
+
+            return RedirectToAction("Routes");
+        }
+
         public ActionResult Orders()
         {
+            if (!UserIsLoggedIn())
+            {
+                return RedirectToAction("Index", "Home", new { area = "" });
+            }
+
             IEnumerable<Order> orders = new OrderBLL().GetAllOrders();
             return View(orders.OrderBy(o => o.Reference));
         }
@@ -347,6 +379,11 @@ namespace WebApplication3.Controllers
         [HttpPost]
         public ActionResult UpdateCustomer(Customer customer)
         {
+            if (!UserIsLoggedIn())
+            {
+                return RedirectToAction("Index", "Home", new { area = "" });
+            }
+
             new CustomerBLL().UpdateCustomer(customer);
             SetMessage("Customer with id " + customer.Id + " was successfully updated");
             return RedirectToAction("Customers");
@@ -355,6 +392,11 @@ namespace WebApplication3.Controllers
         [HttpPost]
         public ActionResult UpdateAirport(Airport airport)
         {
+            if (!UserIsLoggedIn())
+            {
+                return RedirectToAction("Index", "Home", new { area = "" });
+            }
+
             new AirportBLL().UpdateAirport(airport);
             SetMessage("Airport " + airport.Name + " was successfully updated");
             return RedirectToAction("Airports");
@@ -363,6 +405,11 @@ namespace WebApplication3.Controllers
         [HttpPost]
         public ActionResult UpdateFlight(Flight flight)
         {
+            if (!UserIsLoggedIn())
+            {
+                return RedirectToAction("Index", "Home", new { area = "" });
+            }
+
             FlightBLL bll = new FlightBLL();
             string result = bll.CanUpdateFlight(flight);
             if (result.Length == 0)
@@ -380,6 +427,11 @@ namespace WebApplication3.Controllers
         [HttpPost]
         public ActionResult UpdateAirplane(Airplane airplane)
         {
+            if (!UserIsLoggedIn())
+            {
+                return RedirectToAction("Index", "Home", new { area = "" });
+            }
+
             AirplaneBLL bll = new AirplaneBLL();
             string result = bll.CanUpdateAirplane(airplane);
 
@@ -396,6 +448,11 @@ namespace WebApplication3.Controllers
         [HttpGet]
         public ActionResult DeleteFlight(int id)
         {
+            if (!UserIsLoggedIn())
+            {
+                return RedirectToAction("Index", "Home", new { area = "" });
+            }
+
             FlightBLL bll = new FlightBLL();
             string message = bll.CanDeleteFlight(id);
 
@@ -415,6 +472,11 @@ namespace WebApplication3.Controllers
         [HttpGet]
         public ActionResult DeleteAirplane(int id)
         {
+            if (!UserIsLoggedIn())
+            {
+                return RedirectToAction("Index", "Home", new { area = "" });
+            }
+
             AirplaneBLL bll = new AirplaneBLL();
             string result = bll.CanDeleteAirplane(id);
 

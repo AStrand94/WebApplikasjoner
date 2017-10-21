@@ -20,5 +20,10 @@ namespace WebApplication3.DAL
         {
             return db.Routes.ToList();
         }
+
+        public Route GetRoute(int id)
+        {
+            return db.Routes.Where(r => r.Id == id).Single();
+        }
     }
 }

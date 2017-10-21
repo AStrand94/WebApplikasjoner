@@ -87,6 +87,7 @@ namespace WebApplication3.Controllers
                 return RedirectToAction("Index", "Home", new { area = "" });
             }
 
+            TempData["allAirplanes"] = new AirplaneBLL().GetAllAirplanes();
             TempData["allRoutes"] = new RouteBLL().GetAllRoutes();
             return View(new FlightBLL().GetAllFlights());
         }
@@ -253,6 +254,23 @@ namespace WebApplication3.Controllers
             new AirportBLL().UpdateAirport(airport);
             SetMessage("Airport " + airport.Name + " was successfully updated");
             return RedirectToAction("Airports");
+        }
+
+        [HttpPost]
+        public ActionResult UpdateFlight(Flight flight)
+        {
+            FlightBLL bll = new FlightBLL();
+            string result = bll.CanUpdateFlight(flight);
+            if (result.Length == 0)
+            {
+                bll.UpdateFlight(flight);
+            }
+            else
+            {
+                SetErrorMessage(result);
+            }
+
+            return RedirectToAction("Flights");
         }
 
         public bool UserIsLoggedIn()

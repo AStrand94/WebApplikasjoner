@@ -89,6 +89,37 @@ namespace WebApplication3.BLL
             return new FlightDAL(db).GetAllFlights();
         }
 
+        public String CanUpdateFlight(Flight flight)
+        {
+            StringBuilder stringBuilder = new StringBuilder();
+            if (flight.Price == 0 || flight.Route == null || flight.Time == null || flight.Id < 0)
+            {
+                stringBuilder.Append("All field must be filled!\n\r");
+            }
+
+            if (flight.Time != null && flight.Time < DateTime.Now)
+            {
+                stringBuilder.Append("Time cannot be before now!\n\r");
+            }
+
+            return stringBuilder.ToString();
+        }
+
+        public void UpdateFlight(Flight flight)
+        {
+            FlightDAL flightDAL = new FlightDAL(db);
+            RouteDAL routeDAL = new RouteDAL(db);
+            AirplaneDAL airplaneDAL = new AirplaneDAL(db);
+
+            Flight dbFlight = flightDAL.GetFlight(flight.Id);
+
+            if (dbFlight == null)
+                throw new NullReferenceException("flight with id " + flight.Id + " does not exist in current context");
+            
+            flight.Route = routeDAL.GetRoute(flight.Route.Id);
+            flight.Airplane = airplaneDAL.GetAirplane(flight.Airplane.Id);
+            flightDAL.UpdateFlight(flight);
+        }
 
 
     }

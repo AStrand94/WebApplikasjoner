@@ -31,5 +31,10 @@ namespace WebApplication3.DAL
 
             db.SaveChanges();
         }
+
+        public Airplane GetAirplane(int id)
+        {
+            return db.Airplanes.Where(a => a.Id == id).Single();
+        }
     }
 }

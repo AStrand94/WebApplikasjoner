@@ -24,8 +24,9 @@
 }
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Create Order", "CreateOrder", null, new { @class = "btn btn-primary" })
 </p>
+
 <div id="accordion" class="panel-group">
     @foreach (var order in Model)
     {

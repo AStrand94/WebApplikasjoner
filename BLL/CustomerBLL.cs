@@ -32,6 +32,11 @@ namespace WebApplication3.BLL
             return new CustomerDAL(db).DeleteCustomer(id);
         }
 
+        public Order DeleteAssociatedOrder(int customerId, int orderId)
+        {
+            return new CustomerDAL(db).DeleteAssociatedOrder(customerId, orderId);
+        }
+
         public bool CanDelete(int id)
         {
             Customer customer = new CustomerDAL(db).GetCustomer(id);

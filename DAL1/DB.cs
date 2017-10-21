@@ -14,7 +14,6 @@ namespace WebApplication3.DAL
         {
             Database.CreateIfNotExists();
             Database.SetInitializer(new DBInit());
-        
         }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)

@@ -20,5 +20,10 @@ namespace WebApplication3.DAL
         {
             return db.Routes.ToList();
         }
+
+        public bool RouteHasAirport(int id)
+        {
+            return db.Routes.Any(r => r.FromAirport.Id == id || r.ToAirport.Id == id);
+        }
     }
 }

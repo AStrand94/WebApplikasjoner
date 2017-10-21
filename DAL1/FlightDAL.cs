@@ -38,5 +38,33 @@ namespace WebApplication3.DAL
             db.SaveChanges();
         }
 
+        public Flight DeleteFlight(int id)
+        {
+            Flight flight = db.Flights.Where(f => f.Id == id).Single();
+
+            if(flight != null)
+            {
+                db.Flights.Attach(flight);
+                flight = db.Flights.Remove(flight);
+                db.SaveChanges();
+            }
+
+            return flight;
+        }
+
+        public bool ExistsFlightWithId(int id)
+        {
+            return db.Flights.Any(f => f.Id == id);
+        }
+
+        public Flight InsertFlight(Flight flight)
+        {
+            if (flight == null) return null;
+
+            flight = db.Flights.Add(flight);
+            db.SaveChanges();
+
+            return flight;
+        }
     }
 }

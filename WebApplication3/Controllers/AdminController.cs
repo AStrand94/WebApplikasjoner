@@ -270,6 +270,43 @@ namespace WebApplication3.Controllers
             return RedirectToAction("Airports");
         }
 
+        public ActionResult CreateFlight()
+        {
+            if (!UserIsLoggedIn())
+            {
+                return RedirectToAction("Index", "Home", new { area = "" });
+            }
+
+            TempData["allAirplanes"] = new AirplaneBLL().GetAllAirplanes();
+            TempData["allRoutes"] = new RouteBLL().GetAllRoutes();
+
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult CreateFlight(Flight flight)
+        {
+            if (!UserIsLoggedIn())
+            {
+                return RedirectToAction("Index", "Home", new { area = "" });
+            }
+
+            FlightBLL bll = new FlightBLL();
+            string result = bll.CanInsertFlight(flight);
+
+            if(result.Length > 0)
+            {
+                SetErrorMessage(result);
+                return RedirectToAction("CreateFlight");
+            }
+
+            flight = bll.InsertFlight(flight);
+
+            SetMessage("Flight created with id: " + flight.Id);
+
+            return RedirectToAction("Flights");
+        }
+
         public ActionResult Orders()
         {
             IEnumerable<Order> orders = new OrderBLL().GetAllOrders();
@@ -304,6 +341,25 @@ namespace WebApplication3.Controllers
             else
             {
                 SetErrorMessage(result);
+            }
+
+            return RedirectToAction("Flights");
+        }
+
+        [HttpGet]
+        public ActionResult DeleteFlight(int id)
+        {
+            FlightBLL bll = new FlightBLL();
+            string message = bll.CanDeleteFlight(id);
+
+            if(message.Length == 0)
+            {
+                Flight flight = bll.DeleteFlight(id);
+                SetMessage("Flight with id " + flight.Id + " with flight at " + flight.Time.ToShortDateString() + " has been deleted.");
+            }
+            else
+            {
+                SetErrorMessage(message);
             }
 
             return RedirectToAction("Flights");

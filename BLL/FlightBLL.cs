@@ -121,6 +121,79 @@ namespace WebApplication3.BLL
             flightDAL.UpdateFlight(flight);
         }
 
+        public string CanDeleteFlight(int id)
+        {
+            StringBuilder stringBuilder = new StringBuilder();
 
+            Flight flight = new FlightDAL(db).GetFlight(id);
+
+            if(flight == null)
+            {
+                stringBuilder.Append("Flight does not exist");
+            }
+            else
+            {
+                if(flight.Tickets.Count > 0)
+                {
+                    HashSet<string> orders = new HashSet<string>();
+                    foreach(var ticket in flight.Tickets)
+                    {
+                        orders.Add(ticket.Order.Reference);
+                    }
+
+                    stringBuilder.Append("Cannot delete flight, must delete orders: ");
+
+                    foreach(var str in orders)
+                    {
+                        stringBuilder.Append(str + ',');
+                    }
+                    stringBuilder.Remove(stringBuilder.Length - 1,1);
+                }
+            }
+
+            return stringBuilder.ToString();
+        }
+
+        public Flight DeleteFlight(int id)
+        {
+            return new FlightDAL(db).DeleteFlight(id);
+        }
+
+        public string CanInsertFlight(Flight flight)
+        {
+            StringBuilder stringBuilder = new StringBuilder();
+            FlightDAL flightDAL = new FlightDAL(db);
+            RouteDAL routeDAL = new RouteDAL(db);
+            AirplaneDAL airplaneDAL = new AirplaneDAL(db);
+
+            if(flight.Price == 0)
+            {
+                stringBuilder.Append("Price cannot be 0!\n\r");
+            }
+
+            if (!routeDAL.ExistsRouteWithId(flight.Route.Id))
+            {
+                stringBuilder.Append("Route does not exist");
+            }
+
+            if (!airplaneDAL.ExistsAirplaneWithId(flight.Airplane.Id))
+            {
+                stringBuilder.Append("Airplane does not exist");
+            }
+
+            if(flight.Time == null || flight.Time < DateTime.Now)
+            {
+                stringBuilder.Append("Flight cannot be before now!");
+            }
+
+            return stringBuilder.ToString();
+        }
+
+        public Flight InsertFlight(Flight flight)
+        {
+            flight.Route = new RouteDAL(db).GetRoute(flight.Route.Id);
+            flight.Airplane = new AirplaneDAL(db).GetAirplane(flight.Airplane.Id);
+            return new FlightDAL(db).InsertFlight(flight);
+        }
     }
 }

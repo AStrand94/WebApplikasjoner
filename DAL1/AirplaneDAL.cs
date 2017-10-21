@@ -36,5 +36,10 @@ namespace WebApplication3.DAL
         {
             return db.Airplanes.Where(a => a.Id == id).Single();
         }
+
+        public bool ExistsAirplaneWithId(int id)
+        {
+            return db.Airplanes.Any(a => a.Id == id);
+        }
     }
 }

@@ -29,5 +29,10 @@ namespace WebApplication3.DAL
         {
             return db.Routes.Where(r => r.Id == id).Single();
         }
+
+        public bool ExistsRouteWithId(int id)
+        {
+            return db.Routes.Any(r => r.Id == id);
+        }
     }
 }

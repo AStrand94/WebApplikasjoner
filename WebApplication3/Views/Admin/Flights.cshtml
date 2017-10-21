@@ -73,7 +73,7 @@
                             <div class="row form-group">
                                 @Html.LabelFor(i => flight.Price, new { @class = "control-label col-md-1 " })
                                 <div class="col-md-8 col-md-offset-1">
-                                    @Html.EditorFor(i => flight.Price)
+                                    @Html.TextBoxFor(i => flight.Price, new { @class = "form-control", type = "number" })
                                 </div>
                             </div>
                             <div class="row form-group">
@@ -105,7 +105,7 @@
                                 </div>
                                 }
                             </div>
-                            <input type="submit" class="btn btn-success" value="Change flight" />
+                            <button type="submit" class="btn btn-success" >Apply changes</button>
                             <button type="button" class="btn btn-danger" onclick="deleteFlight(@flight.Id)">Delete flight</button>
                         </div>
                     }

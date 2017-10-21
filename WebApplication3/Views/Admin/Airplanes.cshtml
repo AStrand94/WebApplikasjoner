@@ -6,6 +6,20 @@
 
 <h2>Airplanes</h2>
 
+@if (TempData["message"] != null)
+{
+    <div class="alert alert-success">
+        <strong>Success!</strong> @TempData["message"]
+    </div>
+}
+
+@if (TempData["errorMessage"] != null)
+{
+    <div class="alert alert-danger">
+        <strong>Error!</strong> @TempData["errorMessage"]
+    </div>
+}
+
 @Html.Partial("_Search")
 
 <p>
@@ -13,19 +27,50 @@
 </p>
 
 <div id="accordion" class="panel-group">
-    @foreach (var item in Model)
+    @foreach (var airplane in Model)
     {
         <div class="panel panel-default">
-            <div class="panel-heading" id="heading@(item.Id)">
+            <div class="panel-heading" id="heading@(airplane.Id)">
                 <h4 class="panel-title">
-                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse@(item.Id)" class="searchItem">@Html.DisplayFor(modelItem => item.Model)</a>
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse@(airplane.Id)" class="searchItem">@Html.DisplayFor(modelItem => airplane.Model)</a>
                 </h4>
             </div>
-            <div id="collapse@(item.Id)" class="panel-collapse collapse" role="tabpanel" data-parent="#accordion">
+            <div id="collapse@(airplane.Id)" class="panel-collapse collapse" role="tabpanel" data-parent="#accordion">
                 <div class="panel-body">
-                    
+                    @using (Html.BeginForm("UpdateAirplane", "Admin", FormMethod.Post))
+                    {
+                        @Html.HiddenFor(i => airplane.Id)
+                        <div class="container">
+                            <div class="row form-group">
+                                @Html.LabelFor(i => airplane.Model, new { @class = "control-label col-md-1 " })
+                                <div class="col-md-8 col-md-offset-1">
+                                    @Html.EditorFor(i => airplane.Model, new { @class = "form-control", style = "max-width:100%" })
+                                </div>
+                            </div>
+                            <div class="row form-group">
+                                @Html.LabelFor(i => airplane.Seats, new { @class = "control-label col-md-1 " })
+                                <div class="col-md-8 col-md-offset-1">
+                                    @Html.TextBoxFor(i => airplane.Seats, new { @class = "form-control", type = "number" })
+                                    @Html.ValidationMessageFor(i => airplane.Seats)
+                                </div>
+                            </div>
+                            <div class="row form-group">
+                                <button class="btn btn-success" type="submit">Apply changes</button>
+                                <button class="btn btn-danger" type="button" onclick="deleteAirplane(@airplane.Id)">Delete</button>
+                            </div>
+                        </div>
+                    }
                 </div>
             </div>
         </div>
     }
 </div>
+
+<script>
+    function deleteAirplane(id) {
+        var res = confirm("Are you sure you want to delete this airplane?");
+        if (res) {
+            window.location.href = "/Admin/DeleteAirplane?id=" + id;
+        }
+    }
+</script>

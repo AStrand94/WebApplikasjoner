@@ -29,7 +29,7 @@ namespace WebApplication3.BLL
 
         public void UpdateAirport(Airport airport)
         {
-            new AirplaneDAL(db).UpdateAirport(airport);
+            new AirportDAL(db).UpdateAirport(airport);
         }
 
         public bool AirportIsUsedInRoutes(int id)

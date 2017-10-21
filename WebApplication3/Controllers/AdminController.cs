@@ -319,6 +319,25 @@ namespace WebApplication3.Controllers
             return RedirectToAction("Flights");
         }
 
+        public ActionResult CreateAirplane()
+        {
+            if (!UserIsLoggedIn())
+            {
+                return RedirectToAction("Index", "Home", new { area = "" });
+            }
+
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult CreateAirplane(Airplane airplane)
+        {
+            AirplaneBLL bll = new AirplaneBLL();
+            bll.InsertAirplane(airplane);
+
+            return RedirectToAction("Airplanes");
+        }
+
         public ActionResult Orders()
         {
             IEnumerable<Order> orders = new OrderBLL().GetAllOrders();
@@ -358,6 +377,22 @@ namespace WebApplication3.Controllers
             return RedirectToAction("Flights");
         }
 
+        [HttpPost]
+        public ActionResult UpdateAirplane(Airplane airplane)
+        {
+            AirplaneBLL bll = new AirplaneBLL();
+            string result = bll.CanUpdateAirplane(airplane);
+
+            if (result.Length > 0)
+            {
+                SetErrorMessage(result);
+                return RedirectToAction("Airplanes");
+            }
+
+            airplane = bll.UpdateAirplane(airplane);
+            return RedirectToAction("Airplanes");
+        }
+
         [HttpGet]
         public ActionResult DeleteFlight(int id)
         {
@@ -375,6 +410,23 @@ namespace WebApplication3.Controllers
             }
 
             return RedirectToAction("Flights");
+        }
+
+        [HttpGet]
+        public ActionResult DeleteAirplane(int id)
+        {
+            AirplaneBLL bll = new AirplaneBLL();
+            string result = bll.CanDeleteAirplane(id);
+
+            if(result.Length > 0)
+            {
+                SetErrorMessage(result);
+                return RedirectToAction("Airplanes");
+            }
+
+            Airplane airplane = bll.DeleteAirplane(id);
+            SetMessage("Airplane" + airplane.Model + ", with id: " + airplane.Id + " was successfulltdeleted");
+            return RedirectToAction("Airplanes");
         }
 
         public bool UserIsLoggedIn()

@@ -21,15 +21,11 @@ namespace WebApplication3.DAL
             return db.Airplanes.ToList();
         }
 
-        public void UpdateAirport(Airport airport)
+        public Airplane InsertAirplane(Airplane airplane)
         {
-            Airport airportInDb = db.Airports.Single(a => a.Id == airport.Id);
-            airportInDb.Name = airport.Name;
-            airportInDb.Code = airport.Code;
-            airportInDb.Country = airport.Country;
-            airportInDb.City = airport.City;
-
+            airplane = db.Airplanes.Add(airplane);
             db.SaveChanges();
+            return airplane;
         }
 
         public Airplane GetAirplane(int id)
@@ -40,6 +36,30 @@ namespace WebApplication3.DAL
         public bool ExistsAirplaneWithId(int id)
         {
             return db.Airplanes.Any(a => a.Id == id);
+        }
+
+        public Airplane DeleteAirplane(int id)
+        {
+            Airplane airplane = db.Airplanes.Where(a => a.Id == id).Single();
+            db.Airplanes.Attach(airplane);
+            airplane = db.Airplanes.Remove(airplane);
+
+            return airplane;
+        }
+
+        public bool Contains(int id)
+        {
+            return db.Airplanes.Any(a => a.Id == id);
+        }
+
+        public Airplane UpdateAirplane(Airplane airplane)
+        {
+            Airplane dbAirplane = db.Airplanes.Where(a => a.Id == airplane.Id).Single();
+            dbAirplane.Model = airplane.Model;
+            dbAirplane.Seats = airplane.Seats;
+            db.SaveChanges();
+
+            return dbAirplane;
         }
     }
 }

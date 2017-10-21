@@ -37,6 +37,17 @@ namespace WebApplication3.DAL
             return db.Airports.Where(a => a.Id == id).Single();
         }
 
+        public void UpdateAirport(Airport airport)
+        {
+            Airport airportInDb = db.Airports.Single(a => a.Id == airport.Id);
+            airportInDb.Name = airport.Name;
+            airportInDb.Code = airport.Code;
+            airportInDb.Country = airport.Country;
+            airportInDb.City = airport.City;
+
+            db.SaveChanges();
+        }
+
         public Airport DeleteAirport(int id)
         {
             //Må slette avhengigheter først. Ikke slett for kunder som har ordre.

@@ -393,6 +393,7 @@
     <Content Include="Scripts\Javascript\Index.js" />
     <Content Include="Views\Admin\CreateOrder.cshtml" />
     <Content Include="Views\Admin\CreateFlight.cshtml" />
+    <Content Include="Views\Admin\CreateAirplane.cshtml" />
     <None Include="Views\Admin\_Search.cshtml" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">

@@ -177,6 +177,7 @@
     <Content Include="Content\bootstrap-datepicker3.standalone.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\CSS_files\Orders.css" />
     <Content Include="Content\CSS_files\SearchAdmin.css" />
     <Content Include="Content\CSS_files\OrderView.css" />
     <Content Include="Content\CSS_files\Overview.css" />

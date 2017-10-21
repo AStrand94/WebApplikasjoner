@@ -159,7 +159,7 @@ namespace WebApplication3.Controllers
 
             AirportBLL airportBLL = new AirportBLL();
 
-            if (!airportBLL.CanDelete(id))
+            if (!airportBLL.AirportIsUsedInRoutes(id))
             {
                 SetErrorMessage("This airport has routes connected and cannot be deleted!");
                 return RedirectToAction("Airports");
@@ -175,6 +175,42 @@ namespace WebApplication3.Controllers
                 SetErrorMessage("Ann error occured");
             }
             return RedirectToAction("Airports");
+        }
+
+        [HttpGet]
+        public ActionResult DeleteOrder(int id)
+        {
+            if (!UserIsLoggedIn())
+            {
+                return RedirectToAction("Index", "Home", new { area = "" });
+            }
+
+            OrderBLL orderBLL = new OrderBLL();
+
+            Order order = orderBLL.GetOrder(id);
+
+            if (order != null)
+            {
+                foreach (var ticket in order.Tickets)
+                {
+                    if (ticket != null)
+                    {
+                        new TicketBLL().DeleteTicket(ticket.Id);
+                    }
+                }
+                if(order.Customer != null)
+                {
+                    CustomerBLL customerBLL = new CustomerBLL();
+                    customerBLL.DeleteAssociatedOrder(order.Customer.Id, order.Id);
+                }
+                
+                SetMessage(order.Reference + " successfully deleted");
+            }
+            else
+            {
+                SetErrorMessage("Ann error occured");
+            }
+            return RedirectToAction("Orders");
         }
 
         public ActionResult CreateCustomer()

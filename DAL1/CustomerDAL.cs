@@ -45,6 +45,21 @@ namespace WebApplication3.DAL
             return customer;
         }
 
+        public Order DeleteAssociatedOrder(int customerId, int orderId)
+        {
+            Customer customer = db.Customers.Where(c => c.Id == customerId).Single();
+            Order customerOrder = customer.Order.Where(o => o.Id == orderId).Single();
+
+            if (customer != null)
+            {
+                db.Orders.Attach(customerOrder);
+                customerOrder = db.Orders.Remove(customerOrder);
+                db.SaveChanges();
+            }
+
+            return customerOrder;
+        }
+
         public Customer GetCustomer(int id)
         {
             return db.Customers.Where(c => c.Id == id).Single();

@@ -8,18 +8,14 @@ using WebApplication3.Model;
 
 namespace WebApplication3.BLL
 {
-    public class RouteBLL
+    public class TicketBLL
     {
         private DB db = new DB();
 
-        public IEnumerable<Route> GetAllRoutes()
+        public Ticket DeleteTicket(int id)
         {
-            return new RouteDAL(db).GetAllRoutes();
+            return new TicketDAL(db).DeleteTicket(id);
         }
 
-        public bool RouteHasAirport(int id)
-        {
-            return new RouteDAL(db).RouteHasAirport(id);
-        }
     }
 }

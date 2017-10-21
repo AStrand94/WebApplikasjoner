@@ -32,11 +32,12 @@ namespace WebApplication3.BLL
             new AirplaneDAL(db).UpdateAirport(airport);
         }
 
-        public bool CanDelete(int id)
+        public bool AirportIsUsedInRoutes(int id)
         {
             Airport airport = new AirportDAL(db).GetAirport(id);
+            bool routeHasAirport = new RouteBLL().RouteHasAirport(id);
 
-            return airport != null && !airport.Routes.Any();
+            return airport != null && !routeHasAirport;
         }
 
         public Airport DeleteAirport(int id)

@@ -27,19 +27,72 @@
 </p>
 
 <div id="accordion" class="panel-group">
-    @foreach (var item in Model)
+    @foreach (var route in Model)
     {
         <div class="panel panel-default">
-            <div class="panel-heading" id="heading@(item.Id)">
+            <div class="panel-heading" id="heading@(route.Id)">
                 <h4 class="panel-title">
-                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse@(item.Id)" class="searchItem">@item.FromAirport.Name - @item.ToAirport.Name</a>
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse@(route.Id)" class="searchItem">@route.FromAirport.Name - @route.ToAirport.Name</a>
                 </h4>
             </div>
-            <div id="collapse@(item.Id)" class="panel-collapse collapse" role="tabpanel" data-parent="#accordion">
+            <div id="collapse@(route.Id)" class="panel-collapse collapse" role="tabpanel" data-parent="#accordion">
                 <div class="panel-body">
-                    @Html.DisplayFor(modelItem => item.FlightTime)
+
+                    @using (Html.BeginForm("UpdateRoute", "Admin", FormMethod.Post))
+                    {
+                        @Html.HiddenFor(r => route.Id)
+                        <div class="container">
+
+                            <div class="row form-group">
+                                @Html.LabelFor(r => route.FromAirport, new { @class = "control-label col-md-1" })
+                                <div class="col-md-8 col-md-offset-1">
+                                    <select class="form-control" name="route.FromAirport.Id">
+                                        @foreach (var a in (IEnumerable<WebApplication3.Model.Airport>)TempData["allAirports"])
+                                        {
+                                            <option @(a.Id == route.FromAirport.Id ? "selected" : "") value="@a.Id">@a.Name</option>
+                                        }
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="row form-group">
+                                @Html.LabelFor(r => route.ToAirport, new { @class = "control-label col-md-1" })
+                                <div class="col-md-8 col-md-offset-1">
+                                    <select class="form-control" name="route.ToAirport.Id">
+                                        @foreach (var a in (IEnumerable<WebApplication3.Model.Airport>)TempData["allAirports"])
+                                        {
+                                            <option @(a.Id == route.ToAirport.Id ? "selected" : "") value="@a.Id">@a.Name</option>
+                                        }
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="row form-group">
+                                @Html.LabelFor(r => route.FlightTime, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    @Html.TextBoxFor(r => route.FlightTime, new { @class = "form-control", type = "time", value = "12:00" })
+                                    @Html.ValidationMessageFor(r => route.FlightTime, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+
+                            <div class="row form-group">
+                                <button class="btn btn-success" type="submit">Apply changes</button>
+                                <button class="btn btn-danger" type="button" onclick="deleteRoute(@route.Id)">Delete</button>
+                            </div>
+                        </div>
+                    }
                 </div>
             </div>
         </div>
     }
 </div>
+
+<script>
+    function deleteRoute(id) {
+        var res = confirm("Are you sure you want to delete this route?");
+        if (res) {
+            window.location.href = "/Admin/DeleteRoute?id=" + id;
+        }
+    }
+</script>

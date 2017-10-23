@@ -99,7 +99,45 @@ namespace WebApplication3.Controllers
                 return RedirectToAction("Index", "Home", new { area = "" });
             }
 
+            TempData["allAirports"] = new AirportBLL().GetAllAirports();
             return View(new RouteBLL().GetAllRoutes().OrderBy(r => r.FromAirport.Name));
+        }
+
+        [HttpPost]
+        public ActionResult UpdateRoute(Route route)
+        {
+            if (!UserIsLoggedIn())
+            {
+                return RedirectToAction("Index", "Home", new { area = "" });
+            }
+
+            new RouteBLL().UpdateRoute(route);
+            SetMessage("Route with id " + route.Id + " was successfully updated");
+            return RedirectToAction("Routes");
+        }
+
+        [HttpGet]
+        public ActionResult DeleteRoute(int id)
+        {
+            if (!UserIsLoggedIn())
+            {
+                return RedirectToAction("Index", "Home", new { area = "" });
+            }
+
+            RouteBLL bll = new RouteBLL();
+            string message = bll.CanDeleteRoute(id);
+
+            if (message.Length == 0)
+            {
+                Route route = bll.DeleteRoute(id);
+                SetMessage("Route with id " + route.Id + " has been deleted.");
+            }
+            else
+            {
+                SetErrorMessage(message);
+            }
+
+            return RedirectToAction("Routes");
         }
 
         [HttpGet]
@@ -277,6 +315,8 @@ namespace WebApplication3.Controllers
                 return RedirectToAction("Index", "Home", new { area = "" });
             }
 
+            TempData["allAirplanes"] = new AirplaneBLL().GetAllAirplanes();
+            TempData["allRoutes"] = new RouteBLL().GetAllRoutes();
             ViewBag.AllCustomers = new CustomerBLL().GetAllCustomers();
 
             return View();
@@ -362,6 +402,20 @@ namespace WebApplication3.Controllers
                 return RedirectToAction("Index", "Home", new { area = "" });
             }
 
+            if (route.FromAirport == null || route.ToAirport == null || route.FlightTime == null)
+            {
+                SetErrorMessage("All fields must be filled out!");
+                return View();
+            }
+
+            if(route.FromAirport.Id == route.ToAirport.Id)
+            {
+                SetErrorMessage("Airports can not be the same!");
+                return View();
+            }
+
+            new RouteBLL().AddRoute(route);
+            SetMessage(route.FromAirport.Name + " " + route.ToAirport.Name + " on " + route.FlightTime.ToString() + " successfully created");
             return RedirectToAction("Routes");
         }
 

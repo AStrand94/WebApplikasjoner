@@ -178,7 +178,6 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\CSS_files\Orders.css" />
-    <Content Include="Content\CSS_files\SearchAdmin.css" />
     <Content Include="Content\CSS_files\OrderView.css" />
     <Content Include="Content\CSS_files\Overview.css" />
     <Content Include="Content\CSS_files\Payment.css" />
@@ -186,6 +185,8 @@
     <Content Include="Content\CSS_files\Registration.css" />
     <Content Include="Content\CSS_files\Search.css" />
     <Content Include="Content\CSS_files\Login.css" />
+    <Content Include="Content\CSS_files_admin\Index.css" />
+    <Content Include="Content\CSS_files_admin\Search.css" />
     <Content Include="Content\images\background_image.jpg" />
     <Content Include="Content\images\green_checkmark.png" />
     <Content Include="Content\jquery-ui-timepicker-addon.css" />
@@ -303,6 +304,8 @@
     <Content Include="Scripts\Javascript\Registration.js" />
     <Content Include="Scripts\Javascript\Search.js" />
     <Content Include="Scripts\Javascript\Login.js" />
+    <Content Include="Scripts\Javascript_Admin\Index.js" />
+    <Content Include="Scripts\Javascript_Admin\Search.js" />
     <None Include="Scripts\jquery-3.2.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.2.1.js" />
     <Content Include="Scripts\jquery-3.2.1.min.js" />

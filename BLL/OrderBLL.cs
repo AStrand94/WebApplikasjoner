@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using WebApplication3.DAL;
 using WebApplication3.Model;
+using DTO;
 
 namespace WebApplication3.BLL
 {
@@ -76,6 +77,63 @@ namespace WebApplication3.BLL
             
 
             orderDAL.AddOrder(order);
+        }
+
+        public string CanCreateOrder(OrderDTO dto)
+        {
+            StringBuilder stringBuilder = new StringBuilder();
+
+            foreach(var t in dto.Travellers)
+            {
+                if(t.firstName == null || t.firstName.Length == 0 || t.lastName == null || t.lastName.Length == 0)
+                {
+                    stringBuilder.Append("Must fill out firstname and lastname!");
+                    break;
+                }
+            }
+
+            FlightDAL flightDAL = new FlightDAL(db);
+            CustomerDAL customerDAL = new CustomerDAL(db);
+
+            if(!flightDAL.ExistsFlightWithId(dto.FlightId))
+            {
+                stringBuilder.Append("Flight does not exist");
+            }
+
+            if (!customerDAL.ExistsCustomerWithId(dto.CustomerId))
+            {
+                stringBuilder.Append("Customer does not exist");
+            }
+
+            return stringBuilder.ToString();
+        }
+
+        public Order CreateOrder(OrderDTO dto)
+        {
+            Order order = new Order();
+            
+            order.Customer = new CustomerDAL(db).GetCustomer(dto.CustomerId);
+            Flight flight = new FlightDAL(db).GetFlight(dto.FlightId);
+            order.Reference = new ReferenceGenerator().getReferenceNumber(db);
+
+            List<Ticket> tickets = new List<Ticket>();
+
+            foreach(var t in dto.Travellers)
+            {
+                Ticket ticket = new Ticket
+                {
+                    FirstName = t.firstName,
+                    LastName = t.lastName,
+                    Order = order,
+                    Flight = flight
+                };
+                tickets.Add(ticket);
+            }
+
+            new OrderDAL(db).AddOrder(order);
+            new TicketDAL(db).addTickets(tickets);
+
+            return order;
         }
     }
 }

@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using WebApplication3.BLL;
 using WebApplication3.Model;
+using DTO;
 
 namespace WebApplication3.Controllers
 {
@@ -259,33 +260,36 @@ namespace WebApplication3.Controllers
             }
 
             TempData["AllFlights"] = new FlightBLL().GetAllFlights();
-            ViewBag.AllCustomers = new CustomerBLL().GetAllCustomers();
+            TempData["AllCustomers"] = new CustomerBLL().GetAllCustomers();
 
             return View();
         }
 
         [HttpPost]
-        public ActionResult CreateOrder(Order order)
+        public ActionResult CreateOrder(OrderDTO dto)
         {
             if (!UserIsLoggedIn())
             {
                 return RedirectToAction("Index", "Home", new { area = "" });
             }
 
-            if (order == null || order.Customer == null)
+            OrderBLL bll = new OrderBLL();
+
+            String result = bll.CanCreateOrder(dto);
+
+            if(result.Length > 0)
             {
-                SetErrorMessage("All fields must be filled out!");
-                return RedirectToAction("Orders");
+                SetErrorMessage(result);
+                return RedirectToAction("CreateOrder");
             }
 
-            order.TotalPrice = order.Tickets[0].Flight.Price;
+            Order order = bll.CreateOrder(dto);
+            SetMessage("Order with reference " + order.Reference + " was successfully created");
 
-            new OrderBLL().AddOrder(order);
-            SetMessage("Order for " + order.Customer.Firstname + " " + order.Customer.Lastname + " successfully created");
             return RedirectToAction("Orders");
         }
 
-        public ActionResult CreateCusstomer()
+        public ActionResult CreateCustomer()
         {
             if (!UserIsLoggedIn())
             {

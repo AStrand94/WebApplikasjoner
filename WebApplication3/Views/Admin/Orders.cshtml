@@ -132,9 +132,6 @@
 <script>
 
     function deleteOrder(id) {
-        var res = confirm("Deleting this order will also delete the corresponding tickets! Are you sure you want to delete this order?");
-        if (res) {
-            window.location.href = "/Admin/DeleteOrder?id=" + id;
-        }
+         window.location.href = "/Admin/DeleteOrder?id=" + id;
     }
 </script>

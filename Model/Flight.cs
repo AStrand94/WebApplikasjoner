@@ -13,10 +13,18 @@ namespace WebApplication3.Model
         [Display(Name = "Flight date")]
         [DisplayFormat(DataFormatString = "{0:dd-MMM-yyyy hh:mm tt}", ApplyFormatInEditMode = true)]
         public DateTime Time { get; set; }
+
+        [Required]
         public double Price { get; set; }
+
         public virtual List<Ticket> Tickets { get; set; }
+
+        [Required]
         public virtual Route Route { get; set; }
+        
+        [Required]
         public virtual Airplane Airplane { get; set; }
+
         public string FullInfo
         {
             get

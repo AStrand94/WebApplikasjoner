@@ -36,7 +36,8 @@ namespace WebApplication3.DAL
                 Id = 0,
                 Firstname = "Andreas",
                 Lastname = "Strand",
-                Telephone = "90834049"
+                Telephone = "90834049",
+                Email = "strand@hotmail.com"
             };
 
             var customer2 = new Customer
@@ -72,25 +73,37 @@ namespace WebApplication3.DAL
             var airport1 = new Airport
             {
                 Id = 0,
-                Name = "Gardermoen"
+                Name = "Gardermoen",
+                City = "Oslo",
+                Country = "Norway",
+                Code = "OSL"
             };
 
             var airport2 = new Airport
             {
                 Id = 1,
-                Name = "Flesland"
+                Name = "Flesland",
+                City = "Bergen",
+                Country = "Norway",
+                Code = "BGO"
             };
 
             var airport3 = new Airport
             {
                 Id = 2,
-                Name = "Paris"
+                Name = "Charles de Gaulle",
+                City = "Paris",
+                Country = "France",
+                Code = "CDG"
             };
         
             var airport4 = new Airport
             {
                 Id = 3,
-                Name = "London Gatwick"
+                Name = "London Gatwick",
+                City = "London",
+                Country = "England",
+                Code = "LGW"
             };
 
             context.Airports.Add(airport1);
@@ -247,28 +260,36 @@ namespace WebApplication3.DAL
             {
                 Id = 0,
                 Order = order1,
-                Flight = flight1
+                Flight = flight1,
+                FirstName = "Andreas",
+                LastName = "Strand"
             };
 
             var ticket2 = new Ticket
             {
                 Id = 1,
                 Order = order1,
-                Flight = flight2
+                Flight = flight2,
+                FirstName = "Stian",
+                LastName = "Grimsgaard"
             };
 
             var ticket3 = new Ticket
             {
                 Id = 2,
                 Order = order1,
-                Flight = flight3
+                Flight = flight3,
+                FirstName = "Nils",
+                LastName = "Petter"
             };
 
             var ticket4 = new Ticket
             {
                 Id = 3,
                 Order = order1,
-                Flight = flight4
+                Flight = flight4,
+                FirstName = "Fridtjof",
+                LastName = "Hansen"
             };
 
             context.Tickets.Add(ticket1);

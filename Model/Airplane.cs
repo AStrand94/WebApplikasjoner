@@ -9,10 +9,13 @@ namespace WebApplication3.Model
     public class Airplane
     {
         public int Id { get; set; }
+
+        [Required]
         public string Model { get; set; }
-        
+
         [Required(ErrorMessage = "Please enter a valid number!")]
         public int Seats { get; set; }
+
         public virtual List<Flight> Flights { get; set; }
     }
 }

@@ -12,7 +12,7 @@ namespace WebApplication3.BLL
         private static readonly String CHARACTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
         private static readonly int LENGTH = 6;
 
-        public String getReferenceNumber(DB db)
+        public String getReferenceNumber()
         {
             var referenceNumber = new StringBuilder();
             Random r = new Random();
@@ -25,13 +25,13 @@ namespace WebApplication3.BLL
             }
             string s = referenceNumber.ToString();
 
-            if(!db.Orders.Where(o => o.Reference.Equals(s)).Any())
+            if(!new OrderDAL().OrdersHasReferenceNumber(s))
             {
                 return referenceNumber.ToString();
             }
             else
             {
-                return getReferenceNumber(db);
+                return getReferenceNumber();
             }
         }
     }

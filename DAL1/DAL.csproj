@@ -48,16 +48,32 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AirplaneDAL.cs" />
+    <Compile Include="AirplaneStub.cs" />
     <Compile Include="AirportDAL.cs" />
+    <Compile Include="AirportStub.cs" />
     <Compile Include="CustomerDAL.cs" />
+    <Compile Include="CustomerStub.cs" />
     <Compile Include="DB.cs" />
     <Compile Include="DBInit.cs" />
     <Compile Include="FlightDAL.cs" />
+    <Compile Include="FlightStub.cs" />
+    <Compile Include="IAirplaneDAL.cs" />
+    <Compile Include="IAirportDAL.cs" />
+    <Compile Include="ICustomerDAL.cs" />
+    <Compile Include="IFlightDAL.cs" />
+    <Compile Include="ILoginDAL.cs" />
+    <Compile Include="IOrderDAL.cs" />
+    <Compile Include="IRouteDAL.cs" />
+    <Compile Include="ITicketDAL.cs" />
     <Compile Include="LoginDAL.cs" />
+    <Compile Include="LoginStub.cs" />
     <Compile Include="OrderDAL.cs" />
+    <Compile Include="OrderStub.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RouteDAL.cs" />
+    <Compile Include="RouteStub.cs" />
     <Compile Include="TicketDAL.cs" />
+    <Compile Include="TicketStub.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

@@ -8,59 +8,71 @@ using WebApplication3.Model;
 
 namespace WebApplication3.DAL
 {
-    public class AirportDAL
+    public class AirportDAL : IAirportDAL
     {
-        private DB db;
-
-        public AirportDAL(DB db)
+        public List<Airport> GetAllAirports()
         {
-            this.db = db;
-        }
-
-        public List<Airport> GetAllAirports() {
-            return db.Airports.ToList();
+            using (DB db = new DB())
+            {
+                return db.Airports.ToList();
+            }
         }
 
         public Airport GetById(int Id)
         {
-            return db.Airports.Where(a => a.Id == Id).Single();
+            using (DB db = new DB())
+            {
+                return db.Airports.Where(a => a.Id == Id).Single();
+            }
         }
 
         public void AddAirport(Airport airport)
         {
-            db.Airports.Add(airport);
-            db.SaveChanges();
+            using (DB db = new DB())
+            {
+                db.Airports.Add(airport);
+                db.SaveChanges();
+            }
         }
 
         public Airport GetAirport(int id)
         {
-            return db.Airports.Where(a => a.Id == id).Single();
+            using (DB db = new DB())
+            {
+                return db.Airports.Where(a => a.Id == id).Single();
+            }
         }
 
         public void UpdateAirport(Airport airport)
         {
-            Airport airportInDb = db.Airports.Single(a => a.Id == airport.Id);
-            airportInDb.Name = airport.Name;
-            airportInDb.Code = airport.Code;
-            airportInDb.Country = airport.Country;
-            airportInDb.City = airport.City;
+            using (DB db = new DB())
+            {
+                Airport airportInDb = db.Airports.Single(a => a.Id == airport.Id);
+                airportInDb.Name = airport.Name;
+                airportInDb.Code = airport.Code;
+                airportInDb.Country = airport.Country;
+                airportInDb.City = airport.City;
 
-            db.SaveChanges();
+                db.SaveChanges();
+            }
         }
 
         public Airport DeleteAirport(int id)
         {
-            //Må slette avhengigheter først. Ikke slett for kunder som har ordre.
-            Airport airport = db.Airports.Where(a => a.Id == id).Single();
-
-            if (airport != null)
+            using (DB db = new DB())
             {
-                db.Airports.Attach(airport);
-                airport = db.Airports.Remove(airport);
-                db.SaveChanges();
-            }
+                //Må slette avhengigheter først. Ikke slett for kunder som har ordre.
+                Airport airport = db.Airports.Where(a => a.Id == id).Single();
 
-            return airport;
+                if (airport != null)
+                {
+                    db.Airports.Attach(airport);
+                    airport = db.Airports.Remove(airport);
+                    db.SaveChanges();
+                }
+
+                return airport;
+            }
         }
     }
 }

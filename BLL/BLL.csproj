@@ -51,6 +51,14 @@
     <Compile Include="AirportBLL.cs" />
     <Compile Include="CustomerBLL.cs" />
     <Compile Include="FlightBLL.cs" />
+    <Compile Include="IAirplaneBLL.cs" />
+    <Compile Include="IAirportBLL.cs" />
+    <Compile Include="ICustomerBLL.cs" />
+    <Compile Include="IFlightBLL.cs" />
+    <Compile Include="ILoginBLL.cs" />
+    <Compile Include="IOrderBLL.cs" />
+    <Compile Include="IRouteBLL.cs" />
+    <Compile Include="ITicketBLL.cs" />
     <Compile Include="LoginBLL.cs" />
     <Compile Include="OrderBLL.cs" />
     <Compile Include="PathHelper.cs" />

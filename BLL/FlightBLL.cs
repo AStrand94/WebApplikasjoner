@@ -8,7 +8,7 @@ using WebApplication3.Model;
 
 namespace WebApplication3.BLL
 {
-    public class FlightBLL
+    public class FlightBLL : IFlightBLL
     {
         private DB db = new DB();
         private int fromAirportId;
@@ -17,6 +17,8 @@ namespace WebApplication3.BLL
         private DateTime? returnDate;
         private int numberOfTravellers;
 
+        private IFlightDAL flight;
+
         public FlightBLL(int fromAirportId, int toAirportId, DateTime date, DateTime? returnDate, int numberOfTravellers)
         {
             this.fromAirportId = fromAirportId;
@@ -24,11 +26,17 @@ namespace WebApplication3.BLL
             this.date = date;
             this.returnDate = returnDate;
             this.numberOfTravellers = numberOfTravellers;
+            flight = new FlightDAL();
         }
 
         public FlightBLL()
         {
-
+            flight = new FlightDAL();
+        }
+        
+        public FlightBLL(IFlightDAL stub)
+        {
+            flight = stub;
         }
 
         private List<Travel> GetFlightsTo()
@@ -60,7 +68,7 @@ namespace WebApplication3.BLL
 
         public TravelModel GetTravelModel()
         {
-            AirportDAL airportDAL = new AirportDAL(db);
+            AirportDAL airportDAL = new AirportDAL();
             if(returnDate == null)
             {
                 return new TravelModel(GetFlightsTo(), airportDAL.GetById(fromAirportId), airportDAL.GetById(toAirportId));
@@ -74,7 +82,7 @@ namespace WebApplication3.BLL
         public List<Flight> GetFlights(List<int> flightIds)
         {
             List<Flight> flights = new List<Flight>();
-            FlightDAL flightDAL = new FlightDAL(db);
+            FlightDAL flightDAL = new FlightDAL();
 
             foreach (int id in flightIds)
             {
@@ -86,7 +94,12 @@ namespace WebApplication3.BLL
 
         public IEnumerable<Flight> GetAllFlights()
         {
-            return new FlightDAL(db).GetAllFlights();
+            return new FlightDAL().GetAllFlights();
+        }
+
+        public IEnumerable<Flight> GetAllFlightConnections()
+        {
+            return new FlightDAL().GetAllFlightConnections();
         }
 
         public String CanUpdateFlight(Flight flight)
@@ -107,9 +120,9 @@ namespace WebApplication3.BLL
 
         public void UpdateFlight(Flight flight)
         {
-            FlightDAL flightDAL = new FlightDAL(db);
+            FlightDAL flightDAL = new FlightDAL();
             RouteDAL routeDAL = new RouteDAL(db);
-            AirplaneDAL airplaneDAL = new AirplaneDAL(db);
+            AirplaneDAL airplaneDAL = new AirplaneDAL();
 
             Flight dbFlight = flightDAL.GetFlight(flight.Id);
 
@@ -125,7 +138,7 @@ namespace WebApplication3.BLL
         {
             StringBuilder stringBuilder = new StringBuilder();
 
-            Flight flight = new FlightDAL(db).GetFlight(id);
+            Flight flight = new FlightDAL().GetFlight(id);
 
             if(flight == null)
             {
@@ -156,15 +169,15 @@ namespace WebApplication3.BLL
 
         public Flight DeleteFlight(int id)
         {
-            return new FlightDAL(db).DeleteFlight(id);
+            return new FlightDAL().DeleteFlight(id);
         }
 
         public string CanInsertFlight(Flight flight)
         {
             StringBuilder stringBuilder = new StringBuilder();
-            FlightDAL flightDAL = new FlightDAL(db);
+            FlightDAL flightDAL = new FlightDAL();
             RouteDAL routeDAL = new RouteDAL(db);
-            AirplaneDAL airplaneDAL = new AirplaneDAL(db);
+            AirplaneDAL airplaneDAL = new AirplaneDAL();
 
             if(flight.Price == 0)
             {
@@ -192,8 +205,8 @@ namespace WebApplication3.BLL
         public Flight InsertFlight(Flight flight)
         {
             flight.Route = new RouteDAL(db).GetRoute(flight.Route.Id);
-            flight.Airplane = new AirplaneDAL(db).GetAirplane(flight.Airplane.Id);
-            return new FlightDAL(db).InsertFlight(flight);
+            flight.Airplane = new AirplaneDAL().GetAirplane(flight.Airplane.Id);
+            return new FlightDAL().InsertFlight(flight);
         }
     }
 }

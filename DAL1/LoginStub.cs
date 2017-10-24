@@ -6,13 +6,11 @@ using System.Threading.Tasks;
 
 namespace WebApplication3.DAL
 {
-    public class LoginDAL : ILoginDAL
+    public class LoginStub : ILoginDAL
     {
         public bool userExists(string username, byte[] password)
         {
-            using (DB db = new DB()) {
-                return db.Users.Any(user => user.Username == username && user.Password == password);
-            }
+            throw new NotImplementedException();
         }
     }
 }

@@ -8,23 +8,30 @@ using WebApplication3.Model;
 
 namespace WebApplication3.BLL
 {
-    public class AirplaneBLL
+    public class AirplaneBLL : IAirplaneBLL
     {
-        private DB db = new DB();
+        private IAirplaneDAL airplane;
 
-        public IEnumerable<Airplane> GetAllAirplanes()
+        public AirplaneBLL()
         {
-            return new AirplaneDAL(db).GetAllAirplanes();
+            airplane = new AirplaneDAL();
         }
+
+        public AirplaneBLL(IAirplaneDAL stub)
+        {
+            airplane = stub;
+        }
+
+        public IEnumerable<Airplane> AllAirplanes => airplane.GetAllAirplanes();
 
         public Airplane InsertAirplane(Airplane airplane)
         {
-            return new AirplaneDAL(db).InsertAirplane(airplane);
+            return new AirplaneDAL().InsertAirplane(airplane);
         }
 
         public string CanDeleteAirplane(int id)
         {
-            AirplaneDAL dal = new AirplaneDAL(db);
+            AirplaneDAL dal = new AirplaneDAL();
 
             if (!dal.Contains(id))
             {
@@ -33,7 +40,7 @@ namespace WebApplication3.BLL
 
             Airplane airplane = dal.GetAirplane(id);
 
-            if (airplane.Flights.Any())
+            if(dal.HasFlights(id))
             {
                 return "Cannot delete. There are flights connected to airplane " + airplane.Model + ", id " + airplane.Id;
             }
@@ -43,7 +50,7 @@ namespace WebApplication3.BLL
 
         public Airplane DeleteAirplane(int id)
         {
-            return new AirplaneDAL(db).DeleteAirplane(id);
+            return new AirplaneDAL().DeleteAirplane(id);
         }
 
         public string CanUpdateAirplane(Airplane airplane)
@@ -65,7 +72,7 @@ namespace WebApplication3.BLL
 
         public Airplane UpdateAirplane(Airplane airplane)
         {
-            return new AirplaneDAL(db).UpdateAirplane(airplane);
+            return new AirplaneDAL().UpdateAirplane(airplane);
         }
     }
 }

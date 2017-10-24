@@ -4,38 +4,63 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using WebApplication3.Model;
+using System.Data.Entity;
 
 namespace WebApplication3.DAL
 {
-    public class OrderDAL
+    public class OrderDAL : IOrderDAL
     {
-        private DB db;
-
-        public OrderDAL(DB db)
-        {
-            this.db = db;
-        }
-
         public void AddOrder(Order order)
         {
-            db.Orders.Add(order);
-            db.SaveChanges();
+            using (DB db = new DB())
+            {
+                db.Orders.Add(order);
+                db.SaveChanges();
+            }
+
         }
 
         public IEnumerable<Order> GetOrder(String ReferenceNumber)
         {
-            return db.Orders.Where(o => o.Reference.Equals(ReferenceNumber));
+            using (DB db = new DB())
+            {
+                return db.Orders.Where(o => o.Reference.Equals(ReferenceNumber));
+            }
         }
 
         public Order GetOrder(int id)
         {
-            return db.Orders.Where(o => o.Id == id).Single();
+            using (DB db = new DB())
+            {
+                return db.Orders.Where(o => o.Id == id).Single();
+            }
+        }
+
+        public bool OrdersHasReferenceNumber(string s)
+        {
+            using (DB db = new DB())
+            {
+                return db.Orders.Where(o => o.Reference.Equals(s)).Any();
+            }
         }
 
         public IEnumerable<Order> GetAllOrders()
         {
-            return db.Orders.ToList();
+            using (DB db = new DB())
+            {
+                return db.Orders.ToList();
+            }
         }
 
+        public IEnumerable<Order> GetAllOrdersConnections()
+        {
+            using (DB db = new DB())
+            {
+                return db.Orders
+                    .Include(o => o.Customer)
+                    .Include(o => o.Tickets)
+                    .ToList();
+            }
+        }
     }
 }

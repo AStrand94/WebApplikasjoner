@@ -10,6 +10,22 @@ namespace WebApplication3.Controllers
 {
     public class AdminController : Controller
     {
+        private IAirplaneBLL airplaneBLL;
+        private IAirportBLL airportBLL;
+
+        public AdminController()
+        {
+            airplaneBLL = new AirplaneBLL();
+            airportBLL = new AirportBLL();
+        }
+
+        //If unit testing
+        public AdminController(IAirplaneBLL airplaneStub, IAirportBLL airportStub)
+        {
+            airplaneBLL = airplaneStub;
+            airportBLL = airportStub;
+        }
+
         public ActionResult Login(string username, string password)
         {
             LoginBLL loginBLL = new LoginBLL();
@@ -43,7 +59,7 @@ namespace WebApplication3.Controllers
             ViewBag.Orders = new OrderBLL().GetAllOrders().Count();
             ViewBag.Flights = new FlightBLL().GetAllFlights().Count();
             ViewBag.Routes = new RouteBLL().GetAllRoutes().Count();
-            ViewBag.Airplanes = new AirplaneBLL().GetAllAirplanes().Count();
+            ViewBag.Airplanes = new AirplaneBLL().AllAirplanes.Count();
             ViewBag.Airports = new AirportBLL().GetAllAirports().Count();
 
             return View();
@@ -56,7 +72,7 @@ namespace WebApplication3.Controllers
                 return RedirectToAction("Index", "Home", new { area = "" });
             }
 
-            return View(new AirplaneBLL().GetAllAirplanes().OrderBy(a => a.Model));
+            return View(airplaneBLL.AllAirplanes.OrderBy(a => a.Model));
         }
 
         public ActionResult Airports()
@@ -77,7 +93,7 @@ namespace WebApplication3.Controllers
                 return RedirectToAction("Index", "Home", new { area = "" });
             }
 
-            return View(new CustomerBLL().GetAllCustomers().OrderBy(c => c.Firstname));
+            return View(new CustomerBLL().GetAllCustomersConnections().OrderBy(c => c.Firstname));
         }
 
         public ActionResult Flights()
@@ -87,9 +103,9 @@ namespace WebApplication3.Controllers
                 return RedirectToAction("Index", "Home", new { area = "" });
             }
 
-            TempData["allAirplanes"] = new AirplaneBLL().GetAllAirplanes();
+            TempData["allAirplanes"] = new AirplaneBLL().AllAirplanes;
             TempData["allRoutes"] = new RouteBLL().GetAllRoutes();
-            return View(new FlightBLL().GetAllFlights());
+            return View(new FlightBLL().GetAllFlightConnections());
         }
 
         public ActionResult Routes()
@@ -349,7 +365,7 @@ namespace WebApplication3.Controllers
                 return RedirectToAction("Index", "Home", new { area = "" });
             }
 
-            TempData["allAirplanes"] = new AirplaneBLL().GetAllAirplanes();
+            TempData["allAirplanes"] = new AirplaneBLL().AllAirplanes;
             TempData["allRoutes"] = new RouteBLL().GetAllRoutes();
 
             return View();
@@ -446,8 +462,7 @@ namespace WebApplication3.Controllers
                 return RedirectToAction("Index", "Home", new { area = "" });
             }
 
-            IEnumerable<Order> orders = new OrderBLL().GetAllOrders();
-            return View(orders.OrderBy(o => o.Reference));
+            return View(new OrderBLL().GetAllOrdersConnections().OrderBy(o => o.Reference));
         }
 
         [HttpPost]
@@ -561,7 +576,7 @@ namespace WebApplication3.Controllers
             }
 
             Airplane airplane = bll.DeleteAirplane(id);
-            SetMessage("Airplane" + airplane.Model + ", with id: " + airplane.Id + " was successfulltdeleted");
+            SetMessage("Airplane " + airplane.Model + ", with id: " + airplane.Id + " was successfully deleted");
             return RedirectToAction("Airplanes");
         }
 

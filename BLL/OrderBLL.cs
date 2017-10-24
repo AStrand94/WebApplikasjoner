@@ -9,15 +9,25 @@ using WebApplication3.Model;
 
 namespace WebApplication3.BLL
 {
-    public class OrderBLL
+    public class OrderBLL : IOrderBLL
     {
-        private DB db = new DB();
+        private IOrderDAL order;
+
+        public OrderBLL()
+        {
+            order = new OrderDAL();
+        }
+
+        public OrderBLL(IOrderDAL stub)
+        {
+            order = stub;
+        }
 
         public Order CreateOrder(OrderSession orderSession)
         {
-            String referenceNumber = new ReferenceGenerator().getReferenceNumber(db);
+            String referenceNumber = new ReferenceGenerator().getReferenceNumber();
 
-            FlightDAL flightDAL = new FlightDAL(db);
+            FlightDAL flightDAL = new FlightDAL();
             Order o = new Order
             {
                 Reference = referenceNumber,
@@ -46,36 +56,41 @@ namespace WebApplication3.BLL
             o.Tickets = tickets;
 
             o.TotalPrice = orderSession.TotalPrice;
-            new OrderDAL(db).AddOrder(o);
-            new TicketDAL(db).addTickets(tickets);
+            new OrderDAL().AddOrder(o);
+            new TicketDAL().addTickets(tickets);
 
             return o;
         }
 
         public IEnumerable<Order> GetOrder(string ReferenceNumber)
         {
-            return new OrderDAL(db).GetOrder(ReferenceNumber);
+            return new OrderDAL().GetOrder(ReferenceNumber);
         }
 
         public Order GetOrder(int id)
         {
-            return new OrderDAL(db).GetOrder(id);
+            return new OrderDAL().GetOrder(id);
         }
 
         public IEnumerable<Order> GetAllOrders()
         {
-            return new OrderDAL(db).GetAllOrders();
+            return new OrderDAL().GetAllOrders();
         }
 
         public void AddOrder(Order order)
         {
-            CustomerDAL customerDAL = new CustomerDAL(db);
-            OrderDAL orderDAL = new OrderDAL(db);
+            CustomerDAL customerDAL = new CustomerDAL();
+            OrderDAL orderDAL = new OrderDAL();
 
             order.Customer = customerDAL.GetCustomer(order.Customer.Id);
             
 
             orderDAL.AddOrder(order);
+        }
+
+        public IEnumerable<Order> GetAllOrdersConnections()
+        {
+            return new OrderDAL().GetAllOrdersConnections();
         }
     }
 }

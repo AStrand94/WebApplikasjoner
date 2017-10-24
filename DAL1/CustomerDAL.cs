@@ -4,82 +4,107 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using WebApplication3.Model;
+using System.Data.Entity;
 
 namespace WebApplication3.DAL
 {
-    public class CustomerDAL
+    public class CustomerDAL : ICustomerDAL
     {
-        private DB db;
-
-        public CustomerDAL(DB db)
-        {
-            this.db = db;
-        }
-
         public void AddCustomers(IEnumerable<Customer> customers) 
         {
-            foreach (var customer in customers)
+            using (DB db = new DB())
             {
-                db.Customers.Add(customer);
+                foreach (var customer in customers)
+                {
+                    db.Customers.Add(customer);
+                }
+                db.SaveChanges();
             }
-            db.SaveChanges();
         }
 
         public IEnumerable<Customer> GetAllCustomers()
         {
-            return db.Customers.ToList();
+            using (DB db = new DB())
+            {
+                return db.Customers.ToList();
+            }
+        }
+
+        public IEnumerable<Customer> GetAllCustomersConnections()
+        {
+            using (DB db = new DB())
+            {
+                return db.Customers
+                    .Include(c => c.Order)
+                    .ToList();
+            }
         }
 
         public Customer DeleteCustomer(int id)
         {
-            //Må slette avhengigheter først. Ikke slett for kunder som har ordre.
-            Customer customer = db.Customers.Where(c => c.Id == id).Single();
-
-            if (customer != null)
+            using (DB db = new DB())
             {
-                db.Customers.Attach(customer);
-                customer = db.Customers.Remove(customer);
-                db.SaveChanges();
-            }
+                //Må slette avhengigheter først. Ikke slett for kunder som har ordre.
+                Customer customer = db.Customers.Where(c => c.Id == id).Single();
 
-            return customer;
+                if (customer != null)
+                {
+                    db.Customers.Attach(customer);
+                    customer = db.Customers.Remove(customer);
+                    db.SaveChanges();
+                }
+
+                return customer;
+            }
         }
 
         public Order DeleteAssociatedOrder(int customerId, int orderId)
         {
-            Customer customer = db.Customers.Where(c => c.Id == customerId).Single();
-            Order customerOrder = customer.Order.Where(o => o.Id == orderId).Single();
-
-            if (customer != null)
+            using (DB db = new DB())
             {
-                db.Orders.Attach(customerOrder);
-                customerOrder = db.Orders.Remove(customerOrder);
-                db.SaveChanges();
-            }
+                Customer customer = db.Customers.Where(c => c.Id == customerId).Single();
+                Order customerOrder = customer.Order.Where(o => o.Id == orderId).Single();
 
-            return customerOrder;
+                if (customer != null)
+                {
+                    db.Orders.Attach(customerOrder);
+                    customerOrder = db.Orders.Remove(customerOrder);
+                    db.SaveChanges();
+                }
+
+                return customerOrder;
+            }
         }
 
         public Customer GetCustomer(int id)
         {
-            return db.Customers.Where(c => c.Id == id).Single();
+            using (DB db = new DB())
+            {
+                return db.Customers.Where(c => c.Id == id).Single();
+            }
         }
 
         public void AddCustomer(Customer customer)
         {
-            db.Customers.Add(customer);
-            db.SaveChanges();
+            using (DB db = new DB())
+            {
+                db.Customers.Add(customer);
+                db.SaveChanges();
+            }
         }
 
         public void UpdateCustomer(Customer customer)
         {
-            Customer customerInDb = db.Customers.Single(c => c.Id == customer.Id);
-            customerInDb.Firstname = customer.Firstname;
-            customerInDb.Lastname = customer.Lastname;
-            customerInDb.Telephone = customer.Telephone;
-            customerInDb.Email = customer.Email;
+            using (DB db = new DB())
+            {
+                Customer customerInDb = db.Customers.Single(c => c.Id == customer.Id);
+                customerInDb.Firstname = customer.Firstname;
+                customerInDb.Lastname = customer.Lastname;
+                customerInDb.Telephone = customer.Telephone;
+                customerInDb.Email = customer.Email;
 
-            db.SaveChanges();
+                db.SaveChanges();
+            }
         }
 
     }

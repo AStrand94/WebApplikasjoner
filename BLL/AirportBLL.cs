@@ -8,33 +8,43 @@ using WebApplication3.Model;
 
 namespace WebApplication3.BLL
 {
-    public class AirportBLL
+    public class AirportBLL : IAirportBLL
     {
-        private DB db = new DB();
-        
+        private IAirportDAL airport;
+
+        public AirportBLL()
+        {
+            airport = new AirportDAL();
+        }
+
+        public AirportBLL(IAirportDAL stub)
+        {
+            airport = stub;
+        }
+
         public List<Airport> GetAllAirports()
         {
-            return new AirportDAL(db).GetAllAirports();
+            return new AirportDAL().GetAllAirports();
         }
 
         public Airport GetById(int Id)
         {
-            return new AirportDAL(db).GetById(Id);
+            return new AirportDAL().GetById(Id);
         }
 
         public void AddAirport(Airport airport)
         {
-            new AirportDAL(db).AddAirport(airport);
+            new AirportDAL().AddAirport(airport);
         }
 
         public void UpdateAirport(Airport airport)
         {
-            new AirportDAL(db).UpdateAirport(airport);
+            new AirportDAL().UpdateAirport(airport);
         }
 
         public bool AirportIsUsedInRoutes(int id)
         {
-            Airport airport = new AirportDAL(db).GetAirport(id);
+            Airport airport = new AirportDAL().GetAirport(id);
             bool routeHasAirport = new RouteBLL().RouteHasAirport(id);
 
             return airport != null && !routeHasAirport;
@@ -42,7 +52,7 @@ namespace WebApplication3.BLL
 
         public Airport DeleteAirport(int id)
         {
-            return new AirportDAL(db).DeleteAirport(id);
+            return new AirportDAL().DeleteAirport(id);
         }
     }
 }

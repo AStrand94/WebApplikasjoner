@@ -8,9 +8,21 @@ using WebApplication3.Model;
 
 namespace WebApplication3.BLL
 {
-    public class RouteBLL
+    public class RouteBLL : IRouteBLL
     {
         private DB db = new DB();
+
+        private IRouteDAL route;
+
+        public RouteBLL()
+        {
+            route = new RouteDAL(db);
+        }
+
+        public RouteBLL(IRouteDAL stub)
+        {
+            route = stub;
+        }
 
         public IEnumerable<Route> GetAllRoutes()
         {
@@ -24,7 +36,7 @@ namespace WebApplication3.BLL
 
         public void UpdateRoute(Route route)
         {
-            AirportDAL airportDAL = new AirportDAL(db);
+            AirportDAL airportDAL = new AirportDAL();
             RouteDAL routeDAL = new RouteDAL(db);
 
             Route dbRoute = routeDAL.GetRoute(route.Id);
@@ -78,7 +90,7 @@ namespace WebApplication3.BLL
 
         public void AddRoute(Route route)
         {
-            AirportDAL airportDAL = new AirportDAL(db);
+            AirportDAL airportDAL = new AirportDAL();
             RouteDAL routeDAL = new RouteDAL(db);
 
             route.FromAirport = airportDAL.GetAirport(route.FromAirport.Id);

@@ -72,7 +72,7 @@
                             <div class="row form-group">
                                 <div class="col">
                                     <button type="submit" class="btn btn-success">Apply changes</button>
-                                    <button type="button" class="btn btn-danger" onclick="deletePerson(@(customer.Id))" @(customer.Order.Any() ? "disabled" : "")>Delete</button>
+                                    <button type="button" class="btn btn-danger" onclick="deletePerson(@(customer.Id))">Delete</button>
                                 </div>
                             </div>
                             <div class="row form-group">

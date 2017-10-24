@@ -105,7 +105,7 @@ namespace WebApplication3.Controllers
             }
 
             TempData["allAirplanes"] = new AirplaneBLL().AllAirplanes;
-            TempData["allRoutes"] = new RouteBLL().GetAllRoutes();
+            TempData["allRoutes"] = new RouteBLL().GetAllRoutesConnections();
             return View(new FlightBLL().GetAllFlightConnections());
         }
 

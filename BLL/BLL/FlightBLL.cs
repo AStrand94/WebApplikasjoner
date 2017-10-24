@@ -121,7 +121,7 @@ namespace WebApplication3.BLL
         public void UpdateFlight(Flight flight)
         {
             FlightDAL flightDAL = new FlightDAL();
-            RouteDAL routeDAL = new RouteDAL(db);
+            RouteDAL routeDAL = new RouteDAL();
             AirplaneDAL airplaneDAL = new AirplaneDAL();
 
             Flight dbFlight = flightDAL.GetFlight(flight.Id);
@@ -176,7 +176,7 @@ namespace WebApplication3.BLL
         {
             StringBuilder stringBuilder = new StringBuilder();
             FlightDAL flightDAL = new FlightDAL();
-            RouteDAL routeDAL = new RouteDAL(db);
+            RouteDAL routeDAL = new RouteDAL();
             AirplaneDAL airplaneDAL = new AirplaneDAL();
 
             if(flight.Price == 0)
@@ -204,7 +204,7 @@ namespace WebApplication3.BLL
 
         public Flight InsertFlight(Flight flight)
         {
-            flight.Route = new RouteDAL(db).GetRoute(flight.Route.Id);
+            flight.Route = new RouteDAL().GetRoute(flight.Route.Id);
             flight.Airplane = new AirplaneDAL().GetAirplane(flight.Airplane.Id);
             return new FlightDAL().InsertFlight(flight);
         }

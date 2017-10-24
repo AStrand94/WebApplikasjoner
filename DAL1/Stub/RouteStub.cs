@@ -29,6 +29,11 @@ namespace WebApplication3.DAL
             throw new NotImplementedException();
         }
 
+        public IEnumerable<Route> GetAllRoutesConnections()
+        {
+            throw new NotImplementedException();
+        }
+
         public Route GetRoute(int id)
         {
             throw new NotImplementedException();

@@ -47,25 +47,25 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AirplaneBLL.cs" />
-    <Compile Include="AirportBLL.cs" />
-    <Compile Include="CustomerBLL.cs" />
-    <Compile Include="FlightBLL.cs" />
-    <Compile Include="IAirplaneBLL.cs" />
-    <Compile Include="IAirportBLL.cs" />
-    <Compile Include="ICustomerBLL.cs" />
-    <Compile Include="IFlightBLL.cs" />
-    <Compile Include="ILoginBLL.cs" />
-    <Compile Include="IOrderBLL.cs" />
-    <Compile Include="IRouteBLL.cs" />
-    <Compile Include="ITicketBLL.cs" />
-    <Compile Include="LoginBLL.cs" />
-    <Compile Include="OrderBLL.cs" />
+    <Compile Include="BLL\AirplaneBLL.cs" />
+    <Compile Include="BLL\AirportBLL.cs" />
+    <Compile Include="BLL\CustomerBLL.cs" />
+    <Compile Include="BLL\FlightBLL.cs" />
+    <Compile Include="Interface\IAirplaneBLL.cs" />
+    <Compile Include="Interface\IAirportBLL.cs" />
+    <Compile Include="Interface\ICustomerBLL.cs" />
+    <Compile Include="Interface\IFlightBLL.cs" />
+    <Compile Include="Interface\ILoginBLL.cs" />
+    <Compile Include="Interface\IOrderBLL.cs" />
+    <Compile Include="Interface\IRouteBLL.cs" />
+    <Compile Include="Interface\ITicketBLL.cs" />
+    <Compile Include="BLL\LoginBLL.cs" />
+    <Compile Include="BLL\OrderBLL.cs" />
     <Compile Include="PathHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ReferenceGenerator.cs" />
-    <Compile Include="RouteBLL.cs" />
-    <Compile Include="TicketBLL.cs" />
+    <Compile Include="BLL\RouteBLL.cs" />
+    <Compile Include="BLL\TicketBLL.cs" />
     <Compile Include="Travel.cs" />
     <Compile Include="TravelModel.cs" />
   </ItemGroup>

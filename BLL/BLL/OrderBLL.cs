@@ -12,13 +12,23 @@ namespace WebApplication3.BLL
 {
     public class OrderBLL
     {
-        private DB db = new DB();
+        private IOrderDAL order;
+
+        public OrderBLL()
+        {
+            order = new OrderDAL();
+        }
+
+        public OrderBLL(IOrderDAL stub)
+        {
+            order = stub;
+        }
 
         public Order CreateOrder(OrderSession orderSession)
         {
-            String referenceNumber = new ReferenceGenerator().getReferenceNumber(db);
+            String referenceNumber = new ReferenceGenerator().getReferenceNumber();
 
-            FlightDAL flightDAL = new FlightDAL(db);
+            FlightDAL flightDAL = new FlightDAL();
             Order o = new Order
             {
                 Reference = referenceNumber,
@@ -47,31 +57,36 @@ namespace WebApplication3.BLL
             o.Tickets = tickets;
 
             o.TotalPrice = orderSession.TotalPrice;
-            new OrderDAL(db).AddOrder(o);
-            new TicketDAL(db).addTickets(tickets);
+            new OrderDAL().AddOrder(o);
+            new TicketDAL().addTickets(tickets);
 
             return o;
         }
 
         public IEnumerable<Order> GetOrder(string ReferenceNumber)
         {
-            return new OrderDAL(db).GetOrder(ReferenceNumber);
+            return new OrderDAL().GetOrder(ReferenceNumber);
         }
 
         public Order GetOrder(int id)
         {
-            return new OrderDAL(db).GetOrder(id);
+            return new OrderDAL().GetOrder(id);
         }
 
         public IEnumerable<Order> GetAllOrders()
         {
-            return new OrderDAL(db).GetAllOrders();
+            return new OrderDAL().GetAllOrders();
+        }
+
+        public IEnumerable<Order> GetAllOrdersConnections()
+        {
+            return new OrderDAL().GetAllOrdersConnections();
         }
 
         public void AddOrder(Order order)
         {
-            CustomerDAL customerDAL = new CustomerDAL(db);
-            OrderDAL orderDAL = new OrderDAL(db);
+            CustomerDAL customerDAL = new CustomerDAL();
+            OrderDAL orderDAL = new OrderDAL();
 
             order.Customer = customerDAL.GetCustomer(order.Customer.Id);
             
@@ -92,8 +107,8 @@ namespace WebApplication3.BLL
                 }
             }
 
-            FlightDAL flightDAL = new FlightDAL(db);
-            CustomerDAL customerDAL = new CustomerDAL(db);
+            FlightDAL flightDAL = new FlightDAL();
+            CustomerDAL customerDAL = new CustomerDAL();
 
             if(!flightDAL.ExistsFlightWithId(dto.FlightId))
             {
@@ -112,9 +127,9 @@ namespace WebApplication3.BLL
         {
             Order order = new Order();
             
-            order.Customer = new CustomerDAL(db).GetCustomer(dto.CustomerId);
-            Flight flight = new FlightDAL(db).GetFlight(dto.FlightId);
-            order.Reference = new ReferenceGenerator().getReferenceNumber(db);
+            order.Customer = new CustomerDAL().GetCustomer(dto.CustomerId);
+            Flight flight = new FlightDAL().GetFlight(dto.FlightId);
+            order.Reference = new ReferenceGenerator().getReferenceNumber();
 
             List<Ticket> tickets = new List<Ticket>();
 
@@ -130,8 +145,8 @@ namespace WebApplication3.BLL
                 tickets.Add(ticket);
             }
 
-            new OrderDAL(db).AddOrder(order);
-            new TicketDAL(db).addTickets(tickets);
+            new OrderDAL().AddOrder(order);
+            new TicketDAL().addTickets(tickets);
 
             return order;
         }

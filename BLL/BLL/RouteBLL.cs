@@ -10,13 +10,11 @@ namespace WebApplication3.BLL
 {
     public class RouteBLL : IRouteBLL
     {
-        private DB db = new DB();
-
         private IRouteDAL route;
 
         public RouteBLL()
         {
-            route = new RouteDAL(db);
+            route = new RouteDAL();
         }
 
         public RouteBLL(IRouteDAL stub)
@@ -26,18 +24,23 @@ namespace WebApplication3.BLL
 
         public IEnumerable<Route> GetAllRoutes()
         {
-            return new RouteDAL(db).GetAllRoutes();
+            return new RouteDAL().GetAllRoutes();
+        }
+
+        public IEnumerable<Route> GetAllRoutesConnections()
+        {
+            return new RouteDAL().GetAllRoutesConnections();
         }
 
         public bool RouteHasAirport(int id)
         {
-            return new RouteDAL(db).RouteHasAirport(id);
+            return new RouteDAL().RouteHasAirport(id);
         }
 
         public void UpdateRoute(Route route)
         {
             AirportDAL airportDAL = new AirportDAL();
-            RouteDAL routeDAL = new RouteDAL(db);
+            RouteDAL routeDAL = new RouteDAL();
 
             Route dbRoute = routeDAL.GetRoute(route.Id);
 
@@ -51,14 +54,14 @@ namespace WebApplication3.BLL
 
         public Route DeleteRoute(int id)
         {
-            return new RouteDAL(db).DeleteRoute(id);
+            return new RouteDAL().DeleteRoute(id);
         }
 
         public string CanDeleteRoute(int id)
         {
             StringBuilder stringBuilder = new StringBuilder();
 
-            Route route = new RouteDAL(db).GetRoute(id);
+            Route route = new RouteDAL().GetRoute(id);
 
             if (route == null)
             {
@@ -91,7 +94,7 @@ namespace WebApplication3.BLL
         public void AddRoute(Route route)
         {
             AirportDAL airportDAL = new AirportDAL();
-            RouteDAL routeDAL = new RouteDAL(db);
+            RouteDAL routeDAL = new RouteDAL();
 
             route.FromAirport = airportDAL.GetAirport(route.FromAirport.Id);
             route.ToAirport = airportDAL.GetAirport(route.ToAirport.Id);

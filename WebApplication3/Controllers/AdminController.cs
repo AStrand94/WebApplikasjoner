@@ -258,8 +258,7 @@ namespace WebApplication3.Controllers
                 return RedirectToAction("Index", "Home", new { area = "" });
             }
 
-            TempData["allAirplanes"] = new AirplaneBLL().GetAllAirplanes();
-            TempData["allRoutes"] = new RouteBLL().GetAllRoutes();
+            TempData["AllFlights"] = new FlightBLL().GetAllFlights();
             ViewBag.AllCustomers = new CustomerBLL().GetAllCustomers();
 
             return View();
@@ -276,7 +275,7 @@ namespace WebApplication3.Controllers
             if (order == null || order.Customer == null)
             {
                 SetErrorMessage("All fields must be filled out!");
-                return View();
+                return RedirectToAction("Orders");
             }
 
             order.TotalPrice = order.Tickets[0].Flight.Price;

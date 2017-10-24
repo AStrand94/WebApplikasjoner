@@ -17,5 +17,12 @@ namespace WebApplication3.Model
         public virtual List<Ticket> Tickets { get; set; }
         public virtual Route Route { get; set; }
         public virtual Airplane Airplane { get; set; }
+        public string FullInfo
+        {
+            get
+            {
+                return String.Format("{0} - {1}, {2}", Route.FromAirport.Name, Route.ToAirport.Name, Time);
+            }
+        }
     }
 }

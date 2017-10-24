@@ -10,10 +10,28 @@
 
 <h2>Create new order</h2>
 
-@using (Html.BeginForm()) 
+@if (TempData["message"] != null)
+{
+    <div class="alert alert-success">
+        <strong>Success!</strong> @TempData["message"]
+    </div>
+}
+
+@if (TempData["errorMessage"] != null)
+{
+    <div class="alert alert-danger">
+        <strong>Error!</strong> @TempData["errorMessage"]
+    </div>
+}
+
+<div class="alert alert-danger" id="fieldsError" hidden="">
+    <strong>Please fill out all fields!</strong>
+</div>
+
+@using (Html.BeginForm("CreateOrder", "Admin", FormMethod.Post, new { enctype = "multipart/form-data", onsubmit = "return validateForm()" }))
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
         <h4>Order</h4>
         <hr />
@@ -21,7 +39,7 @@
 
         <!--CUSTOMER-->
         <div class="form-group">
-            @Html.LabelFor(model => model.Customer, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.Customer, "Contact Person", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.DropDownListFor(model => model.Customer, new SelectList(ViewBag.AllCustomers, "Id", "FullInfo"), new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.Customer, "", new { @class = "text-danger" })
@@ -32,15 +50,15 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Tickets[0].Flight.Time, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Tickets[0].Flight.Time, new { htmlAttributes = new { @class = "form-control date-picker", value = DateTime.Now.ToString("dd-MMM-yyyy  hh:mm tt"), onkeydown = "return false", onpaste = "return false" } })
+                @Html.EditorFor(model => model.Tickets[0].Flight.Time, new { htmlAttributes = new { @class = "form-control date-picker", value = DateTime.Now.ToString("dd-MMM-yyyy  hh:mm tt"), onkeydown = "return false", onpaste = "return false", id = "date" } })
                 @Html.ValidationMessageFor(model => model.Tickets[0].Flight.Time, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Tickets[0].Flight.Price, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.Tickets[0].Flight.Price, htmlAttributes: new { @class = "control-label col-md-2"})
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Tickets[0].Flight.Price, new { htmlAttributes = new { @class = "form-control", name = "Price" } })
+                @Html.EditorFor(model => model.Tickets[0].Flight.Price, new { htmlAttributes = new { @class = "form-control", name = "Price" , id = "price"} })
                 @Html.ValidationMessageFor(model => model.Tickets[0].Flight.Price, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -69,7 +87,7 @@
             </div>
         </div>
 
-        <!--CUSTOMER-->
+        <!--
         <div class="form-group">
             @Html.LabelFor(model => model.TotalPrice, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -77,6 +95,7 @@
                 @Html.ValidationMessageFor(model => model.TotalPrice, "", new { @class = "text-danger" })
             </div>
         </div>
+        -->
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
@@ -106,4 +125,20 @@
             });
         });
     });
+
+
+    function validateForm() {
+        var date = $('#date').val();
+        var price = $('#price').val();
+
+        console.log(date);
+        console.log(price);
+
+        if (!date || !price) {
+            $('#fieldsError').show();
+            return false;
+        }
+
+        return true;
+    }
 </script>

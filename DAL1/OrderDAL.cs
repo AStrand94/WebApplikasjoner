@@ -16,7 +16,7 @@ namespace WebApplication3.DAL
             this.db = db;
         }
 
-        public void addOrder(Order order)
+        public void AddOrder(Order order)
         {
             db.Orders.Add(order);
             db.SaveChanges();

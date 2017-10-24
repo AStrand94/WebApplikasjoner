@@ -251,7 +251,42 @@ namespace WebApplication3.Controllers
             return RedirectToAction("Orders");
         }
 
-        public ActionResult CreateCustomer()
+        public ActionResult CreateOrder()
+        {
+            if (!UserIsLoggedIn())
+            {
+                return RedirectToAction("Index", "Home", new { area = "" });
+            }
+
+            TempData["allAirplanes"] = new AirplaneBLL().GetAllAirplanes();
+            TempData["allRoutes"] = new RouteBLL().GetAllRoutes();
+            ViewBag.AllCustomers = new CustomerBLL().GetAllCustomers();
+
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult CreateOrder(Order order)
+        {
+            if (!UserIsLoggedIn())
+            {
+                return RedirectToAction("Index", "Home", new { area = "" });
+            }
+
+            if (order == null || order.Customer == null)
+            {
+                SetErrorMessage("All fields must be filled out!");
+                return View();
+            }
+
+            order.TotalPrice = order.Tickets[0].Flight.Price;
+
+            new OrderBLL().AddOrder(order);
+            SetMessage("Order for " + order.Customer.Firstname + " " + order.Customer.Lastname + " successfully created");
+            return RedirectToAction("Orders");
+        }
+
+        public ActionResult CreateCusstomer()
         {
             if (!UserIsLoggedIn())
             {
@@ -306,20 +341,6 @@ namespace WebApplication3.Controllers
             new AirportBLL().AddAirport(airport);
             SetMessage(airport.Name + " successfully created");
             return RedirectToAction("Airports");
-        }
-
-        public ActionResult CreateOrder()
-        {
-            if (!UserIsLoggedIn())
-            {
-                return RedirectToAction("Index", "Home", new { area = "" });
-            }
-
-            TempData["allAirplanes"] = new AirplaneBLL().GetAllAirplanes();
-            TempData["allRoutes"] = new RouteBLL().GetAllRoutes();
-            ViewBag.AllCustomers = new CustomerBLL().GetAllCustomers();
-
-            return View();
         }
         
         public ActionResult CreateFlight()

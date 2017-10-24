@@ -46,7 +46,7 @@ namespace WebApplication3.BLL
             o.Tickets = tickets;
 
             o.TotalPrice = orderSession.TotalPrice;
-            new OrderDAL(db).addOrder(o);
+            new OrderDAL(db).AddOrder(o);
             new TicketDAL(db).addTickets(tickets);
 
             return o;
@@ -65,6 +65,17 @@ namespace WebApplication3.BLL
         public IEnumerable<Order> GetAllOrders()
         {
             return new OrderDAL(db).GetAllOrders();
+        }
+
+        public void AddOrder(Order order)
+        {
+            CustomerDAL customerDAL = new CustomerDAL(db);
+            OrderDAL orderDAL = new OrderDAL(db);
+
+            order.Customer = customerDAL.GetCustomer(order.Customer.Id);
+            
+
+            orderDAL.AddOrder(order);
         }
     }
 }

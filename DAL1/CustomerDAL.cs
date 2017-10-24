@@ -107,5 +107,9 @@ namespace WebApplication3.DAL
             }
         }
 
+        public bool ExistsCustomerWithId(int customerId)
+        {
+            return db.Customers.Any(c => c.Id == customerId);
+        }
     }
 }

@@ -15,7 +15,7 @@ namespace WebApplication3.Model
         {
             get
             {
-                return String.Format("{0} {1}, {2}, {3}", Firstname, Lastname, Telephone, Email);
+                return String.Format("{0}, {1}", Lastname, Firstname);
             }
         }
     }

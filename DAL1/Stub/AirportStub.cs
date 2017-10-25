@@ -9,32 +9,79 @@ namespace WebApplication3.DAL
 {
     public class AirportStub : IAirportDAL
     {
-        public void AddAirport(Airport airport)
+        public Airport AddAirport(Airport airport)
         {
-            throw new NotImplementedException();
+            if (airport.Name == "")
+            {
+                var ap = new Airport
+                {
+                    Name = ""
+                };
+                return airport;
+            }
+            else
+            {
+                var ap = new Airport
+                {
+                    Name = "Gardermoen"
+                };
+                return airport;
+            }
         }
 
         public Airport DeleteAirport(int id)
         {
-            throw new NotImplementedException();
+            if (id == 0)
+            {
+                var airport = new Airport
+                {
+                    Id = 0
+                };
+                return airport;
+            }
+            else
+            {
+                return GetAirport(1);
+            }
         }
 
         public Airport GetAirport(int id)
         {
-            throw new NotImplementedException();
+            if (id == 0)
+            {
+                var airport = new Airport
+                {
+                    Id = 0
+                };
+                return airport;
+            }
+            else
+            {
+                var airport = new Airport()
+                {
+                    Id = 1,
+                    Name = "Gardermoen",
+                    Code = "OSL",
+                    Country = "Norway",
+                    City = "Oslo"
+                };
+                return airport;
+            }
         }
 
         public List<Airport> GetAllAirports()
         {
-            throw new NotImplementedException();
+            var airportList = new List<Airport>();
+            var airport = GetAirport(1);
+
+            airportList.Add(airport);
+            airportList.Add(airport);
+            airportList.Add(airport);
+
+            return airportList;
         }
 
-        public Airport GetById(int Id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void UpdateAirport(Airport airport)
+        public Airport UpdateAirport(Airport airport)
         {
             throw new NotImplementedException();
         }

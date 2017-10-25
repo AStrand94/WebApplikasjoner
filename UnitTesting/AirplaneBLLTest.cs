@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using WebApplication3.Controllers;
 using WebApplication3.BLL;
@@ -60,8 +59,6 @@ namespace WebApplication3.UnitTesting
             Airplane airplane1 = new Airplane();
             airplane1.Id = 1;
 
-
-
             //Act
             var actualResult0 = bll.InsertAirplane(airplane0);
             var actualResult1 = bll.InsertAirplane(airplane1);
@@ -74,7 +71,61 @@ namespace WebApplication3.UnitTesting
         [TestMethod]
         public void CanDeleteAirplane()
         {
+            //Arrange
+            var bll = new AirplaneBLL(new AirplaneStub());
 
+            var id0 = 0;
+            var id1 = 1;
+            var expectedResult0 = "No flight with id " + id0;
+            var expectedResult1 = "Cannot delete. There are flights connected to airplane " + "Boeing 737" + ", id " + id1;
+
+            //Act
+            var actualResult0 = bll.CanDeleteAirplane(id0);
+            var actualResult1 = bll.CanDeleteAirplane(id1);
+
+            //Assert
+            Assert.AreEqual(expectedResult0, actualResult0);
+            Assert.AreEqual(expectedResult1, actualResult1);
+        }
+
+        [TestMethod]
+        public void DeleteAirplane()
+        {
+            //Arrange
+            var bll = new AirplaneBLL(new AirplaneStub());
+
+            var id0 = 0;
+            var id1 = 1;
+            var expectedResult0 = id0;
+            var expectedResult1 = id1;
+
+            //Act
+            var actualResult0 = bll.DeleteAirplane(0);
+            var actualResult1 = bll.DeleteAirplane(1);
+
+            //Assert
+            Assert.AreEqual(expectedResult0, actualResult0.Id);
+            Assert.AreEqual(expectedResult1, actualResult1.Id);
+        }
+
+        [TestMethod]
+        public void UpdateAirplane()
+        {
+            //Arrange
+            var bll = new AirplaneBLL(new AirplaneStub());
+
+            var id0 = 0;
+            var id1 = 1;
+            var expectedResult0 = id0;
+            var expectedResult1 = id1;
+
+            //Act
+            var actualResult0 = bll.DeleteAirplane(0);
+            var actualResult1 = bll.DeleteAirplane(1);
+
+            //Assert
+            Assert.AreEqual(expectedResult0, actualResult0.Id);
+            Assert.AreEqual(expectedResult1, actualResult1.Id);
         }
     }
 }

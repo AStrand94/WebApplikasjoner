@@ -10,7 +10,6 @@ namespace WebApplication3.BLL
 {
     public class FlightBLL : IFlightBLL
     {
-        private DB db = new DB();
         private int fromAirportId;
         private int toAirportId;
         private DateTime date;
@@ -41,13 +40,13 @@ namespace WebApplication3.BLL
 
         private List<Travel> GetFlightsTo()
         {
-            PathHelper pathHelper = new PathHelper(fromAirportId, toAirportId, date, db);
+            PathHelper pathHelper = new PathHelper(fromAirportId, toAirportId, date, new DB());
             return pathHelper.GetAllFlights();
         }
 
         private List<Travel> GetFlightsFrom()
         {
-            PathHelper pathHelper = new PathHelper(toAirportId, fromAirportId, returnDate.GetValueOrDefault(), db);
+            PathHelper pathHelper = new PathHelper(toAirportId, fromAirportId, returnDate.GetValueOrDefault(), new DB());
             List<Travel> ReturnFlights = pathHelper.GetAllFlights();
             ReturnFlights.ForEach(f => f.isReturnFlight = true);
             return ReturnFlights;

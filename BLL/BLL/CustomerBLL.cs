@@ -10,8 +10,6 @@ namespace WebApplication3.BLL
 {
     public class CustomerBLL : ICustomerBLL
     {
-        private DB db = new DB();
-
         private ICustomerDAL customer;
 
         public CustomerBLL()

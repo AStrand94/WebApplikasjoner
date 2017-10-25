@@ -10,7 +10,7 @@ using DTO;
 
 namespace WebApplication3.BLL
 {
-    public class OrderBLL
+    public class OrderBLL : IOrderBLL
     {
         private IOrderDAL dal;
 

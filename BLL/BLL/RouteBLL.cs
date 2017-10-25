@@ -37,7 +37,7 @@ namespace WebApplication3.BLL
             return dal.RouteHasAirport(id);
         }
 
-        public void UpdateRoute(Route route)
+        public Route UpdateRoute(Route route)
         {
             AirportDAL airportDAL = new AirportDAL();
 
@@ -48,7 +48,7 @@ namespace WebApplication3.BLL
 
             route.FromAirport = airportDAL.GetAirport(route.FromAirport.Id);
             route.ToAirport = airportDAL.GetAirport(route.ToAirport.Id);
-            dal.UpdateRoute(route);
+            return dal.UpdateRoute(route);
         }
 
         public Route DeleteRoute(int id)

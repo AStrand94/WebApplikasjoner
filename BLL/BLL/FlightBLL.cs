@@ -17,7 +17,7 @@ namespace WebApplication3.BLL
         private DateTime? returnDate;
         private int numberOfTravellers;
 
-        private IFlightDAL flight;
+        private IFlightDAL flightDAL;
 
         public FlightBLL(int fromAirportId, int toAirportId, DateTime date, DateTime? returnDate, int numberOfTravellers)
         {
@@ -26,17 +26,17 @@ namespace WebApplication3.BLL
             this.date = date;
             this.returnDate = returnDate;
             this.numberOfTravellers = numberOfTravellers;
-            flight = new FlightDAL();
+            flightDAL = new FlightDAL();
         }
 
         public FlightBLL()
         {
-            flight = new FlightDAL();
+            flightDAL = new FlightDAL();
         }
         
         public FlightBLL(IFlightDAL stub)
         {
-            flight = stub;
+            flightDAL = stub;
         }
 
         private List<Travel> GetFlightsTo()
@@ -86,7 +86,7 @@ namespace WebApplication3.BLL
 
             foreach (int id in flightIds)
             {
-                flights.Add(flightDAL.GetFlight(id));
+                flights.Add(flightDAL.GetFlightWithInclude(id));
             }
 
             return flights;
@@ -167,6 +167,7 @@ namespace WebApplication3.BLL
             return stringBuilder.ToString();
         }
 
+       
         public Flight DeleteFlight(int id)
         {
             return new FlightDAL().DeleteFlight(id);

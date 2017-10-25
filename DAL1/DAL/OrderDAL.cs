@@ -58,7 +58,8 @@ namespace WebApplication3.DAL
             {
                 return db.Orders
                     .Include(o => o.Customer)
-                    .Include(o => o.Tickets)
+                    .Include("Tickets.Flight.Route.ToAirport")
+                    .Include("Tickets.Flight.Route.FromAirport")
                     .ToList();
             }
         }

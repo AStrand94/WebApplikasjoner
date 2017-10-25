@@ -48,6 +48,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DAL\AirplaneDAL.cs" />
+    <Compile Include="Logging\LogHelper.cs" />
     <Compile Include="Stub\AirplaneStub.cs" />
     <Compile Include="DAL\AirportDAL.cs" />
     <Compile Include="Stub\AirportStub.cs" />

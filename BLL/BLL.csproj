@@ -47,6 +47,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\DAL1\Interface\IOrderDAL.cs">
+      <Link>IOrderDAL.cs</Link>
+    </Compile>
     <Compile Include="BLL\AirplaneBLL.cs" />
     <Compile Include="BLL\AirportBLL.cs" />
     <Compile Include="BLL\CustomerBLL.cs" />

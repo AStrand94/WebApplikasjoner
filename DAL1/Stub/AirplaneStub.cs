@@ -11,33 +11,64 @@ namespace WebApplication3.DAL
     {
         public bool Contains(int id)
         {
-            throw new NotImplementedException();
+            if (id == 0)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
         }
 
         public Airplane DeleteAirplane(int id)
         {
-            throw new NotImplementedException();
+            if (id == 0)
+            {
+                var airplane = new Airplane();
+                airplane.Id = 0;
+                return airplane;
+            } else
+            {
+                return GetAirplane(1);
+            }
         }
 
         public bool ExistsAirplaneWithId(int id)
         {
-            throw new NotImplementedException();
+            if (id == 0)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
         }
 
         public Airplane GetAirplane(int id)
         {
-            throw new NotImplementedException();
+            if(id == 0)
+            {
+                var airplane = new Airplane();
+                airplane.Id = 0;
+                return airplane;
+            } else
+            {
+                var airplane = new Airplane()
+                {
+                    Id = 1,
+                    Model = "Boeing 737",
+                    Seats = 148
+                };
+                return airplane;
+            }
         }
 
         public IEnumerable<Airplane> GetAllAirplanes()
         {
             var airplaneList = new List<Airplane>();
-            var airplane = new Airplane()
-            {
-                Id = 1,
-                Model = "Boeing 737",
-                Seats = 148
-            };
+            var airplane = GetAirplane(1);
 
             airplaneList.Add(airplane);
             airplaneList.Add(airplane);
@@ -48,17 +79,40 @@ namespace WebApplication3.DAL
 
         public bool HasFlights(int id)
         {
-            throw new NotImplementedException();
+            if (id == 0)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
         }
 
         public Airplane InsertAirplane(Airplane airplane)
         {
-            throw new NotImplementedException();
+            if(airplane.Seats == 0)
+            {
+                var ap = new Airplane();
+                ap.Seats = 0;
+                return airplane;
+            } else
+            {
+                return airplane;
+            }
         }
 
         public Airplane UpdateAirplane(Airplane airplane)
         {
-            throw new NotImplementedException();
+            if(airplane.Id == 0)
+            {
+                var ap = new Airplane();
+                ap.Id = 0;
+                return ap;
+            } else
+            {
+                return GetAirplane(1);
+            }
         }
     }
 }

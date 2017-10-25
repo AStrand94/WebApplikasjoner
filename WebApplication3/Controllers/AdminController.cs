@@ -60,7 +60,7 @@ namespace WebApplication3.Controllers
             ViewBag.Orders = new OrderBLL().GetAllOrders().Count();
             ViewBag.Flights = new FlightBLL().GetAllFlights().Count();
             ViewBag.Routes = new RouteBLL().GetAllRoutes().Count();
-            ViewBag.Airplanes = new AirplaneBLL().AllAirplanes.Count();
+            ViewBag.Airplanes = new AirplaneBLL().GetAllAirplanes().Count();
             ViewBag.Airports = new AirportBLL().GetAllAirports().Count();
 
             return View();
@@ -73,7 +73,7 @@ namespace WebApplication3.Controllers
                 return RedirectToAction("Index", "Home", new { area = "" });
             }
 
-            return View(airplaneBLL.AllAirplanes.OrderBy(a => a.Model));
+            return View(airplaneBLL.GetAllAirplanes().OrderBy(a => a.Model));
         }
 
         public ActionResult Airports()
@@ -104,7 +104,7 @@ namespace WebApplication3.Controllers
                 return RedirectToAction("Index", "Home", new { area = "" });
             }
 
-            TempData["allAirplanes"] = new AirplaneBLL().AllAirplanes;
+            TempData["allAirplanes"] = new AirplaneBLL().GetAllAirplanes();
             TempData["allRoutes"] = new RouteBLL().GetAllRoutesConnections();
             return View(new FlightBLL().GetAllFlightConnections());
         }
@@ -369,7 +369,7 @@ namespace WebApplication3.Controllers
                 return RedirectToAction("Index", "Home", new { area = "" });
             }
 
-            TempData["allAirplanes"] = new AirplaneBLL().AllAirplanes;
+            TempData["allAirplanes"] = new AirplaneBLL().GetAllAirplanes();
             TempData["allRoutes"] = new RouteBLL().GetAllRoutes();
 
             return View();

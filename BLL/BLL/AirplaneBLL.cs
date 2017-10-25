@@ -10,37 +10,37 @@ namespace WebApplication3.BLL
 {
     public class AirplaneBLL : IAirplaneBLL
     {
-        private IAirplaneDAL airplane;
+        private IAirplaneDAL _airplane;
 
         public AirplaneBLL()
         {
-            airplane = new AirplaneDAL();
+            _airplane = new AirplaneDAL();
         }
 
         public AirplaneBLL(IAirplaneDAL stub)
         {
-            airplane = stub;
+            _airplane = stub;
         }
 
-        public IEnumerable<Airplane> AllAirplanes => airplane.GetAllAirplanes();
+        public IEnumerable<Airplane> GetAllAirplanes() {
+            return _airplane.GetAllAirplanes();
+        }
 
         public Airplane InsertAirplane(Airplane airplane)
         {
-            return new AirplaneDAL().InsertAirplane(airplane);
+            return _airplane.InsertAirplane(airplane);
         }
 
         public string CanDeleteAirplane(int id)
         {
-            AirplaneDAL dal = new AirplaneDAL();
-
-            if (!dal.Contains(id))
+            if (!_airplane.Contains(id))
             {
                 return "No flight with id " + id;
             }
 
-            Airplane airplane = dal.GetAirplane(id);
+            Airplane airplane = _airplane.GetAirplane(id);
 
-            if(dal.HasFlights(id))
+            if(_airplane.HasFlights(id))
             {
                 return "Cannot delete. There are flights connected to airplane " + airplane.Model + ", id " + airplane.Id;
             }
@@ -50,7 +50,7 @@ namespace WebApplication3.BLL
 
         public Airplane DeleteAirplane(int id)
         {
-            return new AirplaneDAL().DeleteAirplane(id);
+            return _airplane.DeleteAirplane(id);
         }
 
         public string CanUpdateAirplane(Airplane airplane)
@@ -72,7 +72,7 @@ namespace WebApplication3.BLL
 
         public Airplane UpdateAirplane(Airplane airplane)
         {
-            return new AirplaneDAL().UpdateAirplane(airplane);
+            return _airplane.UpdateAirplane(airplane);
         }
     }
 }

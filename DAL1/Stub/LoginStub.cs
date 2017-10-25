@@ -10,7 +10,7 @@ namespace WebApplication3.DAL
     {
         public bool userExists(string username, byte[] password)
         {
-            throw new NotImplementedException();
+            return true;
         }
     }
 }

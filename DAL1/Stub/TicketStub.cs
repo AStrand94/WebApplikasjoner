@@ -11,12 +11,31 @@ namespace WebApplication3.DAL
     {
         public void addTickets(IEnumerable<Ticket> tickets)
         {
-            throw new NotImplementedException();
+            
         }
 
         public Ticket DeleteTicket(int id)
         {
-            throw new NotImplementedException();
+            Ticket ticket = new Ticket();
+            ticket.Id = 0;
+            ticket.FirstName = "Andreas";
+            ticket.LastName = "Strand";
+
+            ticket.Order = new Order
+            {
+                Tickets = new List<Ticket>(),
+                Customer = new Customer
+                {
+                    Firstname = "Andreas",
+                    Lastname = "",
+                    Telephone = "",
+                    Email = ""
+                }
+            };
+
+            ticket.Order.Tickets.Add(ticket);
+
+            return ticket;
         }
     }
 }

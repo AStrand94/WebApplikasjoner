@@ -11,12 +11,25 @@ namespace WebApplication3.DAL
     {
         public void AddOrder(Order order)
         {
-            throw new NotImplementedException();
         }
 
         public IEnumerable<Order> GetAllOrders()
         {
-            throw new NotImplementedException();
+            List<Order> orders = new List<Order>();
+
+            Order order = new Order
+            {
+                Tickets = new List<Ticket>(),
+                Customer = new Customer
+                {
+                    Firstname = "Andreas",
+                    Lastname = "Strand",
+                    Telephone = "00000000",
+                    Email = "a@a.a"
+                }
+            };
+
+            orders.Add(order);
         }
 
         public IEnumerable<Order> GetAllOrdersConnections()

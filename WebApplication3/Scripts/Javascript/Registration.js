@@ -9,7 +9,7 @@ function isPhoneNumber(phonenumber) {
 }
 
 $(document).ready(function () {
-    /*
+    
     $('#firstname').keyup(function () {
         if ($.isNumeric($(this).val())) {
             alert("First Name can not be numeric");
@@ -76,6 +76,6 @@ $(document).ready(function () {
             alert(message);
             return false;
         }
-    });*/
+    });
 
 });

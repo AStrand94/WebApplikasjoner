@@ -16,7 +16,7 @@ namespace WebApplication3.Model
 
         [Required]
         [DataType(DataType.PhoneNumber)]
-        [StringLength(8)]
+        [StringLength(11)]
         public string Telephone { get; set; }
 
         [Required]

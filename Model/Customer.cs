@@ -16,10 +16,12 @@ namespace WebApplication3.Model
 
         [Required]
         [DataType(DataType.PhoneNumber)]
+        [StringLength(8)]
         public string Telephone { get; set; }
 
         [Required]
         [DataType(DataType.EmailAddress)]
+        [RegularExpression("^([a-zA-Z0-9_\\-\\.]+)@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.)|(([a-zA-Z0-9\\-]+\\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\\]?)$", ErrorMessage = "You must provide a valid supervisor email address.")]
         public string Email { get; set; }
 
         public virtual List<Order> Order { get; set; }

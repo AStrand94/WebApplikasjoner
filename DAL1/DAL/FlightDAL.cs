@@ -93,5 +93,20 @@ namespace WebApplication3.DAL
                 return flight;
             }
         }
+
+        public Flight GetFlightWithInclude(int id)
+        {
+            using(DB db = new DB())
+            {
+                return db.Flights
+                    .Where(f => f.Id == id)
+                    .Include(f => f.Route)
+                    .Include(f => f.Airplane)
+                    .Include(f => f.Tickets)
+                    .Include(f => f.Route.ToAirport)
+                    .Include(f => f.Route.FromAirport)
+                    .Single();
+            }
+        }
     }
 }

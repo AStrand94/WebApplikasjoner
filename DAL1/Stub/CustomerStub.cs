@@ -44,6 +44,11 @@ namespace WebApplication3.DAL
             throw new NotImplementedException();
         }
 
+        public bool HasOrder(int id)
+        {
+            throw new NotImplementedException();
+        }
+
         public void UpdateCustomer(Customer customer)
         {
             throw new NotImplementedException();

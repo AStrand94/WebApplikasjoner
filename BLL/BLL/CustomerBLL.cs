@@ -56,9 +56,7 @@ namespace WebApplication3.BLL
 
         public bool CanDelete(int id)
         {
-            Customer customer = new CustomerDAL().GetCustomer(id);
-
-            return customer != null  && !customer.Order.Any();
+            return new CustomerDAL().HasOrder(id);
         }
         
         public void UpdateCustomer(Customer customer)

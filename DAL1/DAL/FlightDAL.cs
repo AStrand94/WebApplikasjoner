@@ -14,7 +14,7 @@ namespace WebApplication3.DAL
         {
             using (DB db = new DB())
             {
-                return db.Flights.Where(f => f.Id == flightId).First();
+                return db.Flights.Where(f => f.Id == flightId).Include(f => f.Tickets).First();
             }
 
         }
@@ -45,11 +45,12 @@ namespace WebApplication3.DAL
         {
             using (DB db = new DB())
             {
-                Flight dbFlight = GetFlight(flight.Id);
-                dbFlight.Route = flight.Route;
+                Flight dbFlight = db.Flights.Where(f => f.Id == flight.Id).Single();
+
+                dbFlight.Route = db.Routes.Attach(flight.Route);
                 dbFlight.Price = flight.Price;
                 dbFlight.Time = flight.Time;
-                dbFlight.Airplane = flight.Airplane;
+                dbFlight.Airplane = db.Airplanes.Attach(flight.Airplane);
                 //DO NOT UPDATE TICKETS.
 
                 db.SaveChanges();
@@ -86,7 +87,7 @@ namespace WebApplication3.DAL
             using (DB db = new DB())
             {
                 if (flight == null) return null;
-
+                db.Routes.Attach(flight.Route);
                 flight = db.Flights.Add(flight);
                 db.SaveChanges();
 

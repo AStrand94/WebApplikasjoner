@@ -9,7 +9,7 @@ namespace WebApplication3.Model
     public class Route
     {
         public int Id { get; set; }
-
+        
         [Required]
         public virtual Airport ToAirport { get; set; }
 

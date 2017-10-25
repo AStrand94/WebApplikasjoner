@@ -10,7 +10,7 @@ namespace WebApplication3.DAL
 {
     public class CustomerDAL : ICustomerDAL
     {
-        public void AddCustomers(IEnumerable<Customer> customers) 
+        public void AddCustomers(IEnumerable<Customer> customers)
         {
             using (DB db = new DB())
             {
@@ -55,6 +55,15 @@ namespace WebApplication3.DAL
                 }
 
                 return customer;
+            }
+        }
+
+        public bool HasOrder(int id)
+        {
+            using (DB db = new DB())
+            {
+                Customer customer = db.Customers.Where(c => c.Id == id).Single();
+                return customer != null && !customer.Order.Any();
             }
         }
 
@@ -109,7 +118,7 @@ namespace WebApplication3.DAL
 
         public bool ExistsCustomerWithId(int customerId)
         {
-            using(DB db = new DB())
+            using (DB db = new DB())
             {
                 return db.Customers.Any(c => c.Id == customerId);
             }

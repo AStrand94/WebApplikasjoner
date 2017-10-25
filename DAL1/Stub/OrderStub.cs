@@ -30,6 +30,7 @@ namespace WebApplication3.DAL
             };
 
             orders.Add(order);
+            return orders;
         }
 
         public IEnumerable<Order> GetAllOrdersConnections()

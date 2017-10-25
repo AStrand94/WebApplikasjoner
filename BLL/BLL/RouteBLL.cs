@@ -10,58 +10,57 @@ namespace WebApplication3.BLL
 {
     public class RouteBLL : IRouteBLL
     {
-        private IRouteDAL route;
+        private IRouteDAL dal;
 
         public RouteBLL()
         {
-            route = new RouteDAL();
+            dal = new RouteDAL();
         }
 
         public RouteBLL(IRouteDAL stub)
         {
-            route = stub;
+            dal = stub;
         }
 
         public IEnumerable<Route> GetAllRoutes()
         {
-            return new RouteDAL().GetAllRoutes();
+            return dal.GetAllRoutes();
         }
 
         public IEnumerable<Route> GetAllRoutesConnections()
         {
-            return new RouteDAL().GetAllRoutesConnections();
+            return dal.GetAllRoutesConnections();
         }
 
         public bool RouteHasAirport(int id)
         {
-            return new RouteDAL().RouteHasAirport(id);
+            return dal.RouteHasAirport(id);
         }
 
         public void UpdateRoute(Route route)
         {
             AirportDAL airportDAL = new AirportDAL();
-            RouteDAL routeDAL = new RouteDAL();
 
-            Route dbRoute = routeDAL.GetRoute(route.Id);
+            Route dbRoute = dal.GetRoute(route.Id);
 
             if (dbRoute == null)
                 throw new NullReferenceException("Route with id " + route.Id + " does not exist in current context");
 
             route.FromAirport = airportDAL.GetAirport(route.FromAirport.Id);
             route.ToAirport = airportDAL.GetAirport(route.ToAirport.Id);
-            routeDAL.UpdateRoute(route);
+            dal.UpdateRoute(route);
         }
 
         public Route DeleteRoute(int id)
         {
-            return new RouteDAL().DeleteRoute(id);
+            return dal.DeleteRoute(id);
         }
 
         public string CanDeleteRoute(int id)
         {
             StringBuilder stringBuilder = new StringBuilder();
 
-            Route route = new RouteDAL().GetRoute(id);
+            Route route = dal.GetRoute(id);
 
             if (route == null)
             {
@@ -91,15 +90,9 @@ namespace WebApplication3.BLL
             return stringBuilder.ToString();
         }
 
-        public void AddRoute(Route route)
+        public Route AddRoute(Route route)
         {
-            AirportDAL airportDAL = new AirportDAL();
-            RouteDAL routeDAL = new RouteDAL();
-
-            route.FromAirport = airportDAL.GetAirport(route.FromAirport.Id);
-            route.ToAirport = airportDAL.GetAirport(route.ToAirport.Id);
-
-            routeDAL.AddRoute(route);
+            return dal.AddRoute(route);
         }
     }
 }

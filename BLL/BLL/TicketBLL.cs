@@ -10,21 +10,21 @@ namespace WebApplication3.BLL
 {
     public class TicketBLL : ITicketBLL
     {
-        private ITicketDAL ticket;
+        private ITicketDAL dal;
 
         public TicketBLL()
         {
-            ticket = new TicketDAL();
+            dal = new TicketDAL();
         }
 
         public TicketBLL(ITicketDAL stub)
         {
-            ticket = stub;
+            dal = stub;
         }
 
         public Ticket DeleteTicket(int id)
         {
-            return new TicketDAL().DeleteTicket(id);
+            return dal.DeleteTicket(id);
         }
 
     }

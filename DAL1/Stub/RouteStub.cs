@@ -9,8 +9,24 @@ namespace WebApplication3.DAL
 {
     public class RouteStub : IRouteDAL
     {
-        public void AddRoute(Route route)
+        public Route AddRoute(Route route)
         {
+            Airport airport = new Airport
+            {
+                Id = 0,
+                Code = "OSL",
+                City = "Oslo",
+                Country = "Norway",
+                Name = "Gardermoen"
+            };
+
+            return new Route
+            {
+                ToAirport = airport,
+                FromAirport = airport,
+                FlightTime = new TimeSpan(10, 0, 0),
+                Flights = new List<Flight>()
+            };
         }
 
         public Route DeleteRoute(int id)
@@ -95,7 +111,7 @@ namespace WebApplication3.DAL
             return false;
         }
 
-        public void UpdateRoute(Route route)
+        public Route UpdateRoute(Route route)
         {
         }
     }

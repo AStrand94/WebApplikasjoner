@@ -12,16 +12,16 @@ namespace WebApplication3.BLL
 {
     public class OrderBLL
     {
-        private IOrderDAL order;
+        private IOrderDAL dal;
 
         public OrderBLL()
         {
-            order = new OrderDAL();
+            dal = new OrderDAL();
         }
 
         public OrderBLL(IOrderDAL stub)
         {
-            order = stub;
+            dal = stub;
         }
 
         public Order CreateOrder(OrderSession orderSession)
@@ -57,7 +57,7 @@ namespace WebApplication3.BLL
             o.Tickets = tickets;
 
             o.TotalPrice = orderSession.TotalPrice;
-            new OrderDAL().AddOrder(o);
+            dal.AddOrder(o);
             new TicketDAL().addTickets(tickets);
 
             return o;
@@ -65,33 +65,32 @@ namespace WebApplication3.BLL
 
         public IEnumerable<Order> GetOrder(string ReferenceNumber)
         {
-            return new OrderDAL().GetOrder(ReferenceNumber);
+            return dal.GetOrder(ReferenceNumber);
         }
 
         public Order GetOrder(int id)
         {
-            return new OrderDAL().GetOrder(id);
+            return dal.GetOrder(id);
         }
 
         public IEnumerable<Order> GetAllOrders()
         {
-            return new OrderDAL().GetAllOrders();
+            return dal.GetAllOrders();
         }
 
         public IEnumerable<Order> GetAllOrdersConnections()
         {
-            return new OrderDAL().GetAllOrdersConnections();
+            return dal.GetAllOrdersConnections();
         }
 
         public void AddOrder(Order order)
         {
             CustomerDAL customerDAL = new CustomerDAL();
-            OrderDAL orderDAL = new OrderDAL();
 
             order.Customer = customerDAL.GetCustomer(order.Customer.Id);
             
 
-            orderDAL.AddOrder(order);
+            dal.AddOrder(order);
         }
 
         public string CanCreateOrder(OrderDTO dto)
@@ -145,7 +144,7 @@ namespace WebApplication3.BLL
                 tickets.Add(ticket);
             }
 
-            new OrderDAL().AddOrder(order);
+            dal.AddOrder(order);
             new TicketDAL().addTickets(tickets);
 
             return order;

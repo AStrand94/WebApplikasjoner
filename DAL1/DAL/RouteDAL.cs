@@ -54,7 +54,7 @@ namespace WebApplication3.DAL
             }
         }
 
-        public void UpdateRoute(Route route)
+        public Route UpdateRoute(Route route)
         {
             using (DB db = new DB())
             {
@@ -73,6 +73,7 @@ namespace WebApplication3.DAL
                 routeInDb.FlightTime = route.FlightTime;
 
                 db.SaveChanges();
+                return routeInDb;
             }
         }
 
@@ -101,12 +102,16 @@ namespace WebApplication3.DAL
             }
         }
 
-        public void AddRoute(Route route)
+        public Route AddRoute(Route route)
         {
             using (DB db = new DB())
             {
-                db.Routes.Add(route);
+                Route r = db.Routes.Add(route);
+                db.Airports.Attach(route.FromAirport);
+                db.Airports.Attach(route.ToAirport);
                 db.SaveChanges();
+
+                return r;
             }
         }
     }

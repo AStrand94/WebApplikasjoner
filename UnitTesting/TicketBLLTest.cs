@@ -9,8 +9,9 @@ namespace UnitTesting
     [TestClass]
     public class TicketBLLTest
     {
-        const ITicketDAL dal = new TicketStub();
-        const TicketBLL bll = new TicketBLL(dal);
+
+        private static ITicketDAL dal = new TicketStub();
+        private static TicketBLL bll = new TicketBLL(dal);
 
 
         [TestMethod]
@@ -18,7 +19,7 @@ namespace UnitTesting
         {
             Ticket ticket = bll.DeleteTicket(0);
 
-            Assert.Equals(ticket.FirstName, "Andreas");
+            Assert.AreEqual(ticket.FirstName, "Andreas");
         }
     }
 }

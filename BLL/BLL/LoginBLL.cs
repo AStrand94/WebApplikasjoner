@@ -9,18 +9,17 @@ namespace WebApplication3.BLL
 {
     public class LoginBLL : ILoginBLL
     {
-        private DB db = new DB();
 
-        private ILoginDAL login;
+        private ILoginDAL dal;
 
         public LoginBLL()
         {
-            login = new LoginDAL();
+            dal = new LoginDAL();
         }
 
         public LoginBLL(ILoginDAL stub)
         {
-            login = stub;
+            dal = stub;
         }
 
         public bool checkLogin(string username, string password)
@@ -30,8 +29,7 @@ namespace WebApplication3.BLL
             byte[] inData = System.Text.Encoding.ASCII.GetBytes(password);
             byte[] outData = algorithm.ComputeHash(inData);
 
-            LoginDAL loginDAL = new LoginDAL();
-            return (loginDAL.userExists(username, outData));
+            return (dal.userExists(username, outData));
         }
     }
 }

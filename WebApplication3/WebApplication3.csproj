@@ -304,7 +304,6 @@
     <Content Include="Scripts\i18n\jquery-ui-timepicker-vi.js" />
     <Content Include="Scripts\i18n\jquery-ui-timepicker-zh-CN.js" />
     <Content Include="Scripts\i18n\jquery-ui-timepicker-zh-TW.js" />
-    <Content Include="Scripts\Javascript\SearchAdmin.js" />
     <Content Include="Scripts\Javascript\Payment.js" />
     <Content Include="Scripts\Javascript\RegisterFlight.js" />
     <Content Include="Scripts\Javascript\Registration.js" />

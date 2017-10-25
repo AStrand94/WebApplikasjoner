@@ -17,7 +17,7 @@ namespace UnitTesting
         {
 
             //Arrange
-            var controller = new AdminController(new AirplaneBLL(new AirplaneStub()), new AirportBLL(new AirportStub()));
+            var controller = new AdminController(new AirplaneBLL(new AirplaneStub()), new WebApplication3.BLL.AirportBLL(new AirportStub()));
 
             var expectedResult = new List<Airplane>();
             var airplane = new Airplane()

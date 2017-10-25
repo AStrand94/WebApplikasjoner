@@ -25,8 +25,10 @@ namespace WebApplication3.DAL
         {
             if (id == 0)
             {
-                var airplane = new Airplane();
-                airplane.Id = 0;
+                var airplane = new Airplane
+                {
+                    Id = 0
+                };
                 return airplane;
             } else
             {
@@ -50,8 +52,10 @@ namespace WebApplication3.DAL
         {
             if(id == 0)
             {
-                var airplane = new Airplane();
-                airplane.Id = 0;
+                var airplane = new Airplane
+                {
+                    Id = 0
+                };
                 return airplane;
             } else
             {
@@ -93,8 +97,10 @@ namespace WebApplication3.DAL
         {
             if(airplane.Seats == 0)
             {
-                var ap = new Airplane();
-                ap.Seats = 0;
+                var ap = new Airplane
+                {
+                    Seats = 0
+                };
                 return airplane;
             } else
             {
@@ -106,8 +112,10 @@ namespace WebApplication3.DAL
         {
             if(airplane.Id == 0)
             {
-                var ap = new Airplane();
-                ap.Id = 0;
+                var ap = new Airplane
+                {
+                    Id = 0
+                };
                 return ap;
             } else
             {

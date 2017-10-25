@@ -26,12 +26,13 @@ namespace WebApplication3.DAL
             }
         }
 
-        public void AddAirport(Airport airport)
+        public Airport AddAirport(Airport airport)
         {
             using (DB db = new DB())
             {
-                db.Airports.Add(airport);
+                airport = db.Airports.Add(airport);
                 db.SaveChanges();
+                return airport;
             }
         }
 
@@ -43,7 +44,7 @@ namespace WebApplication3.DAL
             }
         }
 
-        public void UpdateAirport(Airport airport)
+        public Airport UpdateAirport(Airport airport)
         {
             using (DB db = new DB())
             {
@@ -54,6 +55,8 @@ namespace WebApplication3.DAL
                 airportInDb.City = airport.City;
 
                 db.SaveChanges();
+
+                return airportInDb;
             }
         }
 

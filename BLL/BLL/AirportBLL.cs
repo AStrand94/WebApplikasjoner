@@ -10,36 +10,31 @@ namespace WebApplication3.BLL
 {
     public class AirportBLL : IAirportBLL
     {
-        private IAirportDAL airport;
+        private IAirportDAL _airport;
 
         public AirportBLL()
         {
-            airport = new AirportDAL();
+            _airport = new AirportDAL();
         }
 
         public AirportBLL(IAirportDAL stub)
         {
-            airport = stub;
+            _airport = stub;
         }
 
         public List<Airport> GetAllAirports()
         {
-            return new AirportDAL().GetAllAirports();
+            return _airport.GetAllAirports();
         }
 
-        public Airport GetById(int Id)
+        public Airport AddAirport(Airport airport)
         {
-            return new AirportDAL().GetById(Id);
+            return _airport.AddAirport(airport);
         }
 
-        public void AddAirport(Airport airport)
+        public Airport UpdateAirport(Airport airport)
         {
-            new AirportDAL().AddAirport(airport);
-        }
-
-        public void UpdateAirport(Airport airport)
-        {
-            new AirportDAL().UpdateAirport(airport);
+            return _airport.UpdateAirport(airport);
         }
 
         public bool AirportIsUsedInRoutes(int id)
@@ -52,7 +47,7 @@ namespace WebApplication3.BLL
 
         public Airport DeleteAirport(int id)
         {
-            return new AirportDAL().DeleteAirport(id);
+            return _airport.DeleteAirport(id);
         }
     }
 }

@@ -113,6 +113,33 @@ namespace WebApplication3.DAL
 
         public Route UpdateRoute(Route route)
         {
+            Airport airport1 = new Airport
+            {
+                Id = 0,
+                Code = "OSL",
+                City = "Oslo",
+                Country = "Norway",
+                Name = "Gardermoen"
+            };
+
+            Airport airport2 = new Airport
+            {
+                Id = 0,
+                Code = "lll",
+                City = "Paris",
+                Country = "France",
+                Name = "Paris airport"
+            };
+
+            Route r1 = new Route
+            {
+                ToAirport = airport1,
+                FromAirport = airport2,
+                FlightTime = new TimeSpan(10, 0, 0),
+                Flights = new List<Flight>()
+            };
+
+            return r1;
         }
     }
 }

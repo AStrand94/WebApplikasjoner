@@ -8,8 +8,7 @@ namespace WebApplication3.BLL
         string CanDeleteAirplane(int id);
         string CanUpdateAirplane(Airplane airplane);
         Airplane DeleteAirplane(int id);
-        IEnumerable<Airplane> AllAirplanes { get; }
-
+        IEnumerable<Airplane> GetAllAirplanes();
         Airplane InsertAirplane(Airplane airplane);
         Airplane UpdateAirplane(Airplane airplane);
     }

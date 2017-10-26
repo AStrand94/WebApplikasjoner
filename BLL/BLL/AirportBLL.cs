@@ -11,15 +11,18 @@ namespace WebApplication3.BLL
     public class AirportBLL : IAirportBLL
     {
         private IAirportDAL _airport;
+        private IRouteDAL _route;
 
         public AirportBLL()
         {
             _airport = new AirportDAL();
+            _route = new RouteDAL();
         }
 
-        public AirportBLL(IAirportDAL stub)
+        public AirportBLL(IAirportDAL stub, IRouteDAL routeStub)
         {
             _airport = stub;
+            _route = routeStub;
         }
 
         public List<Airport> GetAllAirports()
@@ -39,8 +42,8 @@ namespace WebApplication3.BLL
 
         public bool AirportIsUsedInRoutes(int id)
         {
-            Airport airport = new AirportDAL().GetAirport(id);
-            bool routeHasAirport = new RouteBLL().RouteHasAirport(id);
+            Airport airport = _airport.GetAirport(id);
+            bool routeHasAirport = _route.RouteHasAirport(id);
 
             return airport != null && !routeHasAirport;
         }

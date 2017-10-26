@@ -49,15 +49,23 @@ namespace WebApplication3.DAL
         {
             if (id == 0)
             {
-                var customer = new Customer
-                {
-                    Id = 0
-                };
-                return customer;
+                return null;
             }
             else
             {
                 return GetCustomer(1);
+            }
+        }
+
+        public bool ExistsCustomerWithId(int customerId)
+        {
+            if(customerId == 100)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
             }
         }
 
@@ -111,7 +119,7 @@ namespace WebApplication3.DAL
 
         public bool HasOrder(int id)
         {
-            if (id == 0)
+            if (id == 100)
             {
                 return false;
             }

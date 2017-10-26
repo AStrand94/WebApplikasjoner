@@ -33,11 +33,7 @@ namespace WebApplication3.DAL
         {
             if (id == 0)
             {
-                var airport = new Airport
-                {
-                    Id = 0
-                };
-                return airport;
+                return null;
             }
             else
             {
@@ -79,6 +75,11 @@ namespace WebApplication3.DAL
             airportList.Add(airport);
 
             return airportList;
+        }
+
+        public Airport GetById(int fromAirportId)
+        {
+            return GetAirport(fromAirportId);
         }
 
         public Airport UpdateAirport(Airport airport)

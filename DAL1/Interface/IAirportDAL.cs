@@ -10,5 +10,6 @@ namespace WebApplication3.DAL
         Airport GetAirport(int id);
         List<Airport> GetAllAirports();
         Airport UpdateAirport(Airport airport);
+        Airport GetById(int fromAirportId);
     }
 }

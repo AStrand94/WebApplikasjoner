@@ -17,6 +17,9 @@ namespace WebApplication3.BLL
         private int numberOfTravellers;
 
         private IFlightDAL _flightDAL;
+        private IRouteDAL _routeDAL;
+        private IAirplaneDAL _airplaneDAL;
+        private IAirportDAL _airportDAL;
 
         public FlightBLL(int fromAirportId, int toAirportId, DateTime date, DateTime? returnDate, int numberOfTravellers)
         {
@@ -26,16 +29,25 @@ namespace WebApplication3.BLL
             this.returnDate = returnDate;
             this.numberOfTravellers = numberOfTravellers;
             _flightDAL = new FlightDAL();
+            _routeDAL = new RouteDAL();
+            _airplaneDAL = new AirplaneDAL();
+            _airportDAL = new AirportDAL();
         }
 
         public FlightBLL()
         {
             _flightDAL = new FlightDAL();
+            _routeDAL = new RouteDAL();
+            _airplaneDAL = new AirplaneDAL();
+            _airportDAL = new AirportDAL();
         }
         
-        public FlightBLL(IFlightDAL stub)
+        public FlightBLL(IFlightDAL stub, IRouteDAL routeStub, IAirplaneDAL airplaneStub, IAirportDAL airportStub)
         {
             _flightDAL = stub;
+            _routeDAL = routeStub;
+            _airplaneDAL = airplaneStub;
+            _airportDAL = airportStub;
         }
 
         private List<Travel> GetFlightsTo()
@@ -67,25 +79,23 @@ namespace WebApplication3.BLL
 
         public TravelModel GetTravelModel()
         {
-            AirportDAL airportDAL = new AirportDAL();
             if(returnDate == null)
             {
-                return new TravelModel(GetFlightsTo(), airportDAL.GetById(fromAirportId), airportDAL.GetById(toAirportId));
+                return new TravelModel(GetFlightsTo(), _airportDAL.GetById(fromAirportId), _airportDAL.GetById(toAirportId));
             }
             else
             {
-                return new TravelModel(GetFlightsTo(), GetFlightsFrom(), airportDAL.GetById(fromAirportId), airportDAL.GetById(toAirportId));
+                return new TravelModel(GetFlightsTo(), GetFlightsFrom(), _airportDAL.GetById(fromAirportId), _airportDAL.GetById(toAirportId));
             }
         }
 
         public List<Flight> GetFlights(List<int> flightIds)
         {
             List<Flight> flights = new List<Flight>();
-            FlightDAL flightDAL = new FlightDAL();
 
             foreach (int id in flightIds)
             {
-                flights.Add(flightDAL.GetFlightWithInclude(id));
+                flights.Add(_flightDAL.GetFlightWithInclude(id));
             }
 
             return flights;
@@ -124,16 +134,13 @@ namespace WebApplication3.BLL
 
         public void UpdateFlight(Flight flight)
         {
-            RouteDAL routeDAL = new RouteDAL();
-            AirplaneDAL airplaneDAL = new AirplaneDAL();
-
             Flight dbFlight = _flightDAL.GetFlight(flight.Id);
 
             if (dbFlight == null)
                 throw new NullReferenceException("flight with id " + flight.Id + " does not exist in current context");
             
-            flight.Route = routeDAL.GetRoute(flight.Route.Id);
-            flight.Airplane = airplaneDAL.GetAirplane(flight.Airplane.Id);
+            flight.Route = _routeDAL.GetRoute(flight.Route.Id);
+            flight.Airplane = _airplaneDAL.GetAirplane(flight.Airplane.Id);
             _flightDAL.UpdateFlight(flight);
         }
 
@@ -173,26 +180,24 @@ namespace WebApplication3.BLL
        
         public Flight DeleteFlight(int id)
         {
-            return new FlightDAL().DeleteFlight(id);
+            return _flightDAL.DeleteFlight(id);
         }
 
         public string CanInsertFlight(Flight flight)
         {
             StringBuilder stringBuilder = new StringBuilder();
-            RouteDAL routeDAL = new RouteDAL();
-            AirplaneDAL airplaneDAL = new AirplaneDAL();
 
             if(flight.Price == 0)
             {
                 stringBuilder.Append("Price cannot be 0!\n\r");
             }
 
-            if (!routeDAL.ExistsRouteWithId(flight.Route.Id))
+            if (!_routeDAL.ExistsRouteWithId(flight.Route.Id))
             {
                 stringBuilder.Append("Route does not exist");
             }
 
-            if (!airplaneDAL.ExistsAirplaneWithId(flight.Airplane.Id))
+            if (!_airplaneDAL.ExistsAirplaneWithId(flight.Airplane.Id))
             {
                 stringBuilder.Append("Airplane does not exist");
             }
@@ -207,8 +212,8 @@ namespace WebApplication3.BLL
 
         public Flight InsertFlight(Flight flight)
         {
-            flight.Route = new RouteDAL().GetRoute(flight.Route.Id);
-            flight.Airplane = new AirplaneDAL().GetAirplane(flight.Airplane.Id);
+            flight.Route = _routeDAL.GetRoute(flight.Route.Id);
+            flight.Airplane = _airplaneDAL.GetAirplane(flight.Airplane.Id);
             return _flightDAL.InsertFlight(flight);
         }
     }

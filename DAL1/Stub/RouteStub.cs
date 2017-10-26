@@ -13,11 +13,7 @@ namespace WebApplication3.DAL
         {
             if (route.Id == 0)
             {
-                var r = new Route
-                {
-                    Id = 0
-                };
-                return r;
+                return null;
             }
             else
             {
@@ -43,13 +39,13 @@ namespace WebApplication3.DAL
 
         public bool ExistsRouteWithId(int id)
         {
-            if (id == 0)
+            if (id == 100)
             {
-                return false;
+                return true;
             }
             else
             {
-                return true;
+                return false;
             }
         }
 
@@ -81,10 +77,7 @@ namespace WebApplication3.DAL
         {
             if(id == 0)
             {
-                return new Route
-                {
-                    Id = 0
-                };
+                return null;
             }
             else
             {
@@ -107,13 +100,13 @@ namespace WebApplication3.DAL
 
         public bool RouteHasAirport(int id)
         {
-            if (id == 0)
+            if (id == 100)
             {
-                return false;
+                return true;
             }
             else
             {
-                return true;
+                return false;
             }
         }
 

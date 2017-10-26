@@ -13,5 +13,6 @@ namespace WebApplication3.DAL
         Customer UpdateCustomer(Customer customer);
         IEnumerable<Customer> GetAllCustomersConnections();
         bool HasOrder(int id);
+        bool ExistsCustomerWithId(int customerId);
     }
 }

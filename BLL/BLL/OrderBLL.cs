@@ -56,11 +56,11 @@ namespace WebApplication3.BLL
 
             o.Tickets = tickets;
 
+            //new TicketDAL().addTickets(tickets);
             o.TotalPrice = orderSession.TotalPrice;
-            dal.AddOrder(o);
-            new TicketDAL().addTickets(tickets);
+            dal.AddOrderWithCustomer(o);
 
-            return o;
+            return dal.GetOrder(o.Id);
         }
 
         public IEnumerable<Order> GetOrder(string ReferenceNumber)

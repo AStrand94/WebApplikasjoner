@@ -23,6 +23,11 @@ namespace WebApplication3.DAL
             }
         }
 
+        public Order AddOrderWithCustomer(Order order)
+        {
+            throw new NotImplementedException();
+        }
+
         public IEnumerable<Order> GetAllOrders()
         {
             var orderList = new List<Order>();

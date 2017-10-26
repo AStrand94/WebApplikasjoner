@@ -13,6 +13,7 @@ namespace WebApplication3.DAL
         {
             using (DB db = new DB())
             {
+                db.Orders.Add(((List<Ticket>)tickets)[0].Order);
                 db.Tickets.AddRange(tickets);
                 db.SaveChanges();
             }

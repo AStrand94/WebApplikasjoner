@@ -23,13 +23,46 @@ namespace WebApplication3.DAL
 
         }
 
+        public Order AddOrderWithCustomer(Order order)
+        {
+            using(DB db = new DB())
+            {
+                order.Customer = db.Customers.Add(order.Customer);
+
+                HashSet<Flight> flights = new HashSet<Flight>();
+                foreach (var t in order.Tickets)
+                {
+                    if (!flights.Any(fl => fl.Id == t.Flight.Id))
+                    {
+                        Flight flight = db.Flights.Where(f => f.Id == t.Flight.Id).Single();
+                        t.Flight = flight;
+                    }
+                    else
+                    {
+                        Flight flight = flights.Where(fl => fl.Id == t.Flight.Id).Single();
+                        flights.Add(flight);
+                        t.Flight = flight;
+                    }
+                    
+                }
+
+                foreach (var ticket in order.Tickets) db.Tickets.Add(ticket);
+                db.Orders.Add(order);
+                db.SaveChanges();
+                return order;
+            }
+        }
+
         public IEnumerable<Order> GetOrder(String ReferenceNumber)
         {
             using (DB db = new DB())
             {
                 return db.Orders
                     .Where(o => o.Reference.Equals(ReferenceNumber))
-                    .Include("Tickets.Customer");
+                    .Include("Customer")
+                    .Include("Tickets.Flight.Route.ToAirport")
+                    .Include("Tickets.Flight.Route.FromAirport")
+                    .ToList();
             }
         }
 

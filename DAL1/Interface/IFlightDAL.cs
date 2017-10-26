@@ -12,5 +12,6 @@ namespace WebApplication3.DAL
         Flight InsertFlight(Flight flight);
         void UpdateFlight(Flight flight);
         IEnumerable<Flight> GetAllFlightConnections();
+        IEnumerable<Flight> GetAllFlightsWithFullRoute();
     }
 }

@@ -90,9 +90,6 @@
 
 <script>
     function deleteRoute(id) {
-        var res = confirm("Are you sure you want to delete this route?");
-        if (res) {
-            window.location.href = "/Admin/DeleteRoute?id=" + id;
-        }
+        window.location.href = "/Admin/DeleteRoute?id=" + id;
     }
 </script>

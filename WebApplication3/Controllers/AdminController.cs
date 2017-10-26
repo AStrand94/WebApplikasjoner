@@ -6,6 +6,8 @@ using System.Web.Mvc;
 using WebApplication3.BLL;
 using WebApplication3.Model;
 using DTO;
+using WebApplication3.Logging;
+using System.Text;
 
 namespace WebApplication3.Controllers
 {
@@ -145,8 +147,18 @@ namespace WebApplication3.Controllers
                 return RedirectToAction("Index", "Home", new { area = "" });
             }
 
-            _routeBLL.UpdateRoute(route);
-            SetMessage("Route with id " + route.Id + " was successfully updated");
+            string result = _routeBLL.CanUpdateRoute(route);
+
+            if (result.Length > 0)
+            {
+                SetErrorMessage(result);
+            }
+            else
+            {
+                _routeBLL.UpdateRoute(route);
+                SetMessage("Route with id " + route.Id + " was successfully updated");
+            }
+
             return RedirectToAction("Routes");
         }
 
@@ -285,7 +297,7 @@ namespace WebApplication3.Controllers
                 return RedirectToAction("Index", "Home", new { area = "" });
             }
 
-            TempData["AllFlights"] = _flightBLL.GetAllFlights();
+            TempData["AllFlights"] = _flightBLL.GetAllFlightsWithFullRoute();
             TempData["AllCustomers"] = _customerBLL.GetAllCustomers();
 
             return View();
@@ -461,7 +473,7 @@ namespace WebApplication3.Controllers
             }
 
             _routeBLL.AddRoute(route);
-            SetMessage(route.FromAirport.Name + " " + route.ToAirport.Name + " on " + route.FlightTime.ToString() + " successfully created");
+            SetMessage(route.FromAirport.Name + " - " + route.ToAirport.Name + " on " + route.FlightTime.ToString() + " successfully created");
             return RedirectToAction("Routes");
         }
 
@@ -483,8 +495,15 @@ namespace WebApplication3.Controllers
                 return RedirectToAction("Index", "Home", new { area = "" });
             }
 
-            _customerBLL.UpdateCustomer(customer);
-            SetMessage("Customer with id " + customer.Id + " was successfully updated");
+            if (ModelState.IsValid)
+            {
+                _customerBLL.UpdateCustomer(customer);
+                SetMessage("Customer with id " + customer.Id + " was successfully updated");
+            }
+            else
+            {
+                SetErrorMessage(GetErrorFromModel(ModelState));
+            }
             return RedirectToAction("Customers");
         }
 
@@ -496,8 +515,15 @@ namespace WebApplication3.Controllers
                 return RedirectToAction("Index", "Home", new { area = "" });
             }
 
-            _airportBLL.UpdateAirport(airport);
-            SetMessage("Airport " + airport.Name + " was successfully updated");
+            if (ModelState.IsValid)
+            {
+                _airportBLL.UpdateAirport(airport);
+                SetMessage("Airport " + airport.Name + " was successfully updated");
+            }
+            else
+            {
+                SetErrorMessage(GetErrorFromModel(ModelState));
+            }
             return RedirectToAction("Airports");
         }
 
@@ -608,5 +634,32 @@ namespace WebApplication3.Controllers
             TempData["errorMessage"] = message;
         }
 
+        private string GetErrorFromModel(ModelStateDictionary modelState)
+        {
+            IEnumerable<ModelError> allErrors = ModelState.Values.SelectMany(v => v.Errors);
+            StringBuilder errors = new StringBuilder();
+
+            foreach (ModelError e in allErrors) errors.Append(e.ErrorMessage).Append(" ");
+
+            return errors.ToString();
+        }
+
+        protected override void OnException(ExceptionContext filterContext)
+        {
+            if (filterContext.ExceptionHandled)
+            {
+                return;
+            }
+
+            ViewResult result = new ViewResult
+            {
+                ViewName = "~/Home/Index"
+            };
+
+            result.TempData.Add("errorMessage","Exception occured, please try again");
+            
+            LogHelper.Log(filterContext.Exception);
+            filterContext.ExceptionHandled = true;
+        }
     }
 }

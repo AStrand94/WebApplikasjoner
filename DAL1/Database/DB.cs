@@ -8,6 +8,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Web;
+using WebApplication3.Logging;
 using WebApplication3.Model;
 
 namespace WebApplication3.DAL
@@ -27,7 +28,7 @@ namespace WebApplication3.DAL
         public DB() : base("name=DB")
         {
             Database.CreateIfNotExists();
-            Database.SetInitializer(new DBInit());          
+            Database.SetInitializer(new DBInit());
         }
 
         public override int SaveChanges()

@@ -94,5 +94,22 @@ namespace WebApplication3.BLL
         {
             return dal.AddRoute(route);
         }
+
+        public string CanUpdateRoute(Route route)
+        {
+            StringBuilder stringBuilder = new StringBuilder();
+
+            if(route.FlightTime == null)
+            {
+                stringBuilder.Append("Must specify time!\n");
+            }
+
+            if(route.FromAirport.Id == route.ToAirport.Id)
+            {
+                stringBuilder.Append("From- and To- airport must be different!\n");
+            }
+
+            return stringBuilder.ToString();
+        }
     }
 }

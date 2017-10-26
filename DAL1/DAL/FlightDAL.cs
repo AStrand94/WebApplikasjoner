@@ -14,7 +14,8 @@ namespace WebApplication3.DAL
         {
             using (DB db = new DB())
             {
-                return db.Flights.Where(f => f.Id == flightId).Include(f => f.Tickets).First();
+                return db.Flights.Where(f => f.Id == flightId)
+                    .Include("Tickets.Order").First();
             }
 
         }
@@ -24,6 +25,17 @@ namespace WebApplication3.DAL
             using (DB db = new DB())
             {
                 return db.Flights.ToList();
+            }
+        }
+
+        public IEnumerable<Flight> GetAllFlightsWithFullRoute()
+        {
+            using(DB db = new DB())
+            {
+                return db.Flights
+                    .Include("Route.ToAirport")
+                    .Include("Route.FromAirport")
+                    .ToList();
             }
         }
 

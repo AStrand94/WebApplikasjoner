@@ -6,9 +6,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace WebApplication3.DAL
+namespace WebApplication3.Logging
 {
-    class LogHelper
+    public class LogHelper
     {
         public static void Log(string text)
         {
@@ -27,6 +27,21 @@ namespace WebApplication3.DAL
             }
         }
 
-        
+        public static void Log(Exception e)
+        {
+            string path = System.Environment.GetFolderPath(System.Environment.SpecialFolder.LocalApplicationData) + "\\Log\\";
+            string filename = "WebAppErrorLog_" + DateTime.Now.ToShortDateString() + ".txt";
+
+            if (!Directory.Exists(path))
+            {
+                Directory.CreateDirectory(path);
+            }
+
+            using (StreamWriter w = File.AppendText(path + filename))
+            {
+                //w.Write(DateTime.Now.ToLongDateString() + " -> ");
+                w.WriteLine(e.ToString());
+            }
+        }
     }
 }

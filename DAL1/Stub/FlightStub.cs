@@ -43,5 +43,10 @@ namespace WebApplication3.DAL
         {
             throw new NotImplementedException();
         }
+
+        public IEnumerable<Flight> GetAllFlightsWithFullRoute()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

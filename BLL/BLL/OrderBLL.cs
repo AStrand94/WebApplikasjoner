@@ -143,9 +143,9 @@ namespace WebApplication3.BLL
                 };
                 tickets.Add(ticket);
             }
-
+            order.Tickets = tickets;
             dal.AddOrder(order);
-            new TicketDAL().addTickets(tickets);
+            //new TicketDAL().addTickets(tickets);
 
             return order;
         }

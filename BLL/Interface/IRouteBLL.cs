@@ -12,5 +12,6 @@ namespace WebApplication3.BLL
         bool RouteHasAirport(int id);
         Route UpdateRoute(Route route);
         IEnumerable<Route> GetAllRoutesConnections();
+        string CanUpdateRoute(Route route);
     }
 }

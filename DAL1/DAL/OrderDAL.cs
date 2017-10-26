@@ -14,6 +14,8 @@ namespace WebApplication3.DAL
         {
             using (DB db = new DB())
             {
+                db.Flights.Attach(order.Tickets[0].Flight);
+                foreach (var ticket in order.Tickets) db.Tickets.Add(ticket);
                 db.Orders.Add(order);
                 db.SaveChanges();
             }
@@ -24,7 +26,9 @@ namespace WebApplication3.DAL
         {
             using (DB db = new DB())
             {
-                return db.Orders.Where(o => o.Reference.Equals(ReferenceNumber));
+                return db.Orders
+                    .Where(o => o.Reference.Equals(ReferenceNumber))
+                    .Include("Tickets.Customer");
             }
         }
 
@@ -32,7 +36,10 @@ namespace WebApplication3.DAL
         {
             using (DB db = new DB())
             {
-                return db.Orders.Where(o => o.Id == id).Single();
+                return db.Orders.Where(o => o.Id == id)
+                    .Include("Tickets")
+                    .Include("Customer")
+                    .Single();
             }
         }
 

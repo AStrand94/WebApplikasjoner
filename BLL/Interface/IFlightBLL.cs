@@ -10,6 +10,7 @@ namespace WebApplication3.BLL
         string CanUpdateFlight(Flight flight);
         Flight DeleteFlight(int id);
         IEnumerable<Flight> GetAllFlights();
+        IEnumerable<Flight> GetAllFlightsWithFullRoute();
         List<Flight> GetFlights(List<int> flightIds);
         TravelModel GetTravelModel();
         Flight InsertFlight(Flight flight);

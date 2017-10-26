@@ -58,7 +58,12 @@ namespace WebApplication3.DAL
         {
             using (DB db = new DB())
             {
-                Route routeInDb = db.Routes.Where(r => r.Id == route.Id)
+                Route routeInDb = db.Routes.Where(r => r.Id == route.Id).Single();
+
+                routeInDb.FromAirport = db.Airports.Attach(route.FromAirport);
+                routeInDb.ToAirport = db.Airports.Attach(route.ToAirport);
+                
+                    /*= db.Routes.Where(r => r.Id == route.Id)
                     .Include(r => r.Flights)
                     .Include(r => r.FromAirport)
                     .Include(r => r.ToAirport)
@@ -68,7 +73,7 @@ namespace WebApplication3.DAL
                     routeInDb.FromAirport = db.Airports.Attach(route.FromAirport);
 
                 if (route.ToAirport.Id != routeInDb.ToAirport.Id)
-                    routeInDb.ToAirport = db.Airports.Attach(route.ToAirport);
+                    routeInDb.ToAirport = db.Airports.Attach(route.ToAirport);*/
 
                 routeInDb.FlightTime = route.FlightTime;
 

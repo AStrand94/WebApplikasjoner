@@ -21,7 +21,7 @@
             <select class="form-control" id="fromAirportId" name="fromAirportId">
                 <option value="" selected disabled hidden>Select airport..</option>
                 @foreach (var airport in Model)
-            {
+                {
                     <option value="@airport.Id">@airport.Name</option>
                 }
             </select>

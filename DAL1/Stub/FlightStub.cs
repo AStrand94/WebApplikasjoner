@@ -27,13 +27,13 @@ namespace WebApplication3.DAL
 
         public bool ExistsFlightWithId(int id)
         {
-            if(id == 0)
+            if(id == 100)
             {
-                return false;
+                return true;
             }
             else
             {
-                return true;
+                return false;
             }
         }
 
@@ -116,7 +116,12 @@ namespace WebApplication3.DAL
 
         public IEnumerable<Flight> GetAllFlightsWithFullRoute()
         {
-            throw new NotImplementedException();
+            return GetAllFlights();
+        }
+
+        public Flight GetFlightWithInclude(int id)
+        {
+            return GetFlight(id);
         }
     }
 }

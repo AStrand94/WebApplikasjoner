@@ -13,10 +13,7 @@ namespace WebApplication3.DAL
         {
             if(order.Id == 0)
             {
-                return new Order
-                {
-                    Id = 0
-                };
+                return null;
             } else
             {
                 return GetOrder(1);
@@ -51,10 +48,7 @@ namespace WebApplication3.DAL
         {
             if(id == 0)
             {
-                return new Order
-                {
-                    Id = 0
-                };
+                return null;
             }
             else
             {

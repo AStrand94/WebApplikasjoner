@@ -51,8 +51,8 @@ namespace WebApplication3.Controllers
         {
             if (_loginBLL.checkLogin(username, password))
             {
-                Session.Add("LoggedIn", true);
-                Session.Add("LoggedInUser", username);
+                Session["LoggedIn"] = true;
+                Session["LoggedInUser"] = username;
 
                 return RedirectToAction("Index", "Admin");
             }
@@ -158,7 +158,7 @@ namespace WebApplication3.Controllers
                 SetMessage("Route with id " + route.Id + " was successfully updated");
             }
 
-            return RedirectToAction("Routes");
+            return RedirectToAction("Routes", "Admin");
         }
 
         [HttpGet]
@@ -199,7 +199,7 @@ namespace WebApplication3.Controllers
             }
             else
             {
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", "Admin");
             }
         }
 
@@ -216,7 +216,7 @@ namespace WebApplication3.Controllers
             if (!_customerBLL.CanDelete(id))
             {
                 SetErrorMessage("This customer has orders connected, and so cannot be deleted!");
-                return RedirectToAction("Customers");
+                return RedirectToAction("Customers", "Admin");
             }
 
             Customer customer = _customerBLL.DeleteCustomer(id);
@@ -225,9 +225,10 @@ namespace WebApplication3.Controllers
             }
             else
             {
-                SetErrorMessage("Ann error occured");
+                SetErrorMessage("An error occured");
             }
-               return RedirectToAction("Customers");
+
+            return RedirectToAction("Customers", "Admin");
         }
 
         [HttpGet]
@@ -241,7 +242,7 @@ namespace WebApplication3.Controllers
             if (!_airportBLL.AirportIsUsedInRoutes(id))
             {
                 SetErrorMessage("This airport has routes connected and cannot be deleted!");
-                return RedirectToAction("Airports");
+                return RedirectToAction("Airports", "Admin");
             }
 
             Airport airport = _airportBLL.DeleteAirport(id);
@@ -251,9 +252,9 @@ namespace WebApplication3.Controllers
             }
             else
             {
-                SetErrorMessage("Ann error occured");
+                SetErrorMessage("An error occured");
             }
-            return RedirectToAction("Airports");
+            return RedirectToAction("Airports", "Admin");
         }
 
         [HttpGet]
@@ -284,9 +285,9 @@ namespace WebApplication3.Controllers
             }
             else
             {
-                SetErrorMessage("Ann error occured");
+                SetErrorMessage("An error occured");
             }
-            return RedirectToAction("Orders");
+            return RedirectToAction("Orders", "Admin");
         }
 
         public ActionResult CreateOrder()
@@ -315,13 +316,13 @@ namespace WebApplication3.Controllers
             if(result.Length > 0)
             {
                 SetErrorMessage(result);
-                return RedirectToAction("CreateOrder");
+                return RedirectToAction("CreateOrder", "Admin");
             }
 
             Order order = _orderBLL.CreateOrder(dto);
             SetMessage("Order with reference " + order.Reference + " was successfully created");
 
-            return RedirectToAction("Orders");
+            return RedirectToAction("Orders", "Admin");
         }
 
         public ActionResult CreateCustomer()
@@ -350,7 +351,7 @@ namespace WebApplication3.Controllers
             }
             _customerBLL.AddCustomer(customer);
             SetMessage(customer.Firstname + " " + customer.Lastname + " successfully created");
-            return RedirectToAction("Customers");
+            return RedirectToAction("Customers", "Admin");
         }
 
         public ActionResult CreateAirport()
@@ -378,7 +379,7 @@ namespace WebApplication3.Controllers
             }
             _airportBLL.AddAirport(airport);
             SetMessage(airport.Name + " successfully created");
-            return RedirectToAction("Airports");
+            return RedirectToAction("Airports", "Admin");
         }
         
         public ActionResult CreateFlight()
@@ -407,14 +408,14 @@ namespace WebApplication3.Controllers
             if(result.Length > 0)
             {
                 SetErrorMessage(result);
-                return RedirectToAction("CreateFlight");
+                return RedirectToAction("CreateFlight", "Admin");
             }
 
             flight = _flightBLL.InsertFlight(flight);
 
             SetMessage("Flight created with id: " + flight.Id);
 
-            return RedirectToAction("Flights");
+            return RedirectToAction("Flights", "Admin");
         }
 
         public ActionResult CreateAirplane()
@@ -437,7 +438,7 @@ namespace WebApplication3.Controllers
 
             _airplaneBLL.InsertAirplane(airplane);
 
-            return RedirectToAction("Airplanes");
+            return RedirectToAction("Airplanes", "Admin");
         }
 
         public ActionResult CreateRoute()
@@ -473,7 +474,7 @@ namespace WebApplication3.Controllers
 
             _routeBLL.AddRoute(route);
             SetMessage(route.FromAirport.Name + " - " + route.ToAirport.Name + " on " + route.FlightTime.ToString() + " successfully created");
-            return RedirectToAction("Routes");
+            return RedirectToAction("Routes", "Admin");
         }
 
         public ActionResult Orders()
@@ -483,7 +484,7 @@ namespace WebApplication3.Controllers
                 return RedirectToAction("Index", "Home", new { area = "" });
             }
 
-            return View(_orderBLL.GetAllOrdersConnections().OrderBy(o => o.Reference));
+            return View(_orderBLL.GetAllOrdersConnections().OrderBy(o => o.Reference).ToList());
         }
 
         [HttpPost]
@@ -503,7 +504,7 @@ namespace WebApplication3.Controllers
             {
                 SetErrorMessage(GetErrorFromModel(ModelState));
             }
-            return RedirectToAction("Customers");
+            return RedirectToAction("Customers", "Admin");
         }
 
         [HttpPost]

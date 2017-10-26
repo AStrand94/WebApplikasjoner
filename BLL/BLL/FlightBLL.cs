@@ -98,7 +98,7 @@ namespace WebApplication3.BLL
 
         public IEnumerable<Flight> GetAllFlightsWithFullRoute()
         {
-            return flightDAL.GetAllFlightsWithFullRoute();
+            return _flightDAL.GetAllFlightsWithFullRoute();
         }
 
         public IEnumerable<Flight> GetAllFlightConnections()

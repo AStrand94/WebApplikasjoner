@@ -4,9 +4,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using WebApplication3.DAL;
 using WebApplication3.Model;
 using DTO;
+using WebApplication3.DAL;
 
 namespace WebApplication3.BLL
 {

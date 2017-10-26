@@ -48,6 +48,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DAL\AirplaneDAL.cs" />
+    <Compile Include="Interface\IOrderDAL.cs" />
     <Compile Include="Logging\LogHelper.cs" />
     <Compile Include="Stub\AirplaneStub.cs" />
     <Compile Include="DAL\AirportDAL.cs" />
@@ -63,7 +64,6 @@
     <Compile Include="Interface\ICustomerDAL.cs" />
     <Compile Include="Interface\IFlightDAL.cs" />
     <Compile Include="Interface\ILoginDAL.cs" />
-    <Compile Include="Interface\IOrderDAL.cs" />
     <Compile Include="Interface\IRouteDAL.cs" />
     <Compile Include="Interface\ITicketDAL.cs" />
     <Compile Include="DAL\LoginDAL.cs" />

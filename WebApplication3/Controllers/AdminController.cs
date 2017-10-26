@@ -524,7 +524,7 @@ namespace WebApplication3.Controllers
             {
                 SetErrorMessage(GetErrorFromModel(ModelState));
             }
-            return RedirectToAction("Airports");
+            return RedirectToAction("Airports", "Admin");
         }
 
         [HttpPost]
@@ -545,7 +545,7 @@ namespace WebApplication3.Controllers
                 SetErrorMessage(result);
             }
 
-            return RedirectToAction("Flights");
+            return RedirectToAction("Flights", "Admin");
         }
 
         [HttpPost]
@@ -561,11 +561,11 @@ namespace WebApplication3.Controllers
             if (result.Length > 0)
             {
                 SetErrorMessage(result);
-                return RedirectToAction("Airplanes");
+                return RedirectToAction("Airplanes", "Admin");
             }
 
             airplane = _airplaneBLL.UpdateAirplane(airplane);
-            return RedirectToAction("Airplanes");
+            return RedirectToAction("Airplanes", "Admin");
         }
 
         [HttpGet]
@@ -588,7 +588,7 @@ namespace WebApplication3.Controllers
                 SetErrorMessage(message);
             }
 
-            return RedirectToAction("Flights");
+            return RedirectToAction("Flights", "Admin");
         }
 
         [HttpGet]
@@ -604,12 +604,12 @@ namespace WebApplication3.Controllers
             if(result.Length > 0)
             {
                 SetErrorMessage(result);
-                return RedirectToAction("Airplanes");
+                return RedirectToAction("Airplanes", "Admin");
             }
 
             Airplane airplane = _airplaneBLL.DeleteAirplane(id);
             SetMessage("Airplane " + airplane.Model + ", with id: " + airplane.Id + " was successfully deleted");
-            return RedirectToAction("Airplanes");
+            return RedirectToAction("Airplanes", "Admin");
         }
 
         public bool UserIsLoggedIn()

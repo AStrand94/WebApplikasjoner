@@ -38,7 +38,8 @@ namespace WebApplication3.DAL
             using (DB db = new DB())
             {
                 return db.Orders.Where(o => o.Id == id)
-                    .Include("Tickets")
+                    .Include("Tickets.Flight.Route.ToAirport")
+                    .Include("Tickets.Flight.Route.FromAirport")
                     .Include("Customer")
                     .Single();
             }

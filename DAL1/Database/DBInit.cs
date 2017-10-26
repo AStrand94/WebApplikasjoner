@@ -251,7 +251,8 @@ namespace WebApplication3.DAL
             {
                 Id = 0,
                 Reference = "ABCD",
-                Customer = customer1
+                Customer = customer1,
+                TotalPrice = 159.00
             };
 
             context.Orders.Add(order1);

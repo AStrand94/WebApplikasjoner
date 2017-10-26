@@ -10,56 +10,51 @@ namespace WebApplication3.BLL
 {
     public class CustomerBLL : ICustomerBLL
     {
-        private ICustomerDAL customer;
+        private ICustomerDAL _customer;
 
         public CustomerBLL()
         {
-            customer = new CustomerDAL();
+            _customer = new CustomerDAL();
         }
 
         public CustomerBLL(ICustomerDAL stub)
         {
-            customer = stub;
+            _customer = stub;
         }
 
-        public void AddCustomers(IEnumerable<Customer> customers)
+        public Customer AddCustomer(Customer customer)
         {
-            new CustomerDAL().AddCustomers(customers);
-        }
-
-        public void AddCustomer(Customer customer)
-        {
-            new CustomerDAL().AddCustomer(customer);
+            return _customer.AddCustomer(customer);
         }
 
         public IEnumerable<Customer> GetAllCustomers()
         {
-            return new CustomerDAL().GetAllCustomers();
+            return _customer.GetAllCustomers();
         }
 
         public IEnumerable<Customer> GetAllCustomersConnections()
         {
-            return new CustomerDAL().GetAllCustomersConnections();
+            return _customer.GetAllCustomersConnections();
         }
 
         public Customer DeleteCustomer(int id)
         {
-            return new CustomerDAL().DeleteCustomer(id);
+            return _customer.DeleteCustomer(id);
         }
 
         public Order DeleteAssociatedOrder(int customerId, int orderId)
         {
-            return new CustomerDAL().DeleteAssociatedOrder(customerId, orderId);
+            return _customer.DeleteAssociatedOrder(customerId, orderId);
         }
 
         public bool CanDelete(int id)
         {
-            return new CustomerDAL().HasOrder(id);
+            return _customer.HasOrder(id);
         }
         
-        public void UpdateCustomer(Customer customer)
+        public Customer UpdateCustomer(Customer customer)
         {
-            new CustomerDAL().UpdateCustomer(customer);
+            return _customer.UpdateCustomer(customer);
         }
     }
 }

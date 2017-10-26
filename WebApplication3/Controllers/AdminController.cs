@@ -47,15 +47,15 @@ namespace WebApplication3.Controllers
 
         public ActionResult Login(string username, string password)
         {
-            if(_loginBLL.checkLogin(username, password))
+            if (_loginBLL.checkLogin(username, password))
             {
                 Session.Add("LoggedIn", true);
                 Session.Add("LoggedInUser", username);
 
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", "Admin");
             }
 
-            return RedirectToAction("Index", "Home", new { area = "" });
+            return RedirectToAction("Index", "Home");
         }
         
         public ActionResult LogOut()
@@ -72,7 +72,6 @@ namespace WebApplication3.Controllers
             }
 
             ViewBag.loggedInUser = Session["loggedInUser"];
-
             ViewBag.Customers = _customerBLL.GetAllCustomers().Count();
             ViewBag.Orders = _orderBLL.GetAllOrders().Count();
             ViewBag.Flights = _flightBLL.GetAllFlights().Count();
@@ -100,7 +99,7 @@ namespace WebApplication3.Controllers
                 return RedirectToAction("Index", "Home", new { area = "" });
             }
 
-            return View(_airportBLL.GetAllAirports().OrderBy(a => a.Name));
+            return View(_airportBLL.GetAllAirports().OrderBy(a => a.Name).ToList());
 
         }
 
@@ -111,7 +110,7 @@ namespace WebApplication3.Controllers
                 return RedirectToAction("Index", "Home", new { area = "" });
             }
 
-            return View(_customerBLL.GetAllCustomersConnections().OrderBy(c => c.Firstname));
+            return View(_customerBLL.GetAllCustomersConnections().OrderBy(c => c.Firstname).ToList());
         }
 
         public ActionResult Flights()
@@ -134,7 +133,7 @@ namespace WebApplication3.Controllers
             }
 
             TempData["allAirports"] = _airportBLL.GetAllAirports();
-            return View(_routeBLL.GetAllRoutes().OrderBy(r => r.FromAirport.Name));
+            return View(_routeBLL.GetAllRoutes().OrderBy(r => r.FromAirport.Name).ToList());
         }
 
         [HttpPost]
@@ -147,7 +146,7 @@ namespace WebApplication3.Controllers
 
             _routeBLL.UpdateRoute(route);
             SetMessage("Route with id " + route.Id + " was successfully updated");
-            return RedirectToAction("Routes");
+            return RedirectToAction("Routes", "Admin");
         }
 
         [HttpGet]
@@ -170,7 +169,7 @@ namespace WebApplication3.Controllers
                 SetErrorMessage(message);
             }
 
-            return RedirectToAction("Routes");
+            return RedirectToAction("Routes", "Admin");
         }
 
         [HttpGet]

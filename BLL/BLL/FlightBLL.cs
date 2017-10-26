@@ -16,7 +16,7 @@ namespace WebApplication3.BLL
         private DateTime? returnDate;
         private int numberOfTravellers;
 
-        private IFlightDAL flightDAL;
+        private IFlightDAL _flightDAL;
 
         public FlightBLL(int fromAirportId, int toAirportId, DateTime date, DateTime? returnDate, int numberOfTravellers)
         {
@@ -25,17 +25,17 @@ namespace WebApplication3.BLL
             this.date = date;
             this.returnDate = returnDate;
             this.numberOfTravellers = numberOfTravellers;
-            flightDAL = new FlightDAL();
+            _flightDAL = new FlightDAL();
         }
 
         public FlightBLL()
         {
-            flightDAL = new FlightDAL();
+            _flightDAL = new FlightDAL();
         }
         
         public FlightBLL(IFlightDAL stub)
         {
-            flightDAL = stub;
+            _flightDAL = stub;
         }
 
         private List<Travel> GetFlightsTo()
@@ -93,12 +93,12 @@ namespace WebApplication3.BLL
 
         public IEnumerable<Flight> GetAllFlights()
         {
-            return new FlightDAL().GetAllFlights();
+            return _flightDAL.GetAllFlights();
         }
 
         public IEnumerable<Flight> GetAllFlightConnections()
         {
-            return new FlightDAL().GetAllFlightConnections();
+            return _flightDAL.GetAllFlightConnections();
         }
 
         public String CanUpdateFlight(Flight flight)
@@ -119,25 +119,24 @@ namespace WebApplication3.BLL
 
         public void UpdateFlight(Flight flight)
         {
-            FlightDAL flightDAL = new FlightDAL();
             RouteDAL routeDAL = new RouteDAL();
             AirplaneDAL airplaneDAL = new AirplaneDAL();
 
-            Flight dbFlight = flightDAL.GetFlight(flight.Id);
+            Flight dbFlight = _flightDAL.GetFlight(flight.Id);
 
             if (dbFlight == null)
                 throw new NullReferenceException("flight with id " + flight.Id + " does not exist in current context");
             
             flight.Route = routeDAL.GetRoute(flight.Route.Id);
             flight.Airplane = airplaneDAL.GetAirplane(flight.Airplane.Id);
-            flightDAL.UpdateFlight(flight);
+            _flightDAL.UpdateFlight(flight);
         }
 
         public string CanDeleteFlight(int id)
         {
             StringBuilder stringBuilder = new StringBuilder();
 
-            Flight flight = new FlightDAL().GetFlight(id);
+            Flight flight = _flightDAL.GetFlight(id);
 
             if(flight == null)
             {
@@ -175,7 +174,6 @@ namespace WebApplication3.BLL
         public string CanInsertFlight(Flight flight)
         {
             StringBuilder stringBuilder = new StringBuilder();
-            FlightDAL flightDAL = new FlightDAL();
             RouteDAL routeDAL = new RouteDAL();
             AirplaneDAL airplaneDAL = new AirplaneDAL();
 
@@ -206,7 +204,7 @@ namespace WebApplication3.BLL
         {
             flight.Route = new RouteDAL().GetRoute(flight.Route.Id);
             flight.Airplane = new AirplaneDAL().GetAirplane(flight.Airplane.Id);
-            return new FlightDAL().InsertFlight(flight);
+            return _flightDAL.InsertFlight(flight);
         }
     }
 }

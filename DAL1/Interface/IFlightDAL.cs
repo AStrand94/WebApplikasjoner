@@ -10,7 +10,7 @@ namespace WebApplication3.DAL
         IEnumerable<Flight> GetAllFlights();
         Flight GetFlight(int flightId);
         Flight InsertFlight(Flight flight);
-        void UpdateFlight(Flight flight);
+        Flight UpdateFlight(Flight flight);
         IEnumerable<Flight> GetAllFlightConnections();
     }
 }

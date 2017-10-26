@@ -41,7 +41,7 @@ namespace WebApplication3.DAL
             }
         }
 
-        public void UpdateFlight(Flight flight)
+        public Flight UpdateFlight(Flight flight)
         {
             using (DB db = new DB())
             {
@@ -54,6 +54,8 @@ namespace WebApplication3.DAL
                 //DO NOT UPDATE TICKETS.
 
                 db.SaveChanges();
+
+                return dbFlight;
             }
         }
 

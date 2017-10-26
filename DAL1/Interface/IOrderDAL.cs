@@ -5,7 +5,7 @@ namespace WebApplication3.DAL
 {
     public interface IOrderDAL
     {
-        void AddOrder(Order order);
+        Order AddOrder(Order order);
         IEnumerable<Order> GetAllOrders();
         Order GetOrder(int id);
         IEnumerable<Order> GetOrder(string ReferenceNumber);

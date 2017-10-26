@@ -11,135 +11,126 @@ namespace WebApplication3.DAL
     {
         public Route AddRoute(Route route)
         {
-            Airport airport = new Airport
+            if (route.Id == 0)
             {
-                Id = 0,
-                Code = "OSL",
-                City = "Oslo",
-                Country = "Norway",
-                Name = "Gardermoen"
-            };
-
-            return new Route
+                var r = new Route
+                {
+                    Id = 0
+                };
+                return r;
+            }
+            else
             {
-                ToAirport = airport,
-                FromAirport = airport,
-                FlightTime = new TimeSpan(10, 0, 0),
-                Flights = new List<Flight>()
-            };
+                return GetRoute(1);
+            }
         }
 
         public Route DeleteRoute(int id)
         {
-            Airport airport = new Airport
+            if (id == 0)
             {
-                Id = 0,
-                Code = "OSL",
-                City = "Oslo",
-                Country = "Norway",
-                Name = "Gardermoen"
-            };
-
-            return new Route
+                var r = new Route
+                {
+                    Id = 0
+                };
+                return r;
+            }
+            else
             {
-                ToAirport = airport,
-                FromAirport = airport,
-                FlightTime = new TimeSpan(10,0,0),
-                Flights = new List<Flight>()
-            };
+                return GetRoute(1);
+            }
         }
 
         public bool ExistsRouteWithId(int id)
         {
-            return true;
+            if (id == 0)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
         }
 
         public IEnumerable<Route> GetAllRoutes()
         {
-            Airport airport1 = new Airport
-            {
-                Id = 0,
-                Code = "OSL",
-                City = "Oslo",
-                Country = "Norway",
-                Name = "Gardermoen"
-            };
+            var routeList = new List<Route>();
+            var route = GetRoute(1);
 
-            Airport airport2 = new Airport
-            {
-                Id = 0,
-                Code = "lll",
-                City = "Paris",
-                Country = "France",
-                Name = "Paris airport"
-            };
+            routeList.Add(route);
+            routeList.Add(route);
+            routeList.Add(route);
 
-            Route r1 = new Route
-            {
-                ToAirport = airport1,
-                FromAirport = airport2,
-                FlightTime = new TimeSpan(10, 0, 0),
-                Flights = new List<Flight>()
-            };
-
-            Route r2 = new Route
-            {
-                ToAirport = airport2,
-                FromAirport = airport1,
-                FlightTime = new TimeSpan(12, 0, 0),
-                Flights = new List<Flight>()
-            };
-
-            List<Route> routes = new List<Route>();
-            routes.Add(r1); routes.Add(r2);
-
-            return routes;
+            return routeList;
         }
 
         public IEnumerable<Route> GetAllRoutesConnections()
         {
-            return GetAllRoutes();
+            var routeList = new List<Route>();
+            var route = GetRoute(1);
+
+            routeList.Add(route);
+            routeList.Add(route);
+            routeList.Add(route);
+
+            return routeList;
         }
 
         public Route GetRoute(int id)
         {
-            return GetAllRoutes().ElementAt(0);
+            if(id == 0)
+            {
+                return new Route
+                {
+                    Id = 0
+                };
+            }
+            else
+            {
+                var airport = new Airport
+                {
+                    Id = 1,
+                    Name = "Gardermoen"
+                };
+
+                return new Route
+                {
+                    Id = 1,
+                    FromAirport = airport,
+                    ToAirport = airport,
+                    Flights = new List<Flight>(),
+                    FlightTime = new TimeSpan(10, 0, 0)
+                };
+            }
         }
 
         public bool RouteHasAirport(int id)
         {
-            return false;
+            if (id == 0)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
         }
 
         public Route UpdateRoute(Route route)
         {
-            Airport airport1 = new Airport
+            if (route.Id == 0)
             {
-                Id = 0,
-                Code = "OSL",
-                City = "Oslo",
-                Country = "Norway",
-                Name = "Gardermoen"
-            };
-
-            Airport airport2 = new Airport
+                var r = new Route
+                {
+                    Id = 0
+                };
+                return r;
+            }
+            else
             {
-                Id = 0,
-                Code = "lll",
-                City = "Paris",
-                Country = "France",
-                Name = "Paris airport"
-            };
-
-            Route r1 = new Route
-            {
-                ToAirport = airport1,
-                FromAirport = airport2,
-                FlightTime = new TimeSpan(10, 0, 0),
-                Flights = new List<Flight>()
-            };
-
-            return r1;
+                return GetRoute(1);
+            }
         }
     }
 }

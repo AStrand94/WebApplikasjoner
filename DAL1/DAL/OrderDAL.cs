@@ -10,7 +10,7 @@ namespace WebApplication3.DAL
 {
     public class OrderDAL : IOrderDAL
     {
-        public void AddOrder(Order order)
+        public Order AddOrder(Order order)
         {
             using (DB db = new DB())
             {
@@ -18,6 +18,7 @@ namespace WebApplication3.DAL
                 foreach (var ticket in order.Tickets) db.Tickets.Add(ticket);
                 db.Orders.Add(order);
                 db.SaveChanges();
+                return order;
             }
 
         }

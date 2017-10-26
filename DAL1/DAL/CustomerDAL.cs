@@ -10,18 +10,6 @@ namespace WebApplication3.DAL
 {
     public class CustomerDAL : ICustomerDAL
     {
-        public void AddCustomers(IEnumerable<Customer> customers)
-        {
-            using (DB db = new DB())
-            {
-                foreach (var customer in customers)
-                {
-                    db.Customers.Add(customer);
-                }
-                db.SaveChanges();
-            }
-        }
-
         public IEnumerable<Customer> GetAllCustomers()
         {
             using (DB db = new DB())
@@ -93,16 +81,17 @@ namespace WebApplication3.DAL
             }
         }
 
-        public void AddCustomer(Customer customer)
+        public Customer AddCustomer(Customer customer)
         {
             using (DB db = new DB())
             {
                 db.Customers.Add(customer);
                 db.SaveChanges();
+                return customer;
             }
         }
 
-        public void UpdateCustomer(Customer customer)
+        public Customer UpdateCustomer(Customer customer)
         {
             using (DB db = new DB())
             {
@@ -113,6 +102,7 @@ namespace WebApplication3.DAL
                 customerInDb.Email = customer.Email;
 
                 db.SaveChanges();
+                return customerInDb;
             }
         }
 

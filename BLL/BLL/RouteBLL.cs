@@ -10,57 +10,58 @@ namespace WebApplication3.BLL
 {
     public class RouteBLL : IRouteBLL
     {
-        private IRouteDAL dal;
+        private IRouteDAL _routeDAL;
+        private IAirportDAL _airportDAL;
 
         public RouteBLL()
         {
-            dal = new RouteDAL();
+            _routeDAL = new RouteDAL();
+            _airportDAL = new AirportDAL();
         }
 
-        public RouteBLL(IRouteDAL stub)
+        public RouteBLL(IRouteDAL stub, IAirportDAL airportStub)
         {
-            dal = stub;
+            _routeDAL = stub;
+            _airportDAL = airportStub;
         }
 
         public IEnumerable<Route> GetAllRoutes()
         {
-            return dal.GetAllRoutes();
+            return _routeDAL.GetAllRoutes();
         }
 
         public IEnumerable<Route> GetAllRoutesConnections()
         {
-            return dal.GetAllRoutesConnections();
+            return _routeDAL.GetAllRoutesConnections();
         }
 
         public bool RouteHasAirport(int id)
         {
-            return dal.RouteHasAirport(id);
+            return _routeDAL.RouteHasAirport(id);
         }
 
         public Route UpdateRoute(Route route)
         {
-            AirportDAL airportDAL = new AirportDAL();
-
-            Route dbRoute = dal.GetRoute(route.Id);
+            Route dbRoute = _routeDAL.GetRoute(route.Id);
 
             if (dbRoute == null)
                 throw new NullReferenceException("Route with id " + route.Id + " does not exist in current context");
 
-            route.FromAirport = airportDAL.GetAirport(route.FromAirport.Id);
-            route.ToAirport = airportDAL.GetAirport(route.ToAirport.Id);
-            return dal.UpdateRoute(route);
+            route.FromAirport = _airportDAL.GetAirport(route.FromAirport.Id);
+            route.ToAirport = _airportDAL.GetAirport(route.ToAirport.Id);
+            return _routeDAL.UpdateRoute(route);
         }
 
         public Route DeleteRoute(int id)
         {
-            return dal.DeleteRoute(id);
+            return _routeDAL.DeleteRoute(id);
         }
 
         public string CanDeleteRoute(int id)
         {
             StringBuilder stringBuilder = new StringBuilder();
 
-            Route route = dal.GetRoute(id);
+            Route route = _routeDAL.GetRoute(id);
 
             if (route == null)
             {
@@ -92,7 +93,7 @@ namespace WebApplication3.BLL
 
         public Route AddRoute(Route route)
         {
-            return dal.AddRoute(route);
+            return _routeDAL.AddRoute(route);
         }
 
         public string CanUpdateRoute(Route route)

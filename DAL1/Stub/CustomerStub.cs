@@ -9,49 +9,132 @@ namespace WebApplication3.DAL
 {
     public class CustomerStub : ICustomerDAL
     {
-        public void AddCustomer(Customer customer)
+        public Customer AddCustomer(Customer customer)
         {
-            throw new NotImplementedException();
-        }
-
-        public void AddCustomers(IEnumerable<Customer> customers)
-        {
-            throw new NotImplementedException();
+            if (customer.Id == 0)
+            {
+                var c = new Customer
+                {
+                    Id = 0
+                };
+                return c;
+            }
+            else
+            {
+                return GetCustomer(1);
+            }
         }
 
         public Order DeleteAssociatedOrder(int customerId, int orderId)
         {
-            throw new NotImplementedException();
+            if (customerId == 0 && orderId == 0)
+            {
+                var o = new Order
+                {
+                    Id = 0
+                };
+                return o;
+            }
+            else
+            {
+                var o = new Order
+                {
+                    Id = 1
+                };
+                return o;
+            }
         }
 
         public Customer DeleteCustomer(int id)
         {
-            throw new NotImplementedException();
+            if (id == 0)
+            {
+                var customer = new Customer
+                {
+                    Id = 0
+                };
+                return customer;
+            }
+            else
+            {
+                return GetCustomer(1);
+            }
         }
 
         public IEnumerable<Customer> GetAllCustomers()
         {
-            throw new NotImplementedException();
+            var customerList = new List<Customer>();
+            var customer = GetCustomer(1);
+
+            customerList.Add(customer);
+            customerList.Add(customer);
+            customerList.Add(customer);
+
+            return customerList;
         }
 
         public IEnumerable<Customer> GetAllCustomersConnections()
         {
-            throw new NotImplementedException();
+            var customerList = new List<Customer>();
+            var customer = GetCustomer(1);
+
+            customerList.Add(customer);
+            customerList.Add(customer);
+            customerList.Add(customer);
+
+            return customerList;
         }
 
         public Customer GetCustomer(int id)
         {
-            throw new NotImplementedException();
+            if (id == 0)
+            {
+                var customer = new Customer
+                {
+                    Id = 0
+                };
+                return customer;
+            }
+            else
+            {
+                var customer = new Customer()
+                {
+                    Id = 1,
+                    Firstname = "Ola",
+                    Lastname = "Normann",
+                    Email = "olanormann@gmail.com",
+                    Telephone = "12345678"
+                };
+                return customer;
+            }
         }
 
         public bool HasOrder(int id)
         {
-            throw new NotImplementedException();
+            if (id == 0)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
         }
 
-        public void UpdateCustomer(Customer customer)
+        public Customer UpdateCustomer(Customer customer)
         {
-            throw new NotImplementedException();
+            if (customer.Id == 0)
+            {
+                var c = new Customer
+                {
+                    Id = 0
+                };
+                return c;
+            }
+            else
+            {
+                return GetCustomer(1);
+            }
         }
     }
 }

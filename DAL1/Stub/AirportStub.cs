@@ -17,7 +17,7 @@ namespace WebApplication3.DAL
                 {
                     Name = ""
                 };
-                return airport;
+                return ap;
             }
             else
             {
@@ -25,7 +25,7 @@ namespace WebApplication3.DAL
                 {
                     Name = "Gardermoen"
                 };
-                return airport;
+                return ap;
             }
         }
 
@@ -83,7 +83,18 @@ namespace WebApplication3.DAL
 
         public Airport UpdateAirport(Airport airport)
         {
-            throw new NotImplementedException();
+            if (airport.Id == 0)
+            {
+                var a = new Airport
+                {
+                    Id = 0
+                };
+                return a;
+            }
+            else
+            {
+                return GetAirport(1);
+            }
         }
     }
 }

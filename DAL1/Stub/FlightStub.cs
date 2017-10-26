@@ -11,37 +11,107 @@ namespace WebApplication3.DAL
     {
         public Flight DeleteFlight(int id)
         {
-            throw new NotImplementedException();
+            if (id == 0)
+            {
+                var f = new Flight
+                {
+                    Id = 0
+                };
+                return f;
+            }
+            else
+            {
+                return GetFlight(1);
+            }
         }
 
         public bool ExistsFlightWithId(int id)
         {
-            throw new NotImplementedException();
+            if(id == 0)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
         }
 
         public IEnumerable<Flight> GetAllFlightConnections()
         {
-            throw new NotImplementedException();
+            var flightList = new List<Flight>();
+            var flight = GetFlight(1);
+
+            flightList.Add(flight);
+            flightList.Add(flight);
+            flightList.Add(flight);
+
+            return flightList;
         }
 
         public IEnumerable<Flight> GetAllFlights()
         {
-            throw new NotImplementedException();
+            var flightList = new List<Flight>();
+            var flight = GetFlight(1);
+
+            flightList.Add(flight);
+            flightList.Add(flight);
+            flightList.Add(flight);
+
+            return flightList;
         }
 
         public Flight GetFlight(int flightId)
         {
-            throw new NotImplementedException();
+            if (flightId == 0)
+            {
+                var flight = new Flight
+                {
+                    Id = 0
+                };
+                return flight;
+            }
+            else
+            {
+                var flight = new Flight()
+                {
+                    Id = 1,
+                    Price = 100
+                };
+                return flight;
+            }
         }
 
         public Flight InsertFlight(Flight flight)
         {
-            throw new NotImplementedException();
+            if (flight.Id == 0)
+            {
+                var f = new Flight
+                {
+                    Id = 0
+                };
+                return f;
+            }
+            else
+            {
+                return GetFlight(1);
+            }
         }
 
-        public void UpdateFlight(Flight flight)
+        public Flight UpdateFlight(Flight flight)
         {
-            throw new NotImplementedException();
+            if (flight.Id == 0)
+            {
+                var f = new Flight
+                {
+                    Id = 0
+                };
+                return f;
+            }
+            else
+            {
+                return GetFlight(1);
+            }
         }
 
         public IEnumerable<Flight> GetAllFlightsWithFullRoute()

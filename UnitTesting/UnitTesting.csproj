@@ -81,11 +81,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AdminControllerTest.cs" />
-    <Compile Include="AirplaneBLLTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TicketBLLTest.cs" />
-    <Compile Include="RouteBLLTest.cs" />
-    <Compile Include="AirportBLLTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

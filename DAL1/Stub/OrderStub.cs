@@ -9,43 +9,80 @@ namespace WebApplication3.DAL
 {
     public class OrderStub : IOrderDAL
     {
-        public void AddOrder(Order order)
+        public Order AddOrder(Order order)
         {
+            if(order.Id == 0)
+            {
+                return new Order
+                {
+                    Id = 0
+                };
+            } else
+            {
+                return GetOrder(1);
+            }
         }
 
         public IEnumerable<Order> GetAllOrders()
         {
-            List<Order> orders = new List<Order>();
+            var orderList = new List<Order>();
+            var order = GetOrder(1);
 
-            Order order = new Order
-            {
-                Tickets = new List<Ticket>(),
-                Customer = new Customer
-                {
-                    Firstname = "Andreas",
-                    Lastname = "Strand",
-                    Telephone = "00000000",
-                    Email = "a@a.a"
-                }
-            };
+            orderList.Add(order);
+            orderList.Add(order);
+            orderList.Add(order);
 
-            orders.Add(order);
-            return orders;
+            return orderList;
         }
 
         public IEnumerable<Order> GetAllOrdersConnections()
         {
-            throw new NotImplementedException();
+            var orderList = new List<Order>();
+            var order = GetOrder(1);
+
+            orderList.Add(order);
+            orderList.Add(order);
+            orderList.Add(order);
+
+            return orderList;
         }
 
         public Order GetOrder(int id)
         {
-            throw new NotImplementedException();
+            if(id == 0)
+            {
+                return new Order
+                {
+                    Id = 0
+                };
+            }
+            else
+            {
+                return new Order
+                {
+                    Id = 1,
+                    Tickets = new List<Ticket>(),
+                    Customer = new Customer
+                    {
+                        Firstname = "Andreas",
+                        Lastname = "Strand",
+                        Telephone = "00000000",
+                        Email = "a@a.a"
+                    }
+                };
+            }
+            
         }
 
         public IEnumerable<Order> GetOrder(string ReferenceNumber)
         {
-            throw new NotImplementedException();
+            if(ReferenceNumber == "")
+            {
+                return new List<Order>();
+            } else
+            {
+                return GetAllOrders();
+            }
         }
     }
 }

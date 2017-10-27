@@ -695,20 +695,22 @@ namespace WebApplication3.Controllers
 
         protected override void OnException(ExceptionContext filterContext)
         {
-            if (filterContext.ExceptionHandled)
+            /*if (filterContext.ExceptionHandled)
             {
                 return;
-            }
+            }*/
 
-            ViewResult result = new ViewResult
+
+            /*ViewResult result = new ViewResult
             {
                 ViewName = "~/Views/Shared/Error.cshtml"
             };
 
-            //filterContext.Result = result;
+            filterContext.Result = result;
 
             LogHelper.Log(filterContext.Exception);
-            filterContext.ExceptionHandled = true;
+            filterContext.ExceptionHandled = true;*/
+            base.OnException(filterContext);
         }
     }
 }

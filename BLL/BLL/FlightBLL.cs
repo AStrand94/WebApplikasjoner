@@ -111,10 +111,6 @@ namespace WebApplication3.BLL
         public String CanUpdateFlight(Flight flight)
         {
             StringBuilder stringBuilder = new StringBuilder();
-            if (flight.Price == 0 || flight.Route == null || flight.Time == null || flight.Id < 0)
-            {
-                stringBuilder.Append("All field must be filled!\n\r");
-            }
 
             if (flight.Time != null && flight.Time < DateTime.Now)
             {

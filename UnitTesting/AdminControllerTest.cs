@@ -1845,6 +1845,26 @@ namespace UnitTesting
         }
 
         [TestMethod]
+        public void CreateAirplaneInput_Fail_Null_Id()
+        {
+            //Arrange
+            var expectedResult = new Airplane
+            {
+                Id = 1,
+                Model = "Boeing 737",
+                Seats = 0
+            };
+
+            //Act
+            var result = (RedirectToRouteResult)controller.CreateAirplane(expectedResult);
+
+            //Assert
+            Assert.AreEqual(result.RouteName, "");
+            Assert.AreEqual("Airplanes", result.RouteValues["action"]);
+            Assert.AreEqual("Admin", result.RouteValues["controller"]);
+        }
+
+        [TestMethod]
         public void CreateRoute()
         {
             //Arrange

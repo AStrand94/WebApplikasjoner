@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,6 +15,7 @@ namespace WebApplication3.DAL
             return o;
         }
 
+        [ExcludeFromCodeCoverage]
         public Order AddOrderWithCustomer(Order o)
         {
             return o;

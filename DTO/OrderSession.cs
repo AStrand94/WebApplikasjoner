@@ -1,8 +1,10 @@
 ﻿using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using WebApplication3.Model;
 
 namespace DTO.Models
 {
+    [ExcludeFromCodeCoverage]
     public class OrderSession
     {
         public List<int> Flights { get; set; }

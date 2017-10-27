@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.Entity.Core.Objects;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Web;
 using WebApplication3.DAL;
@@ -9,6 +10,7 @@ using WebApplication3.Model;
 
 namespace WebApplication3.Model
 {
+    [ExcludeFromCodeCoverage]
     public class PathHelper
     {
         private static readonly int HOUR_IN_MILLIS = 3_600_000;

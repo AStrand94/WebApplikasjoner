@@ -36,18 +36,7 @@ namespace WebApplication3.DAL
 
         public Route DeleteRoute(int id)
         {
-            if (id == 0)
-            {
-                var r = new Route
-                {
-                    Id = 0
-                };
-                return r;
-            }
-            else
-            {
-                return GetRoute(1);
-            }
+            return GetRoute(1);   
         }
 
         public bool ExistsRouteWithId(int id)

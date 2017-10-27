@@ -44,9 +44,6 @@ namespace WebApplication3.BLL
         {
             Route dbRoute = _routeDAL.GetRoute(route.Id);
 
-            if (dbRoute == null)
-                throw new NullReferenceException("Route with id " + route.Id + " does not exist in current context");
-
             route.FromAirport = _airportDAL.GetAirport(route.FromAirport.Id);
             route.ToAirport = _airportDAL.GetAirport(route.ToAirport.Id);
             return _routeDAL.UpdateRoute(route);

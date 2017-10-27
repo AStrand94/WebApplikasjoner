@@ -96,6 +96,19 @@ namespace UnitTesting
         }
 
         [TestMethod]
+        public void Index_NotLoggedIn()
+        {
+            //Arrange
+            controller.Session["loggedIn"] = false;
+            var result = (RedirectToRouteResult)controller.Index();
+
+            //Assert
+            Assert.AreEqual(result.RouteName, "");
+            Assert.AreEqual("Index", result.RouteValues["action"]);
+            Assert.AreEqual("Home", result.RouteValues["controller"]);
+        }
+
+        [TestMethod]
         public void Airplanes()
         {
             //Arrange
@@ -124,6 +137,19 @@ namespace UnitTesting
                 Assert.AreEqual(expectedResult[i].Model, resultList[i].Model);
                 Assert.AreEqual(expectedResult[i].Seats, resultList[i].Seats);
             }
+        }
+
+        [TestMethod]
+        public void Airplanes_NotLoggedIn()
+        {
+            //Arrange
+            controller.Session["loggedIn"] = false;
+            var result = (RedirectToRouteResult)controller.Airplanes();
+
+            //Assert
+            Assert.AreEqual(result.RouteName, "");
+            Assert.AreEqual("Index", result.RouteValues["action"]);
+            Assert.AreEqual("Home", result.RouteValues["controller"]);
         }
 
         [TestMethod]
@@ -162,6 +188,19 @@ namespace UnitTesting
         }
 
         [TestMethod]
+        public void Airports_NotLoggedIn()
+        {
+            //Arrange
+            controller.Session["loggedIn"] = false;
+            var result = (RedirectToRouteResult)controller.Airports();
+
+            //Assert
+            Assert.AreEqual(result.RouteName, "");
+            Assert.AreEqual("Index", result.RouteValues["action"]);
+            Assert.AreEqual("Home", result.RouteValues["controller"]);
+        }
+
+        [TestMethod]
         public void Customers()
         {
             //Arrange
@@ -197,6 +236,19 @@ namespace UnitTesting
         }
 
         [TestMethod]
+        public void Customers_NotLoggedIn()
+        {
+            //Arrange
+            controller.Session["loggedIn"] = false;
+            var result = (RedirectToRouteResult)controller.Customers();
+
+            //Assert
+            Assert.AreEqual(result.RouteName, "");
+            Assert.AreEqual("Index", result.RouteValues["action"]);
+            Assert.AreEqual("Home", result.RouteValues["controller"]);
+        }
+
+        [TestMethod]
         public void Flights()
         {
             //Arrange
@@ -223,6 +275,19 @@ namespace UnitTesting
                 Assert.AreEqual(expectedResult[i].Id, resultList[i].Id);
                 Assert.AreEqual(expectedResult[i].Price, resultList[i].Price);
             }
+        }
+
+        [TestMethod]
+        public void Flights_NotLoggedIn()
+        {
+            //Arrange
+            controller.Session["loggedIn"] = false;
+            var result = (RedirectToRouteResult)controller.Flights();
+
+            //Assert
+            Assert.AreEqual(result.RouteName, "");
+            Assert.AreEqual("Index", result.RouteValues["action"]);
+            Assert.AreEqual("Home", result.RouteValues["controller"]);
         }
 
         [TestMethod]
@@ -261,6 +326,19 @@ namespace UnitTesting
                 Assert.AreEqual(expectedResult[i].Id, resultList[i].Id);
                 Assert.AreEqual(expectedResult[i].FlightTime, resultList[i].FlightTime);
             }
+        }
+
+        [TestMethod]
+        public void Routes_NotLoggedIn()
+        {
+            //Arrange
+            controller.Session["loggedIn"] = false;
+            var result = (RedirectToRouteResult)controller.Routes();
+
+            //Assert
+            Assert.AreEqual(result.RouteName, "");
+            Assert.AreEqual("Index", result.RouteValues["action"]);
+            Assert.AreEqual("Home", result.RouteValues["controller"]);
         }
 
         [TestMethod]
@@ -362,6 +440,19 @@ namespace UnitTesting
         }
 
         [TestMethod]
+        public void UpdateRoute_NotLoggedIn()
+        {
+            //Arrange
+            controller.Session["loggedIn"] = false;
+            var result = (RedirectToRouteResult)controller.UpdateRoute(new Route());
+
+            //Assert
+            Assert.AreEqual(result.RouteName, "");
+            Assert.AreEqual("Index", result.RouteValues["action"]);
+            Assert.AreEqual("Home", result.RouteValues["controller"]);
+        }
+
+        [TestMethod]
         public void UpdateRoute_Fail()
         {
             //Arrange
@@ -408,14 +499,46 @@ namespace UnitTesting
             };
 
             //Act
-            var result = (RedirectToRouteResult)controller.UpdateRoute(route);
             controller.ModelState.AddModelError("FlightTime", "FlightTime need to be set!");
+            var result = (RedirectToRouteResult)controller.UpdateRoute(route);
 
             //Assert
             Assert.AreEqual(result.RouteName, "");
             Assert.AreEqual("Routes", result.RouteValues["action"]);
             Assert.AreEqual("Admin", result.RouteValues["controller"]);
             Assert.IsTrue(controller.ModelState.Count() == 1);
+        }
+
+        [TestMethod]
+        public void UpdateRoute_Success ()
+        {
+            //Arrange
+            var airport = new Airport
+            {
+                Id = 1,
+                Name = "Gardermoen"
+            };
+
+            var airport1 = new Airport
+            {
+                Id = 2,
+                Name = "London"
+            };
+
+            var route = new Route()
+            {
+                Id = 1,
+                FromAirport = airport,
+                ToAirport = airport1,
+            };
+
+            //Act
+            var result = (RedirectToRouteResult)controller.UpdateRoute(route);
+
+            //Assert
+            Assert.AreEqual(result.RouteName, "");
+            Assert.AreEqual("Routes", result.RouteValues["action"]);
+            Assert.AreEqual("Admin", result.RouteValues["controller"]);
         }
 
         [TestMethod]
@@ -472,6 +595,19 @@ namespace UnitTesting
             Assert.AreEqual(result.RouteName, "");
             Assert.AreEqual("Routes", result.RouteValues["action"]);
             Assert.AreEqual("Admin", result.RouteValues["controller"]);
+        }
+
+        [TestMethod]
+        public void DeleteRoute_NotLoggedIn()
+        {
+            //Arrange
+            controller.Session["loggedIn"] = false;
+            var result = (RedirectToRouteResult)controller.DeleteRoute(1);
+
+            //Assert
+            Assert.AreEqual(result.RouteName, "");
+            Assert.AreEqual("Index", result.RouteValues["action"]);
+            Assert.AreEqual("Home", result.RouteValues["controller"]);
         }
 
         [TestMethod]
@@ -544,6 +680,19 @@ namespace UnitTesting
         }
 
         [TestMethod]
+        public void Order_NotLoggedIn()
+        {
+            //Arrange
+            controller.Session["loggedIn"] = false;
+            var result = (RedirectToRouteResult)controller.Order(1);
+
+            //Assert
+            Assert.AreEqual(result.RouteName, "");
+            Assert.AreEqual("Index", result.RouteValues["action"]);
+            Assert.AreEqual("Home", result.RouteValues["controller"]);
+        }
+
+        [TestMethod]
         public void Order_Fail()
         {
             //Arrange
@@ -589,6 +738,19 @@ namespace UnitTesting
             Assert.AreEqual(result.RouteName, "");
             Assert.AreEqual("Customers", result.RouteValues["action"]);
             Assert.AreEqual("Admin", result.RouteValues["controller"]);
+        }
+
+        [TestMethod]
+        public void DeleteCustomer_NotLoggedIn()
+        {
+            //Arrange
+            controller.Session["loggedIn"] = false;
+            var result = (RedirectToRouteResult)controller.DeleteCustomer(1);
+
+            //Assert
+            Assert.AreEqual(result.RouteName, "");
+            Assert.AreEqual("Index", result.RouteValues["action"]);
+            Assert.AreEqual("Home", result.RouteValues["controller"]);
         }
 
         [TestMethod]
@@ -659,6 +821,19 @@ namespace UnitTesting
             Assert.AreEqual(result.RouteName, "");
             Assert.AreEqual("Airports", result.RouteValues["action"]);
             Assert.AreEqual("Admin", result.RouteValues["controller"]);
+        }
+
+        [TestMethod]
+        public void DeleteAirport_NotLoggedIn()
+        {
+            //Arrange
+            controller.Session["loggedIn"] = false;
+            var result = (RedirectToRouteResult)controller.DeleteAirport(1);
+
+            //Assert
+            Assert.AreEqual(result.RouteName, "");
+            Assert.AreEqual("Index", result.RouteValues["action"]);
+            Assert.AreEqual("Home", result.RouteValues["controller"]);
         }
 
         [TestMethod]
@@ -736,6 +911,19 @@ namespace UnitTesting
         }
 
         [TestMethod]
+        public void DeleteOrder_NotLoggedIn()
+        {
+            //Arrange
+            controller.Session["loggedIn"] = false;
+            var result = (RedirectToRouteResult)controller.DeleteOrder(1);
+
+            //Assert
+            Assert.AreEqual(result.RouteName, "");
+            Assert.AreEqual("Index", result.RouteValues["action"]);
+            Assert.AreEqual("Home", result.RouteValues["controller"]);
+        }
+
+        [TestMethod]
         public void DeleteOrder_Fail_Null()
         {
             //Arrange
@@ -776,6 +964,19 @@ namespace UnitTesting
         }
 
         [TestMethod]
+        public void CreateOrder_NotLoggedIn()
+        {
+            //Arrange
+            controller.Session["loggedIn"] = false;
+            var result = (RedirectToRouteResult)controller.CreateOrder();
+
+            //Assert
+            Assert.AreEqual(result.RouteName, "");
+            Assert.AreEqual("Index", result.RouteValues["action"]);
+            Assert.AreEqual("Home", result.RouteValues["controller"]);
+        }
+
+        [TestMethod]
         public void CreateOrderInput()
         {
             var person = new PersonDTO
@@ -791,18 +992,31 @@ namespace UnitTesting
             //Arrange
             var expectedResult = new OrderDTO
             {
-                CustomerId = 1,
-                FlightId = 1,
+                CustomerId = 100,
+                FlightId = 100,
                 Travellers = persons
             };
 
             //Act
-            var result = (RedirectToRouteResult)controller.DeleteOrder(expectedResult.CustomerId);
+            var result = (RedirectToRouteResult)controller.CreateOrder(expectedResult);
 
             //Assert
             Assert.AreEqual(result.RouteName, "");
             Assert.AreEqual("Orders", result.RouteValues["action"]);
             Assert.AreEqual("Admin", result.RouteValues["controller"]);
+        }
+
+        [TestMethod]
+        public void CreateOrderInput_NotLoggedIn()
+        {
+            //Arrange
+            controller.Session["loggedIn"] = false;
+            var result = (RedirectToRouteResult)controller.CreateOrder(new OrderDTO());
+
+            //Assert
+            Assert.AreEqual(result.RouteName, "");
+            Assert.AreEqual("Index", result.RouteValues["action"]);
+            Assert.AreEqual("Home", result.RouteValues["controller"]);
         }
 
         [TestMethod]
@@ -970,6 +1184,19 @@ namespace UnitTesting
         }
 
         [TestMethod]
+        public void CreateCustomer_NotLoggedIn()
+        {
+            //Arrange
+            controller.Session["loggedIn"] = false;
+            var result = (RedirectToRouteResult)controller.CreateCustomer();
+
+            //Assert
+            Assert.AreEqual(result.RouteName, "");
+            Assert.AreEqual("Index", result.RouteValues["action"]);
+            Assert.AreEqual("Home", result.RouteValues["controller"]);
+        }
+
+        [TestMethod]
         public void CreateCustomerInput()
         {
             //Arrange
@@ -989,6 +1216,19 @@ namespace UnitTesting
             Assert.AreEqual(result.RouteName, "");
             Assert.AreEqual("Customers", result.RouteValues["action"]);
             Assert.AreEqual("Admin", result.RouteValues["controller"]);
+        }
+
+        [TestMethod]
+        public void CreateCustomerInput_NotLoggedIn()
+        {
+            //Arrange
+            controller.Session["loggedIn"] = false;
+            var result = (RedirectToRouteResult)controller.CreateCustomer(new Customer());
+
+            //Assert
+            Assert.AreEqual(result.RouteName, "");
+            Assert.AreEqual("Index", result.RouteValues["action"]);
+            Assert.AreEqual("Home", result.RouteValues["controller"]);
         }
 
         [TestMethod]
@@ -1041,8 +1281,8 @@ namespace UnitTesting
             };
 
             //Act
+            controller.ModelState.AddModelError("firstName", "First name need to be set");
             var result = (ViewResult)controller.CreateCustomer(expectedResult);
-            controller.ModelState.AddModelError("firstName", "First name need to be set");    
 
             //Assert
             Assert.AreEqual(result.ViewName, "");
@@ -1059,6 +1299,19 @@ namespace UnitTesting
 
             // Assert
             Assert.AreEqual(result.ViewName, "");
+        }
+
+        [TestMethod]
+        public void CreateAirport_NotLoggedIn()
+        {
+            //Arrange
+            controller.Session["loggedIn"] = false;
+            var result = (RedirectToRouteResult)controller.CreateAirport();
+
+            //Assert
+            Assert.AreEqual(result.RouteName, "");
+            Assert.AreEqual("Index", result.RouteValues["action"]);
+            Assert.AreEqual("Home", result.RouteValues["controller"]);
         }
 
         [TestMethod]
@@ -1081,6 +1334,19 @@ namespace UnitTesting
             Assert.AreEqual(result.RouteName, "");
             Assert.AreEqual("Airports", result.RouteValues["action"]);
             Assert.AreEqual("Admin", result.RouteValues["controller"]);
+        }
+
+        [TestMethod]
+        public void CreateAirportInput_NotLoggedIn()
+        {
+            //Arrange
+            controller.Session["loggedIn"] = false;
+            var result = (RedirectToRouteResult)controller.CreateAirport(new Airport());
+
+            //Assert
+            Assert.AreEqual(result.RouteName, "");
+            Assert.AreEqual("Index", result.RouteValues["action"]);
+            Assert.AreEqual("Home", result.RouteValues["controller"]);
         }
 
         [TestMethod]
@@ -1115,8 +1381,8 @@ namespace UnitTesting
             };
 
             //Act
-            var result = (RedirectToRouteResult)controller.CreateAirport(expectedResult);
             controller.ViewData.ModelState.AddModelError("Name", "Invalid name");
+            var result = (RedirectToRouteResult)controller.CreateAirport(expectedResult);
 
 
             //Assert
@@ -1135,8 +1401,8 @@ namespace UnitTesting
             };
 
             //Act
-            var result = (RedirectToRouteResult)controller.CreateAirport(expectedResult);
             controller.ViewData.ModelState.AddModelError("Name", "Invalid name");
+            var result = (RedirectToRouteResult)controller.CreateAirport(expectedResult);
 
 
             //Assert
@@ -1155,6 +1421,19 @@ namespace UnitTesting
 
             // Assert
             Assert.AreEqual(result.ViewName, "");
+        }
+
+        [TestMethod]
+        public void CreateFlight_NotLoggedIn()
+        {
+            //Arrange
+            controller.Session["loggedIn"] = false;
+            var result = (RedirectToRouteResult)controller.CreateFlight();
+
+            //Assert
+            Assert.AreEqual(result.RouteName, "");
+            Assert.AreEqual("Index", result.RouteValues["action"]);
+            Assert.AreEqual("Home", result.RouteValues["controller"]);
         }
 
         [TestMethod]
@@ -1199,6 +1478,19 @@ namespace UnitTesting
             Assert.AreEqual(result.RouteName, "");
             Assert.AreEqual("Flights", result.RouteValues["action"]);
             Assert.AreEqual("Admin", result.RouteValues["controller"]);
+        }
+
+        [TestMethod]
+        public void CreateFlightInput_NotLoggedIn()
+        {
+            //Arrange
+            controller.Session["loggedIn"] = false;
+            var result = (RedirectToRouteResult)controller.CreateFlight(new Flight());
+
+            //Assert
+            Assert.AreEqual(result.RouteName, "");
+            Assert.AreEqual("Index", result.RouteValues["action"]);
+            Assert.AreEqual("Home", result.RouteValues["controller"]);
         }
 
         [TestMethod]
@@ -1373,12 +1665,12 @@ namespace UnitTesting
             };
 
             //Act
+            controller.ModelState.AddModelError("Flights", "Route does not exist");
             var result = (RedirectToRouteResult)controller.CreateFlight(expectedResult);
-            controller.ModelState.AddModelError("Route", "Route does not exist");
 
             //Assert
             Assert.AreEqual(result.RouteName, "");
-            Assert.AreEqual("CreateFlight", result.RouteValues["action"]);
+            Assert.AreEqual("Flights", result.RouteValues["action"]);
             Assert.AreEqual("Admin", result.RouteValues["controller"]);
             Assert.IsTrue(controller.ModelState.Count() == 1);
         }
@@ -1488,6 +1780,19 @@ namespace UnitTesting
         }
 
         [TestMethod]
+        public void CreateAirplane_NotLoggedIn()
+        {
+            //Arrange
+            controller.Session["loggedIn"] = false;
+            var result = (RedirectToRouteResult)controller.CreateAirplane();
+
+            //Assert
+            Assert.AreEqual(result.RouteName, "");
+            Assert.AreEqual("Index", result.RouteValues["action"]);
+            Assert.AreEqual("Home", result.RouteValues["controller"]);
+        }
+
+        [TestMethod]
         public void CreateAirplaneInput()
         {
             //Arrange
@@ -1508,6 +1813,19 @@ namespace UnitTesting
         }
 
         [TestMethod]
+        public void CreateAirplaneInput_NotLoggedIn()
+        {
+            //Arrange
+            controller.Session["loggedIn"] = false;
+            var result = (RedirectToRouteResult)controller.CreateAirplane(new Airplane());
+
+            //Assert
+            Assert.AreEqual(result.RouteName, "");
+            Assert.AreEqual("Index", result.RouteValues["action"]);
+            Assert.AreEqual("Home", result.RouteValues["controller"]);
+        }
+
+        [TestMethod]
         public void CreateAirplaneInput_Fail_Null()
         {
             //Arrange
@@ -1517,14 +1835,12 @@ namespace UnitTesting
             };
 
             //Act
-            var result = (RedirectToRouteResult)controller.CreateAirplane(expectedResult);
             var modelError = "Model not given";
             controller.ViewData.ModelState.AddModelError("Firstname", modelError);
+            var result = (ViewResult)controller.CreateAirplane(expectedResult);
 
             //Assert
-            Assert.AreEqual(result.RouteName, "");
-            Assert.AreEqual("Airplanes", result.RouteValues["action"]);
-            Assert.AreEqual("Admin", result.RouteValues["controller"]);
+            Assert.AreEqual(result.ViewName, "");
             Assert.IsTrue(controller.ViewData.ModelState.Count() == 1, modelError);
         }
 
@@ -1538,6 +1854,19 @@ namespace UnitTesting
 
             // Assert
             Assert.AreEqual(result.ViewName, "");
+        }
+
+        [TestMethod]
+        public void CreateRoue_NotLoggedIn()
+        {
+            //Arrange
+            controller.Session["loggedIn"] = false;
+            var result = (RedirectToRouteResult)controller.CreateRoute();
+
+            //Assert
+            Assert.AreEqual(result.RouteName, "");
+            Assert.AreEqual("Index", result.RouteValues["action"]);
+            Assert.AreEqual("Home", result.RouteValues["controller"]);
         }
 
         [TestMethod]
@@ -1575,6 +1904,19 @@ namespace UnitTesting
         }
 
         [TestMethod]
+        public void CreateRouteInput_NotLoggedIn()
+        {
+            //Arrange
+            controller.Session["loggedIn"] = false;
+            var result = (RedirectToRouteResult)controller.CreateRoute(new Route());
+
+            //Assert
+            Assert.AreEqual(result.RouteName, "");
+            Assert.AreEqual("Index", result.RouteValues["action"]);
+            Assert.AreEqual("Home", result.RouteValues["controller"]);
+        }
+
+        [TestMethod]
         public void CreateRouteInput_Fail_Null()
         {
             //Arrange
@@ -1604,8 +1946,8 @@ namespace UnitTesting
             };
 
             //Act
-            var result = (ViewResult)controller.CreateRoute(route);
             controller.ModelState.AddModelError("Route", "All fields must be filled out");
+            var result = (ViewResult)controller.CreateRoute(route);
 
             //Assert
             Assert.AreEqual(result.ViewName, "");
@@ -1722,6 +2064,19 @@ namespace UnitTesting
         }
 
         [TestMethod]
+        public void Orders_NotLoggedIn()
+        {
+            //Arrange
+            controller.Session["loggedIn"] = false;
+            var result = (RedirectToRouteResult)controller.Orders();
+
+            //Assert
+            Assert.AreEqual(result.RouteName, "");
+            Assert.AreEqual("Index", result.RouteValues["action"]);
+            Assert.AreEqual("Home", result.RouteValues["controller"]);
+        }
+
+        [TestMethod]
         public void UpdateCustomer()
         {
             //Arrange
@@ -1741,6 +2096,19 @@ namespace UnitTesting
             Assert.AreEqual(result.RouteName, "");
             Assert.AreEqual("Customers", result.RouteValues["action"]);
             Assert.AreEqual("Admin", result.RouteValues["controller"]);
+        }
+
+        [TestMethod]
+        public void UpdateCustomer_NotLoggedIn()
+        {
+            //Arrange
+            controller.Session["loggedIn"] = false;
+            var result = (RedirectToRouteResult)controller.UpdateCustomer(new Customer());
+
+            //Assert
+            Assert.AreEqual(result.RouteName, "");
+            Assert.AreEqual("Index", result.RouteValues["action"]);
+            Assert.AreEqual("Home", result.RouteValues["controller"]);
         }
 
         [TestMethod]
@@ -1815,6 +2183,19 @@ namespace UnitTesting
         }
 
         [TestMethod]
+        public void UpdateAirport_NotLoggedIn()
+        {
+            //Arrange
+            controller.Session["loggedIn"] = false;
+            var result = (RedirectToRouteResult)controller.UpdateAirport(new Airport());
+
+            //Assert
+            Assert.AreEqual(result.RouteName, "");
+            Assert.AreEqual("Index", result.RouteValues["action"]);
+            Assert.AreEqual("Home", result.RouteValues["controller"]);
+        }
+
+        [TestMethod]
         public void UpdateAirport_Fail_Null()
         {
             //Arrange
@@ -1884,6 +2265,19 @@ namespace UnitTesting
         }
 
         [TestMethod]
+        public void UpdateAirplane_NotLoggedIn()
+        {
+            //Arrange
+            controller.Session["loggedIn"] = false;
+            var result = (RedirectToRouteResult)controller.UpdateAirplane(new Airplane());
+
+            //Assert
+            Assert.AreEqual(result.RouteName, "");
+            Assert.AreEqual("Index", result.RouteValues["action"]);
+            Assert.AreEqual("Home", result.RouteValues["controller"]);
+        }
+
+        [TestMethod]
         public void UpdateAirplane_Fail_ModelNull()
         {
             //Arrange
@@ -1936,8 +2330,8 @@ namespace UnitTesting
             };
 
             //Act
-            var result = (RedirectToRouteResult)controller.UpdateAirplane(airplane);
             controller.ModelState.AddModelError("Airplane", "Airplane can not be null");
+            var result = (RedirectToRouteResult)controller.UpdateAirplane(airplane);
 
             //Assert
             Assert.AreEqual(result.RouteName, "");
@@ -2009,6 +2403,19 @@ namespace UnitTesting
             Assert.AreEqual(result.RouteName, "");
             Assert.AreEqual("Flights", result.RouteValues["action"]);
             Assert.AreEqual("Admin", result.RouteValues["controller"]);
+        }
+
+        [TestMethod]
+        public void UpdateFlight_NotLoggedIn()
+        {
+            //Arrange
+            controller.Session["loggedIn"] = false;
+            var result = (RedirectToRouteResult)controller.UpdateFlight(new Flight());
+
+            //Assert
+            Assert.AreEqual(result.RouteName, "");
+            Assert.AreEqual("Index", result.RouteValues["action"]);
+            Assert.AreEqual("Home", result.RouteValues["controller"]);
         }
 
         [TestMethod]
@@ -2134,8 +2541,8 @@ namespace UnitTesting
             };
 
             //Act
-            var result = (RedirectToRouteResult)controller.UpdateFlight(expectedResult);
             controller.ModelState.AddModelError("Price", "Price can not be 0");
+            var result = (RedirectToRouteResult)controller.UpdateFlight(expectedResult);
 
             //Assert
             Assert.AreEqual(result.RouteName, "");
@@ -2199,6 +2606,19 @@ namespace UnitTesting
             Assert.AreEqual(result.RouteName, "");
             Assert.AreEqual("Flights", result.RouteValues["action"]);
             Assert.AreEqual("Admin", result.RouteValues["controller"]);
+        }
+
+        [TestMethod]
+        public void DeleteFlight_NotLoggedIn()
+        {
+            //Arrange
+            controller.Session["loggedIn"] = false;
+            var result = (RedirectToRouteResult)controller.DeleteFlight(1);
+
+            //Assert
+            Assert.AreEqual(result.RouteName, "");
+            Assert.AreEqual("Index", result.RouteValues["action"]);
+            Assert.AreEqual("Home", result.RouteValues["controller"]);
         }
 
         [TestMethod]
@@ -2431,6 +2851,19 @@ namespace UnitTesting
             Assert.AreEqual(result.RouteName, "");
             Assert.AreEqual("Airplanes", result.RouteValues["action"]);
             Assert.AreEqual("Admin", result.RouteValues["controller"]);
+        }
+
+        [TestMethod]
+        public void DeleteAirplane_NotLoggedIn()
+        {
+            //Arrange
+            controller.Session["loggedIn"] = false;
+            var result = (RedirectToRouteResult)controller.DeleteAirplane(1);
+
+            //Assert
+            Assert.AreEqual(result.RouteName, "");
+            Assert.AreEqual("Index", result.RouteValues["action"]);
+            Assert.AreEqual("Home", result.RouteValues["controller"]);
         }
 
         [TestMethod]

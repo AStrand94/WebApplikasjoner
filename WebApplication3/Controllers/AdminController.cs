@@ -665,11 +665,11 @@ namespace WebApplication3.Controllers
 
             ViewResult result = new ViewResult
             {
-                ViewName = "~/Home/Index"
+                ViewName = "~/Views/Shared/Error.cshtml"
             };
 
-            result.TempData.Add("errorMessage","Exception occured, please try again");
-            
+            filterContext.Result = result;
+
             LogHelper.Log(filterContext.Exception);
             filterContext.ExceptionHandled = true;
         }

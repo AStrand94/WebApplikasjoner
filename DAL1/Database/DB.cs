@@ -24,6 +24,7 @@ namespace WebApplication3.DAL
         public virtual DbSet<Ticket> Tickets { get; set; }
         public virtual DbSet<Order> Orders { get; set; }
         public virtual DbSet<User> Users { get; set; }
+        public virtual DbSet<Log> Logs { get; set; }
 
         public DB() : base("name=DB")
         {
@@ -40,12 +41,11 @@ namespace WebApplication3.DAL
         public void CheckForChanges()
         {
             var modifiedEntities = ChangeTracker.Entries().Where(p => p.State == EntityState.Modified).ToList();
-            if (modifiedEntities.Any()) LogChangesToEntity(modifiedEntities);
-
             var addedEntities = ChangeTracker.Entries().Where(p => p.State == EntityState.Added).ToList();
-            if (addedEntities.Any()) LogNewEntities(addedEntities);
-
             var deletedEntities = ChangeTracker.Entries().Where(p => p.State == EntityState.Deleted).ToList();
+
+            if (modifiedEntities.Any()) LogChangesToEntity(modifiedEntities);
+            if (addedEntities.Any()) LogNewEntities(addedEntities);
             if (deletedEntities.Any()) LogDeletedEntities(deletedEntities);
         }
 
@@ -58,10 +58,13 @@ namespace WebApplication3.DAL
         {
             foreach (var change in modifiedEntities)
             {
-                StringBuilder stringBuilder = new StringBuilder();
                 var entityName = change.Entity.GetType().Name;
                 var primaryKey = GetPrimaryKeyValue(change);
-                stringBuilder.Append("Entity ").Append(entityName).Append(" has changed:\n");
+                //stringBuilder.Append("Entity ").Append(entityName).Append(" has changed:\n");
+                Log log = new Log();
+                log.Entity = entityName;
+                log.Type = "Change";
+                StringBuilder stringBuilder = new StringBuilder();
 
                 foreach (var prop in change.OriginalValues.PropertyNames)
                 {
@@ -69,10 +72,11 @@ namespace WebApplication3.DAL
                     var currentValue = change.CurrentValues[prop].ToString();
                     if (originalValue != currentValue)
                     {
-                        stringBuilder.Append("Column '").Append(prop).Append("' old val: ").Append(originalValue).Append(" new val: ").Append(currentValue).Append('\n');
+                        stringBuilder.Append(prop).Append(", old val: ").Append(originalValue).Append(", new val: ").Append(currentValue).Append("   ");
                     }
                 }
-                LogHelper.Log(stringBuilder.ToString());
+                log.Description = stringBuilder.ToString();
+                Logs.Add(log);
             }
         }
 
@@ -80,16 +84,21 @@ namespace WebApplication3.DAL
         {
             foreach (var added in addedEntities)
             {
-                StringBuilder stringBuilder = new StringBuilder();
+                Log log = new Log();
                 var entityName = added.Entity.GetType().Name;
-                stringBuilder.Append("Entity has been added in ").Append(entityName).Append(" with values:\n");
+                
+                log.Entity = entityName;
+                log.Type = "Add";
 
+                StringBuilder stringBuilder = new StringBuilder();
+                
                 foreach (var prop in added.CurrentValues.PropertyNames)
                 {
                     var currentValue = added.CurrentValues[prop].ToString();
-                    stringBuilder.Append("Column '").Append(prop).Append(" val: ").Append(currentValue).Append('\n');
+                    stringBuilder.Append(prop).Append(" val: ").Append(currentValue).Append("   ");
                 }
-                LogHelper.Log(stringBuilder.ToString());
+                log.Description = stringBuilder.ToString();
+                Logs.Add(log);
             }
         }
 
@@ -97,11 +106,15 @@ namespace WebApplication3.DAL
         {
             foreach (var added in deletedEntities)
             {
-                StringBuilder stringBuilder = new StringBuilder();
+                Log log = new Log();
                 var entityName = added.Entity.GetType().Name;
+                log.Entity = entityName;
                 var primaryKey = GetPrimaryKeyValue(added);
-                stringBuilder.Append("Entity in table ").Append(entityName).Append(" with id ").Append(primaryKey).Append(" has been deleted");
-                LogHelper.Log(stringBuilder.ToString());
+
+                log.Type = "Delete";
+                log.Description = "Id: " + primaryKey;
+
+                Logs.Add(log);
             }
         }
 

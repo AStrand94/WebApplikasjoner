@@ -17,8 +17,21 @@ namespace WebApplication3.DAL
             }
             else
             {
-                return GetRoute(1);
-            }
+				var airport = new Airport
+				{
+					Id = 1,
+					Name = "Gardermoen"
+				};
+
+				return new Route
+				{
+					Id = 1,
+					FromAirport = airport,
+					ToAirport = airport,
+					Flights = new List<Flight>(),
+					FlightTime = new TimeSpan(10, 0, 0)
+				};
+			}
         }
 
         public Route DeleteRoute(int id)

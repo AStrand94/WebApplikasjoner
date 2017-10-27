@@ -1376,6 +1376,39 @@ namespace UnitTesting
             Assert.AreEqual(errorMessage, "Airports can not be the same!");
         }
 
+		[TestMethod]
+		public void CreateRoute_With_Id_0()
+		{
+			var airport1 = new Airport
+			{
+				Id = 1,
+				Name = "Gardermoen"
+			};
+
+			var airport2 = new Airport
+			{
+				Id = 2,
+				Name = "Stockholm"
+			};
+
+			var route = new Route()
+			{
+				Id = 0,
+				FromAirport = airport1,
+				ToAirport = airport2,
+				Flights = new List<Flight>(),
+				FlightTime = new TimeSpan(10, 0, 0)
+			};
+
+			//Act
+			var result = (RedirectToRouteResult)controller.CreateRoute(route);
+
+			//Assert
+			Assert.AreEqual(result.RouteName, "");
+			Assert.AreEqual("Routes", result.RouteValues["action"]);
+			Assert.AreEqual("Admin", result.RouteValues["controller"]);
+		}
+
         [TestMethod]
         public void Orders()
         {

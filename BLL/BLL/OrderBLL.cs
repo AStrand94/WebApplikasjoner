@@ -147,7 +147,6 @@ namespace WebApplication3.BLL
             order.TotalPrice = flight.Price * dto.Travellers.Count;
             order.Tickets = tickets;
             _orderDAL.AddOrder(order);
-            //new TicketDAL().addTickets(tickets);
 
             return order;
         }

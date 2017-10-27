@@ -7,7 +7,6 @@ namespace WebApplication3.BLL
 {
     public interface IOrderBLL
     {
-        void AddOrder(Order order);
         Order CreateOrder(OrderSession orderSession);
         Order CreateOrder(OrderDTO orderDTO);
         IEnumerable<Order> GetAllOrders();

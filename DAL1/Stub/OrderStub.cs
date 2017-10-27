@@ -9,22 +9,6 @@ namespace WebApplication3.DAL
 {
     public class OrderStub : IOrderDAL
     {
-        public Order AddOrder(Order order)
-        {
-            if(order.Id == 0)
-            {
-                return null;
-            } else
-            {
-                return GetOrder(1);
-            }
-        }
-
-        public Order AddOrderWithCustomer(Order order)
-        {
-            throw new NotImplementedException();
-        }
-
         public IEnumerable<Order> GetAllOrders()
         {
             var orderList = new List<Order>();
@@ -80,17 +64,6 @@ namespace WebApplication3.DAL
 				return o;
             }
             
-        }
-
-        public IEnumerable<Order> GetOrder(string ReferenceNumber)
-        {
-            if(ReferenceNumber == "")
-            {
-                return new List<Order>();
-            } else
-            {
-                return GetAllOrders();
-            }
         }
     }
 }

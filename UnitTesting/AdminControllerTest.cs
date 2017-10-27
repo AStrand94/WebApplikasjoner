@@ -866,6 +866,28 @@ namespace UnitTesting
         }
 
         [TestMethod]
+        public void CreateCustomerInput_Fail_Null_Id()
+        {
+            //Arrange
+            var expectedResult = new Customer
+            {
+                Id = 0,
+                Firstname = "Ola",
+                Lastname = "Normann",
+                Email = "olanormann@gmail.com",
+                Telephone = "12345678"
+            };
+
+            //Act
+            var result = (RedirectToRouteResult)controller.CreateCustomer(expectedResult);
+
+            //Assert
+            Assert.AreEqual(result.RouteName, "");
+            Assert.AreEqual("Customers", result.RouteValues["action"]);
+            Assert.AreEqual("Admin", result.RouteValues["controller"]);
+        }
+
+        [TestMethod]
         public void CreateCustomerInput_Fail_Null()
         {
             //Arrange
@@ -1039,6 +1061,50 @@ namespace UnitTesting
             {
                 Id = 1,
                 Price = 100,
+                Route = route,
+                Airplane = airplane,
+                Time = new DateTime(2018, 1, 1)
+            };
+
+            //Act
+            var result = (RedirectToRouteResult)controller.CreateFlight(expectedResult);
+
+            //Assert
+            Assert.AreEqual(result.RouteName, "");
+            Assert.AreEqual("Flights", result.RouteValues["action"]);
+            Assert.AreEqual("Admin", result.RouteValues["controller"]);
+        }
+
+        [TestMethod]
+        public void CreateFlightInput_Fail_Null_Id()
+        {
+            //Arrange
+            var airport = new Airport
+            {
+                Id = 1,
+                Name = "Gardermoen"
+            };
+
+            var airplane = new Airplane
+            {
+                Id = 1,
+                Model = "Boeing 737",
+                Seats = 148
+            };
+
+            var route = new Route()
+            {
+                Id = 100,
+                FromAirport = airport,
+                ToAirport = airport,
+                Flights = new List<Flight>(),
+                FlightTime = new TimeSpan(10, 0, 0)
+            };
+
+            var expectedResult = new Flight
+            {
+                Id = 1,
+                Price = 1000,
                 Route = route,
                 Airplane = airplane,
                 Time = new DateTime(2018, 1, 1)
@@ -1820,6 +1886,94 @@ namespace UnitTesting
         }
 
         [TestMethod]
+        public void UpdateFlight_Fail_Time()
+        {
+            //Arrange
+            var airport = new Airport
+            {
+                Id = 1,
+                Name = "Gardermoen"
+            };
+
+            var airplane = new Airplane
+            {
+                Id = 1,
+                Model = "Boeing 737",
+                Seats = 148
+            };
+
+            var route = new Route()
+            {
+                Id = 100,
+                FromAirport = airport,
+                ToAirport = airport,
+                Flights = new List<Flight>(),
+                FlightTime = new TimeSpan(10, 0, 0)
+            };
+
+            var expectedResult = new Flight
+            {
+                Id = 1,
+                Price = 100,
+                Route = route,
+                Airplane = airplane,
+                Time = new DateTime(2015, 1, 1)
+            };
+
+            //Act
+            var result = (RedirectToRouteResult)controller.UpdateFlight(expectedResult);
+
+            //Assert
+            Assert.AreEqual(result.RouteName, "");
+            Assert.AreEqual("Flights", result.RouteValues["action"]);
+            Assert.AreEqual("Admin", result.RouteValues["controller"]);
+        }
+
+        [TestMethod]
+        public void UpdateFlight_Fail_Null_Id()
+        {
+            //Arrange
+            var airport = new Airport
+            {
+                Id = 1,
+                Name = "Gardermoen"
+            };
+
+            var airplane = new Airplane
+            {
+                Id = 1,
+                Model = "Boeing 737",
+                Seats = 148
+            };
+
+            var route = new Route()
+            {
+                Id = 100,
+                FromAirport = airport,
+                ToAirport = airport,
+                Flights = new List<Flight>(),
+                FlightTime = new TimeSpan(10, 0, 0)
+            };
+
+            var expectedResult = new Flight
+            {
+                Id = 1,
+                Price = 1000,
+                Route = route,
+                Airplane = airplane,
+                Time = new DateTime(2018, 1, 1)
+            };
+
+            //Act
+            var result = (RedirectToRouteResult)controller.UpdateFlight(expectedResult);
+
+            //Assert
+            Assert.AreEqual(result.RouteName, "");
+            Assert.AreEqual("Flights", result.RouteValues["action"]);
+            Assert.AreEqual("Admin", result.RouteValues["controller"]);
+        }
+
+        [TestMethod]
         public void UpdateFlight_Fail_ModelState()
         {
             //Arrange
@@ -1905,6 +2059,102 @@ namespace UnitTesting
             var expectedResult = new Flight
             {
                 Id = 1,
+                Price = 100,
+                Route = route,
+                Airplane = airplane,
+                Time = new DateTime(2018, 1, 1),
+                Tickets = tickets
+            };
+
+            //Act
+            var result = (RedirectToRouteResult)controller.DeleteFlight(expectedResult.Id);
+
+            //Assert
+            Assert.AreEqual(result.RouteName, "");
+            Assert.AreEqual("Flights", result.RouteValues["action"]);
+            Assert.AreEqual("Admin", result.RouteValues["controller"]);
+        }
+
+        [TestMethod]
+        public void DeleteFlight_Good()
+        {
+            //Arrange
+            var airport = new Airport
+            {
+                Id = 1,
+                Name = "Gardermoen"
+            };
+
+            var airplane = new Airplane
+            {
+                Id = 1,
+                Model = "Boeing 737",
+                Seats = 148
+            };
+
+            var route = new Route()
+            {
+                Id = 100,
+                FromAirport = airport,
+                ToAirport = airport,
+                Flights = new List<Flight>(),
+                FlightTime = new TimeSpan(10, 0, 0)
+            };
+
+            var tickets = new List<Ticket>();;
+
+            //Arrange
+            var expectedResult = new Flight
+            {
+                Id = 100,
+                Price = 100,
+                Route = route,
+                Airplane = airplane,
+                Time = new DateTime(2018, 1, 1),
+                Tickets = tickets
+            };
+
+            //Act
+            var result = (RedirectToRouteResult)controller.DeleteFlight(expectedResult.Id);
+
+            //Assert
+            Assert.AreEqual(result.RouteName, "");
+            Assert.AreEqual("Flights", result.RouteValues["action"]);
+            Assert.AreEqual("Admin", result.RouteValues["controller"]);
+        }
+
+        [TestMethod]
+        public void DeleteFlight_Fail_Null_Id()
+        {
+            //Arrange
+            var airport = new Airport
+            {
+                Id = 1,
+                Name = "Gardermoen"
+            };
+
+            var airplane = new Airplane
+            {
+                Id = 1,
+                Model = "Boeing 737",
+                Seats = 148
+            };
+
+            var route = new Route()
+            {
+                Id = 100,
+                FromAirport = airport,
+                ToAirport = airport,
+                Flights = new List<Flight>(),
+                FlightTime = new TimeSpan(10, 0, 0)
+            };
+
+            var tickets = new List<Ticket>(); ;
+
+            //Arrange
+            var expectedResult = new Flight
+            {
+                Id = 500,
                 Price = 100,
                 Route = route,
                 Airplane = airplane,

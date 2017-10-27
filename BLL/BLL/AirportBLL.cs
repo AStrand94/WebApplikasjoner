@@ -45,7 +45,7 @@ namespace WebApplication3.BLL
             Airport airport = _airport.GetAirport(id);
             bool routeHasAirport = _route.RouteHasAirport(id);
 
-            return airport != null && !routeHasAirport;
+            return !routeHasAirport;
         }
 
         public Airport DeleteAirport(int id)

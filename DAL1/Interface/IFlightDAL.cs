@@ -13,6 +13,5 @@ namespace WebApplication3.DAL
         Flight UpdateFlight(Flight flight);
         IEnumerable<Flight> GetAllFlightConnections();
         IEnumerable<Flight> GetAllFlightsWithFullRoute();
-        Flight GetFlightWithInclude(int id);
     }
 }

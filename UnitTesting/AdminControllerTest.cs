@@ -27,7 +27,7 @@ namespace UnitTesting
                 new CustomerBLL(new CustomerStub()),
                 new FlightBLL(new FlightStub(), new RouteStub(), new AirplaneStub(), new AirportStub()),
                 new LoginBLL(new LoginStub()),
-                new OrderBLL(new OrderStub(), new CustomerStub(), new FlightStub(), new TicketStub()),
+                new OrderBLL(new OrderStub(), new CustomerStub(), new FlightStub(), new TicketStub(), new ReferenceGeneratorStub()),
                 new RouteBLL(new RouteStub(), new AirportStub()),
                 new TicketBLL(new TicketStub()));
 
@@ -273,12 +273,83 @@ namespace UnitTesting
                 Name = "Gardermoen"
             };
 
+            var airport1 = new Airport
+            {
+                Id = 2,
+                Name = "Gardermoen"
+            };
+
             var route = new Route()
             {
                 Id = 1,
                 FromAirport = airport,
-                ToAirport = airport,
+                ToAirport = airport1,
                 FlightTime = new TimeSpan(10, 0, 0)
+            };
+
+            //Act
+            var result = (RedirectToRouteResult)controller.UpdateRoute(route);
+
+            //Assert
+            Assert.AreEqual(result.RouteName, "");
+            Assert.AreEqual("Routes", result.RouteValues["action"]);
+            Assert.AreEqual("Admin", result.RouteValues["controller"]);
+        }
+
+        [TestMethod]
+        public void UpdateRoute_With_Id_0()
+        {
+            //Arrange
+            var airport = new Airport
+            {
+                Id = 1,
+                Name = "Gardermoen"
+            };
+
+            var airport1 = new Airport
+            {
+                Id = 2,
+                Name = "Gardermoen"
+            };
+
+            var route = new Route()
+            {
+                Id = 0,
+                FromAirport = airport,
+                ToAirport = airport1,
+                FlightTime = new TimeSpan(10, 0, 0)
+            };
+
+            //Act
+            var result = (RedirectToRouteResult)controller.UpdateRoute(route);
+
+            //Assert
+            Assert.AreEqual(result.RouteName, "");
+            Assert.AreEqual("Routes", result.RouteValues["action"]);
+            Assert.AreEqual("Admin", result.RouteValues["controller"]);
+        }
+
+        [TestMethod]
+        public void UpdateRoute_NoFlightTime()
+        {
+            //Arrange
+            var airport = new Airport
+            {
+                Id = 1,
+                Name = "Gardermoen"
+            };
+
+            var airport1 = new Airport
+            {
+                Id = 2,
+                Name = "Gardermoen"
+            };
+
+            var route = new Route()
+            {
+                Id = 1,
+                FromAirport = airport,
+                ToAirport = airport1
             };
 
             //Act
@@ -360,6 +431,34 @@ namespace UnitTesting
             var route = new Route()
             {
                 Id = 1,
+                FromAirport = airport,
+                ToAirport = airport,
+                Flights = new List<Flight>(),
+                FlightTime = new TimeSpan(10, 0, 0)
+            };
+
+            //Act
+            var result = (RedirectToRouteResult)controller.DeleteRoute(route.Id);
+
+            //Assert
+            Assert.AreEqual(result.RouteName, "");
+            Assert.AreEqual("Routes", result.RouteValues["action"]);
+            Assert.AreEqual("Admin", result.RouteValues["controller"]);
+        }
+
+        [TestMethod]
+        public void DeleteRoute_Success()
+        {
+            //Arrange
+            var airport = new Airport
+            {
+                Id = 1,
+                Name = "Gardermoen"
+            };
+
+            var route = new Route()
+            {
+                Id = 1000,
                 FromAirport = airport,
                 ToAirport = airport,
                 Flights = new List<Flight>(),
@@ -829,6 +928,33 @@ namespace UnitTesting
             Assert.AreEqual("CreateOrder", result.RouteValues["action"]);
             Assert.AreEqual("Admin", result.RouteValues["controller"]);
             Assert.AreEqual(errorMessage, "Flight does not exist");
+        }
+
+        [TestMethod]
+        public void CreateOrder_Success()
+        {
+            OrderDTO dto = new OrderDTO();
+            dto.Travellers = new List<PersonDTO>();
+            dto.CustomerId = 100;
+            dto.FlightId = 100;
+
+            PersonDTO p1 = new PersonDTO();
+            p1.firstName = "Andreas";
+            p1.lastName = "Strand";
+
+            PersonDTO p2 = new PersonDTO();
+            p2.firstName = "Ola";
+            p2.lastName = "Nordmann";
+
+            dto.Travellers.Add(p1); dto.Travellers.Add(p2);
+
+            var result = (RedirectToRouteResult)controller.CreateOrder(dto);
+
+            var errorMessage = controller.TempData["errorMessage"];
+
+            Assert.AreEqual(result.RouteName, "");
+            Assert.AreEqual("Orders", result.RouteValues["action"]);
+            Assert.AreEqual("Admin", result.RouteValues["controller"]);
         }
 
         [TestMethod]

@@ -1430,6 +1430,27 @@ namespace UnitTesting
             Assert.AreEqual("Admin", result.RouteValues["controller"]);
         }
 
+        public void UpdateCustomer_Fail_Null()
+        {
+            //Arrange
+            var customer = new Customer
+            {
+                Id = 0,
+                Firstname = "Ola",
+                Lastname = "Normann",
+                Email = "olanormann@gmail.com",
+                Telephone = "12345678"
+            };
+
+            //Act
+            var result = (RedirectToRouteResult)controller.UpdateCustomer(customer);
+
+            //Assert
+            Assert.AreEqual(result.RouteName, "");
+            Assert.AreEqual("Customers", result.RouteValues["action"]);
+            Assert.AreEqual("Admin", result.RouteValues["controller"]);
+        }
+
         [TestMethod]
         public void UpdateCustomer_Fail_ModelState()
         {
@@ -1533,6 +1554,27 @@ namespace UnitTesting
             var airplane = new Airplane
             {
                 Id = 1,
+                Seats = 148
+            };
+
+            //Act
+            var result = (RedirectToRouteResult)controller.UpdateAirplane(airplane);
+            var errorMessage = controller.TempData["errorMessage"];
+
+            //Assert
+            Assert.AreEqual(result.RouteName, "");
+            Assert.AreEqual("Airplanes", result.RouteValues["action"]);
+            Assert.AreEqual("Admin", result.RouteValues["controller"]);
+            Assert.AreEqual(errorMessage, "Model must be filled!");
+        }
+
+        [TestMethod]
+        public void UpdateAirplane_Fail_Model_Null()
+        {
+            //Arrange
+            var airplane = new Airplane
+            {
+                Id = 0,
                 Seats = 148
             };
 

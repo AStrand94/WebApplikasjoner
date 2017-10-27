@@ -593,6 +593,7 @@ namespace WebApplication3.Controllers
             }
 
             airplane = _airplaneBLL.UpdateAirplane(airplane);
+            SetMessage("Update successful!");
             return RedirectToAction("Airplanes", "Admin");
         }
 

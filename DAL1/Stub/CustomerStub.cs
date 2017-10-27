@@ -27,22 +27,11 @@ namespace WebApplication3.DAL
 
         public Order DeleteAssociatedOrder(int customerId, int orderId)
         {
-            if (customerId == 0 && orderId == 0)
-            {
-                var o = new Order
-                {
-                    Id = 0
-                };
-                return o;
-            }
-            else
-            {
                 var o = new Order
                 {
                     Id = 1
                 };
                 return o;
-            }
         }
 
         public Customer DeleteCustomer(int id)
@@ -59,7 +48,7 @@ namespace WebApplication3.DAL
 
         public bool ExistsCustomerWithId(int customerId)
         {
-            if(customerId == 100)
+            if (customerId == 100)
             {
                 return true;
             }
@@ -95,22 +84,15 @@ namespace WebApplication3.DAL
 
         public Customer GetCustomer(int id)
         {
-            if (id == 0)
+            var customer = new Customer()
             {
-                return null;
-            }
-            else
-            {
-                var customer = new Customer()
-                {
-                    Id = 1,
-                    Firstname = "Ola",
-                    Lastname = "Normann",
-                    Email = "olanormann@gmail.com",
-                    Telephone = "12345678"
-                };
-                return customer;
-            }
+                Id = 1,
+                Firstname = "Ola",
+                Lastname = "Normann",
+                Email = "olanormann@gmail.com",
+                Telephone = "12345678"
+            };
+            return customer;
         }
 
         public bool HasOrder(int id)

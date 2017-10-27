@@ -11,7 +11,7 @@ namespace WebApplication3.DAL
     {
         public Flight DeleteFlight(int id)
         {
-            if (id == 0)
+            if (id == 500)
             {
                 var f = new Flight
                 {
@@ -67,6 +67,42 @@ namespace WebApplication3.DAL
             {
                 return null;
             }
+            else if(flightId == 100)
+            {
+                var order = new Order()
+                {
+                    Id = 1,
+                    Reference = "DAKLF"
+                };
+
+                var tickets = new List<Ticket>();
+
+                var flight = new Flight()
+                {
+                    Id = 1,
+                    Price = 100,
+                    Tickets = tickets
+                };
+                return flight;
+            }
+            else if (flightId == 500)
+            {
+                var order = new Order()
+                {
+                    Id = 1,
+                    Reference = "DAKLF"
+                };
+
+                var tickets = new List<Ticket>();
+
+                var flight = new Flight()
+                {
+                    Id = 1,
+                    Price = 100,
+                    Tickets = tickets
+                };
+                return flight;
+            }
             else
             {
                 var order = new Order()
@@ -99,7 +135,7 @@ namespace WebApplication3.DAL
 
         public Flight InsertFlight(Flight flight)
         {
-            if (flight.Id == 0)
+            if (flight.Price == 1000)
             {
                 var f = new Flight
                 {
@@ -115,7 +151,7 @@ namespace WebApplication3.DAL
 
         public Flight UpdateFlight(Flight flight)
         {
-            if (flight.Id == 0)
+            if (flight.Price == 1000)
             {
                 var f = new Flight
                 {
@@ -132,11 +168,6 @@ namespace WebApplication3.DAL
         public IEnumerable<Flight> GetAllFlightsWithFullRoute()
         {
             return GetAllFlights();
-        }
-
-        public Flight GetFlightWithInclude(int id)
-        {
-            return GetFlight(id);
         }
     }
 }

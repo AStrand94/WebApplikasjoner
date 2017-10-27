@@ -33,6 +33,7 @@ namespace WebApplication3.BLL
             _ticketDAL = ticketStub;
         }
 
+        //Called from Home controller, so will not be tested
         public Order CreateOrder(OrderSession orderSession)
         {
             String referenceNumber = new ReferenceGenerator().getReferenceNumber();
@@ -66,14 +67,15 @@ namespace WebApplication3.BLL
 
             //new TicketDAL().addTickets(tickets);
             o.TotalPrice = orderSession.TotalPrice;
-            _orderDAL.AddOrderWithCustomer(o);
+            new OrderDAL().AddOrderWithCustomer(o);
 
             return _orderDAL.GetOrder(o.Id);
         }
 
+        //Used from Home controller, will not be tested
         public IEnumerable<Order> GetOrder(string ReferenceNumber)
         {
-            return _orderDAL.GetOrder(ReferenceNumber);
+            return new OrderDAL().GetOrder(ReferenceNumber);
         }
 
         public Order GetOrder(int id)
@@ -89,12 +91,6 @@ namespace WebApplication3.BLL
         public IEnumerable<Order> GetAllOrdersConnections()
         {
             return _orderDAL.GetAllOrdersConnections();
-        }
-
-        public void AddOrder(Order order)
-        {
-            order.Customer = _customerDAL.GetCustomer(order.Customer.Id);
-            _orderDAL.AddOrder(order);
         }
 
         public string CanCreateOrder(OrderDTO dto)
@@ -147,7 +143,7 @@ namespace WebApplication3.BLL
 
             order.TotalPrice = flight.Price * dto.Travellers.Count;
             order.Tickets = tickets;
-            _orderDAL.AddOrder(order);
+            new OrderDAL().AddOrder(order);
             //new TicketDAL().addTickets(tickets);
 
             return order;

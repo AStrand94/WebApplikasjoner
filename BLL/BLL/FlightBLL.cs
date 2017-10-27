@@ -95,7 +95,7 @@ namespace WebApplication3.BLL
 
             foreach (int id in flightIds)
             {
-                flights.Add(_flightDAL.GetFlightWithInclude(id));
+                flights.Add(new FlightDAL().GetFlightWithInclude(id));
             }
 
             return flights;

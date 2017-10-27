@@ -23,14 +23,6 @@ namespace WebApplication3.DAL
 
         public Airplane DeleteAirplane(int id)
         {
-            if (id == 0)
-            {
-                var airplane = new Airplane
-                {
-                    Id = 0
-                };
-                return airplane;
-            } else
             {
                 return GetAirplane(1);
             }

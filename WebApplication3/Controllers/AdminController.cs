@@ -148,12 +148,6 @@ namespace WebApplication3.Controllers
                 return RedirectToAction("Index", "Home", new { area = "" });
             }
 
-            if (!ModelState.IsValid)
-            {
-                SetErrorMessage(GetErrorFromModel(ModelState));
-                return RedirectToAction("Routes", "Admin");
-            }
-
             string result = _routeBLL.CanUpdateRoute(route);
 
             if (result.Length > 0)
@@ -482,12 +476,6 @@ namespace WebApplication3.Controllers
             if (!UserIsLoggedIn())
             {
                 return RedirectToAction("Index", "Home", new { area = "" });
-            }
-
-            if (!ModelState.IsValid)
-            {
-                SetErrorMessage(GetErrorFromModel(ModelState));
-                return View();
             }
 
             if (route.FromAirport == null || route.ToAirport == null || route.FlightTime == null)

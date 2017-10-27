@@ -15,6 +15,7 @@ namespace WebApplication3.Model
         public DateTime Time { get; set; }
 
         [Required]
+        [Range(0,9999999)]
         public double Price { get; set; }
 
         public virtual List<Ticket> Tickets { get; set; }

@@ -320,6 +320,34 @@ namespace UnitTesting
         }
 
         [TestMethod]
+        public void UpdateRoute_Fail_ModelState()
+        {
+            //Arrange
+            var airport = new Airport
+            {
+                Id = 1,
+                Name = "Gardermoen"
+            };
+
+            var route = new Route()
+            {
+                Id = 0,
+                FromAirport = airport,
+                ToAirport = airport,
+            };
+
+            //Act
+            var result = (RedirectToRouteResult)controller.UpdateRoute(route);
+            controller.ModelState.AddModelError("FlightTime", "FlightTime need to be set!");
+
+            //Assert
+            Assert.AreEqual(result.RouteName, "");
+            Assert.AreEqual("Routes", result.RouteValues["action"]);
+            Assert.AreEqual("Admin", result.RouteValues["controller"]);
+            Assert.IsTrue(controller.ModelState.Count() == 1);
+        }
+
+        [TestMethod]
         public void DeleteRoute()
         {
             //Arrange
@@ -818,6 +846,24 @@ namespace UnitTesting
         }
 
         [TestMethod]
+        public void CreateCustomerInput_Fail_ModelState()
+        {
+            //Arrange
+            var expectedResult = new Customer
+            {
+                Id = 1,
+            };
+
+            //Act
+            var result = (ViewResult)controller.CreateCustomer(expectedResult);
+            controller.ModelState.AddModelError("firstName", "First name need to be set");    
+
+            //Assert
+            Assert.AreEqual(result.ViewName, "");
+            Assert.IsTrue(controller.ModelState.Count() == 1);
+        }
+
+        [TestMethod]
         public void CreateAirport()
         {
             //Arrange
@@ -861,12 +907,13 @@ namespace UnitTesting
             };
 
             //Act
-            var result = (ViewResult)controller.CreateAirport(expectedResult);
+            var result = (RedirectToRouteResult)controller.CreateAirport(expectedResult);
             controller.ViewData.ModelState.AddModelError("Name", "Invalid name");
 
 
             //Assert
-            Assert.AreEqual(result.ViewName, "");
+            Assert.AreEqual("Airports", result.RouteValues["action"]);
+            Assert.AreEqual("Admin", result.RouteValues["controller"]);
             Assert.IsTrue(controller.ModelState.Count() == 1);
         }
 
@@ -1016,6 +1063,52 @@ namespace UnitTesting
             Assert.AreEqual("CreateFlight", result.RouteValues["action"]);
             Assert.AreEqual("Admin", result.RouteValues["controller"]);
             Assert.AreEqual(errorMessage, "Route does not exist");
+        }
+
+        [TestMethod]
+        public void CreateFlightInput_Fail_ModelState()
+        {
+            var airport = new Airport
+            {
+                Id = 1,
+                Name = "Gardermoen"
+            };
+
+            var airplane = new Airplane
+            {
+                Id = 1,
+                Model = "Boeing 737",
+                Seats = 148
+            };
+
+            var route = new Route()
+            {
+                Id = 0,
+                FromAirport = airport,
+                ToAirport = airport,
+                Flights = new List<Flight>(),
+                FlightTime = new TimeSpan(10, 0, 0)
+            };
+
+            //Arrange
+            var expectedResult = new Flight
+            {
+                Id = 1,
+                Price = 110,
+                Route = route,
+                Airplane = airplane,
+                Time = new DateTime(2018, 1, 1)
+            };
+
+            //Act
+            var result = (RedirectToRouteResult)controller.CreateFlight(expectedResult);
+            controller.ModelState.AddModelError("Route", "Route does not exist");
+
+            //Assert
+            Assert.AreEqual(result.RouteName, "");
+            Assert.AreEqual("CreateFlight", result.RouteValues["action"]);
+            Assert.AreEqual("Admin", result.RouteValues["controller"]);
+            Assert.IsTrue(controller.ModelState.Count() == 1);
         }
 
         [TestMethod]
@@ -1229,6 +1322,25 @@ namespace UnitTesting
         }
 
         [TestMethod]
+        public void CreateRouteInput_Fail_ModelState()
+        {
+            //Arrange
+            var route = new Route()
+            {
+                Id = 1,
+                Flights = new List<Flight>(),
+            };
+
+            //Act
+            var result = (ViewResult)controller.CreateRoute(route);
+            controller.ModelState.AddModelError("Route", "All fields must be filled out");
+
+            //Assert
+            Assert.AreEqual(result.ViewName, "");
+            Assert.IsTrue(controller.ModelState.Count() == 1);
+        }
+
+        [TestMethod]
         public void CreateRouteInput_Fail_SameAirport()
         {
             //Arrange
@@ -1436,6 +1548,27 @@ namespace UnitTesting
         }
 
         [TestMethod]
+        public void UpdateAirplane_Fail_ModelState()
+        {
+            //Arrange
+            var airplane = new Airplane
+            {
+                Id = 1,
+                Seats = 148
+            };
+
+            //Act
+            var result = (RedirectToRouteResult)controller.UpdateAirplane(airplane);
+            controller.ModelState.AddModelError("Airplane", "Airplane can not be null");
+
+            //Assert
+            Assert.AreEqual(result.RouteName, "");
+            Assert.AreEqual("Airplanes", result.RouteValues["action"]);
+            Assert.AreEqual("Admin", result.RouteValues["controller"]);
+            Assert.IsTrue(controller.ModelState.Count() == 1);
+        }
+
+        [TestMethod]
         public void UpdateAirplane_Fail_SeatsNull()
         {
             //Arrange
@@ -1454,6 +1587,95 @@ namespace UnitTesting
             Assert.AreEqual("Airplanes", result.RouteValues["action"]);
             Assert.AreEqual("Admin", result.RouteValues["controller"]);
             Assert.AreEqual(errorMessage, "Number of seats cannot be 0!");
+        }
+
+        [TestMethod]
+        public void UpdateFlight()
+        {
+            //Arrange
+            var airport = new Airport
+            {
+                Id = 1,
+                Name = "Gardermoen"
+            };
+
+            var airplane = new Airplane
+            {
+                Id = 1,
+                Model = "Boeing 737",
+                Seats = 148
+            };
+
+            var route = new Route()
+            {
+                Id = 100,
+                FromAirport = airport,
+                ToAirport = airport,
+                Flights = new List<Flight>(),
+                FlightTime = new TimeSpan(10, 0, 0)
+            };
+
+            var expectedResult = new Flight
+            {
+                Id = 1,
+                Price = 100,
+                Route = route,
+                Airplane = airplane,
+                Time = new DateTime(2018, 1, 1)
+            };
+
+            //Act
+            var result = (RedirectToRouteResult)controller.UpdateFlight(expectedResult);
+
+            //Assert
+            Assert.AreEqual(result.RouteName, "");
+            Assert.AreEqual("Flights", result.RouteValues["action"]);
+            Assert.AreEqual("Admin", result.RouteValues["controller"]);
+        }
+
+        [TestMethod]
+        public void UpdateFlight_Fail_ModelState()
+        {
+            //Arrange
+            var airport = new Airport
+            {
+                Id = 1,
+                Name = "Gardermoen"
+            };
+
+            var airplane = new Airplane
+            {
+                Id = 1,
+                Model = "Boeing 737",
+                Seats = 148
+            };
+
+            var route = new Route()
+            {
+                Id = 100,
+                FromAirport = airport,
+                ToAirport = airport,
+                Flights = new List<Flight>(),
+                FlightTime = new TimeSpan(10, 0, 0)
+            };
+
+            var expectedResult = new Flight
+            {
+                Id = 1,
+                Route = route,
+                Airplane = airplane,
+                Time = new DateTime(2018, 1, 1)
+            };
+
+            //Act
+            var result = (RedirectToRouteResult)controller.UpdateFlight(expectedResult);
+            controller.ModelState.AddModelError("Price", "Price can not be 0");
+
+            //Assert
+            Assert.AreEqual(result.RouteName, "");
+            Assert.AreEqual("Flights", result.RouteValues["action"]);
+            Assert.AreEqual("Admin", result.RouteValues["controller"]);
+            Assert.IsTrue(controller.ModelState.Count() == 1);
         }
 
         [TestMethod]

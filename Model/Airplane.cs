@@ -11,9 +11,11 @@ namespace WebApplication3.Model
         public int Id { get; set; }
 
         [Required]
+        [RegularExpression("^([a-zA-Z0-9 .&'-]+)$", ErrorMessage = "Invalid model")]
         public string Model { get; set; }
 
-        [Required(ErrorMessage = "Please enter a valid number!")]
+        [Required(ErrorMessage = "Seats can not be 0")]
+        [RegularExpression("^[0-9]*$", ErrorMessage = "Please enter a number")]
         public int Seats { get; set; }
 
         public virtual List<Flight> Flights { get; set; }

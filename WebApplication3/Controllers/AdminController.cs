@@ -146,6 +146,12 @@ namespace WebApplication3.Controllers
                 return RedirectToAction("Index", "Home", new { area = "" });
             }
 
+            if (!ModelState.IsValid)
+            {
+                SetErrorMessage(GetErrorFromModel(ModelState));
+                return RedirectToAction("Routes", "Admin");
+            }
+
             string result = _routeBLL.CanUpdateRoute(route);
 
             if (result.Length > 0)
@@ -343,6 +349,12 @@ namespace WebApplication3.Controllers
                 return RedirectToAction("Index", "Home", new { area = "" });
             }
 
+            if (!ModelState.IsValid)
+            {
+                SetErrorMessage(GetErrorFromModel(ModelState));
+                return RedirectToAction("Customers", "Admin");
+            }
+
             //Validate in server!!
             if (customer == null || customer.Firstname == null || customer.Lastname == null || customer.Telephone == null || customer.Email == null)
             {
@@ -376,13 +388,14 @@ namespace WebApplication3.Controllers
             {
                 _airportBLL.AddAirport(airport);
                 SetMessage(airport.Name + " successfully created");
-                return RedirectToAction("Airports", "Admin");
             } else
             {
-                return View();
-            }   
+                SetErrorMessage(GetErrorFromModel(ModelState));
+            }
+
+            return RedirectToAction("Airports", "Admin");
         }
-        
+
         public ActionResult CreateFlight()
         {
             if (!UserIsLoggedIn())
@@ -402,6 +415,12 @@ namespace WebApplication3.Controllers
             if (!UserIsLoggedIn())
             {
                 return RedirectToAction("Index", "Home", new { area = "" });
+            }
+
+            if (!ModelState.IsValid)
+            {
+                SetErrorMessage(GetErrorFromModel(ModelState));
+                return RedirectToAction("Flights", "Admin");
             }
 
             string result = _flightBLL.CanInsertFlight(flight);
@@ -469,6 +488,12 @@ namespace WebApplication3.Controllers
                 return RedirectToAction("Index", "Home", new { area = "" });
             }
 
+            if (!ModelState.IsValid)
+            {
+                SetErrorMessage(GetErrorFromModel(ModelState));
+                return RedirectToAction("Routes", "Admin");
+            }
+
             if (route.FromAirport == null || route.ToAirport == null || route.FlightTime == null)
             {
                 SetErrorMessage("All fields must be filled out!");
@@ -534,7 +559,7 @@ namespace WebApplication3.Controllers
             }
             else
             {
-                return View();
+                SetErrorMessage(GetErrorFromModel(ModelState));
             }
             return RedirectToAction("Airports", "Admin");
         }
@@ -545,6 +570,12 @@ namespace WebApplication3.Controllers
             if (!UserIsLoggedIn())
             {
                 return RedirectToAction("Index", "Home", new { area = "" });
+            }
+
+            if (!ModelState.IsValid)
+            {
+                SetErrorMessage(GetErrorFromModel(ModelState));
+                return RedirectToAction("Flights", "Admin");
             }
 
             string result = _flightBLL.CanUpdateFlight(flight);
@@ -566,6 +597,12 @@ namespace WebApplication3.Controllers
             if (!UserIsLoggedIn())
             {
                 return RedirectToAction("Index", "Home", new { area = "" });
+            }
+
+            if (!ModelState.IsValid)
+            {
+                SetErrorMessage(GetErrorFromModel(ModelState));
+                return RedirectToAction("Airplanes", "Admin");
             }
 
             string result = _airplaneBLL.CanUpdateAirplane(airplane);

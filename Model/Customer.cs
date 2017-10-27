@@ -9,8 +9,12 @@ namespace WebApplication3.Model
         public int Id { get; set; }
 
         [Required]
+        [RegularExpression("^([a-zA-Z .&'-]+)$", ErrorMessage = "Invalid first name")]
+        [Display(Name = "First Name")]
         public string Firstname { get; set; }
 
+        [RegularExpression("^([a-zA-Z .&'-]+)$", ErrorMessage = "Invalid last name")]
+        [Display(Name = "Last Name")]
         [Required]
         public string Lastname { get; set; }
 

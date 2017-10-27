@@ -18,9 +18,13 @@ namespace WebApplication3.Model
         public virtual Flight Flight { get; set; }
 
         [Required]
+        [RegularExpression("^([a-zA-Z .&'-]+)$", ErrorMessage = "Invalid first name")]
+        [Display(Name = "First Name")]
         public string FirstName { get; set; }
 
         [Required]
+        [RegularExpression("^([a-zA-Z .&'-]+)$", ErrorMessage = "Invalid last name")]
+        [Display(Name = "Last Name")]
         public string LastName { get; set; }
     }
 }

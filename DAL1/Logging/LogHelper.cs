@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity.Infrastructure;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -8,6 +9,7 @@ using System.Threading.Tasks;
 
 namespace WebApplication3.Logging
 {
+    [ExcludeFromCodeCoverage]
     public class LogHelper
     {
         public static void Log(string text)

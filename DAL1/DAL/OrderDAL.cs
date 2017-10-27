@@ -5,9 +5,11 @@ using System.Text;
 using System.Threading.Tasks;
 using WebApplication3.Model;
 using System.Data.Entity;
+using System.Diagnostics.CodeAnalysis;
 
 namespace WebApplication3.DAL
 {
+    [ExcludeFromCodeCoverage]
     public class OrderDAL : IOrderDAL
     {
         public Order AddOrder(Order order)

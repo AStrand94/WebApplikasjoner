@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Text;
 using System.Web;
@@ -7,6 +8,7 @@ using WebApplication3.DAL;
 
 namespace WebApplication3.BLL
 {
+    [ExcludeFromCodeCoverage]
     public class ReferenceGenerator : IReferenceGenerator
     {
         private static readonly String CHARACTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";

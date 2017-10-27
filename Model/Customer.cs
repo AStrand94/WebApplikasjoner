@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Diagnostics.CodeAnalysis;
 
 namespace WebApplication3.Model
 {
+    [ExcludeFromCodeCoverage]
     public class Customer
     {
         public int Id { get; set; }

@@ -4,6 +4,7 @@ using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Data.Entity.ModelConfiguration.Conventions;
 using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -13,6 +14,7 @@ using WebApplication3.Model;
 
 namespace WebApplication3.DAL
 {
+    [ExcludeFromCodeCoverage]
     public class DB : DbContext
     {
 

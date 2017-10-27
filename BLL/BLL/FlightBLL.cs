@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -21,7 +22,7 @@ namespace WebApplication3.BLL
         private IAirplaneDAL _airplaneDAL;
         private IAirportDAL _airportDAL;
 
-        //Used from HomeController, not to be tested
+        [ExcludeFromCodeCoverage]
         public FlightBLL(int fromAirportId, int toAirportId, DateTime date, DateTime? returnDate, int numberOfTravellers)
         {
             this.fromAirportId = fromAirportId;
@@ -35,6 +36,7 @@ namespace WebApplication3.BLL
             _airportDAL = new AirportDAL();
         }
 
+        [ExcludeFromCodeCoverage]
         public FlightBLL()
         {
             _flightDAL = new FlightDAL();
@@ -51,14 +53,14 @@ namespace WebApplication3.BLL
             _airportDAL = airportStub;
         }
 
-        //Used in HomeController. Will not be tested.
+        [ExcludeFromCodeCoverage]
         private List<Travel> GetFlightsTo()
         {
             PathHelper pathHelper = new PathHelper(fromAirportId, toAirportId, date, new DB());
             return pathHelper.GetAllFlights();
         }
 
-        //Used in HomeController. Will not be tested.
+        [ExcludeFromCodeCoverage]
         private List<Travel> GetFlightsFrom()
         {
             PathHelper pathHelper = new PathHelper(toAirportId, fromAirportId, returnDate.GetValueOrDefault(), new DB());
@@ -67,7 +69,7 @@ namespace WebApplication3.BLL
             return ReturnFlights;
         }
 
-        //Used in HomeController. Will not be tested.
+        [ExcludeFromCodeCoverage]
         public TravelModel GetTravelModel()
         {
             if(returnDate == null)
@@ -80,7 +82,7 @@ namespace WebApplication3.BLL
             }
         }
 
-        //Used in Home Controller. Will not be tested
+        [ExcludeFromCodeCoverage]
         public List<Flight> GetFlights(List<int> flightIds)
         {
             List<Flight> flights = new List<Flight>();

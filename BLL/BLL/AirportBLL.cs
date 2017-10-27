@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,6 +14,7 @@ namespace WebApplication3.BLL
         private IAirportDAL _airport;
         private IRouteDAL _route;
 
+        [ExcludeFromCodeCoverage]
         public AirportBLL()
         {
             _airport = new AirportDAL();

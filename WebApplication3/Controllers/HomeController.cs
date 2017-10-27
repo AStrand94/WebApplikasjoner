@@ -7,9 +7,11 @@ using WebApplication3.BLL;
 using WebApplication3.Model;
 using WebApplication3.Models;
 using DTO.Models;
+using System.Diagnostics.CodeAnalysis;
 
 namespace WebApplication3.Controllers
 {
+    [ExcludeFromCodeCoverage]
     public class HomeController : Controller
     {
 

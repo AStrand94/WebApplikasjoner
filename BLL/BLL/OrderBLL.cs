@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using WebApplication3.Model;
 using DTO;
 using WebApplication3.DAL;
+using System.Diagnostics.CodeAnalysis;
 
 namespace WebApplication3.BLL
 {
@@ -18,6 +19,7 @@ namespace WebApplication3.BLL
         private ITicketDAL _ticketDAL;
         private IReferenceGenerator _referenceGenerator;
 
+        [ExcludeFromCodeCoverage]
         public OrderBLL()
         {
             _orderDAL = new OrderDAL();
@@ -36,7 +38,7 @@ namespace WebApplication3.BLL
             _referenceGenerator = referenceGenerator;
         }
 
-        //Called from Home controller, so will not be tested
+        [ExcludeFromCodeCoverage]
         public Order CreateOrder(OrderSession orderSession)
         {
             String referenceNumber = _referenceGenerator.getReferenceNumber();
@@ -75,7 +77,7 @@ namespace WebApplication3.BLL
             return _orderDAL.GetOrder(o.Id);
         }
 
-        //Used from Home controller, will not be tested
+        [ExcludeFromCodeCoverage]
         public IEnumerable<Order> GetOrder(string ReferenceNumber)
         {
             return new OrderDAL().GetOrder(ReferenceNumber);

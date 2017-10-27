@@ -8,6 +8,7 @@ using WebApplication3.Model;
 using DTO;
 using WebApplication3.Logging;
 using System.Text;
+using System.Diagnostics.CodeAnalysis;
 
 namespace WebApplication3.Controllers
 {
@@ -22,6 +23,7 @@ namespace WebApplication3.Controllers
         private IRouteBLL _routeBLL;
         private ITicketBLL _ticketBLL;
 
+        [ExcludeFromCodeCoverage]
         public AdminController()
         {
             _airplaneBLL = new AirplaneBLL();
@@ -693,15 +695,16 @@ namespace WebApplication3.Controllers
             return errors.ToString();
         }
 
+        [ExcludeFromCodeCoverage]
         protected override void OnException(ExceptionContext filterContext)
         {
-            /*if (filterContext.ExceptionHandled)
+            if (filterContext.ExceptionHandled)
             {
                 return;
-            }*/
+            }
 
 
-            /*ViewResult result = new ViewResult
+            ViewResult result = new ViewResult
             {
                 ViewName = "~/Views/Shared/Error.cshtml"
             };
@@ -709,8 +712,7 @@ namespace WebApplication3.Controllers
             filterContext.Result = result;
 
             LogHelper.Log(filterContext.Exception);
-            filterContext.ExceptionHandled = true;*/
-            base.OnException(filterContext);
+            filterContext.ExceptionHandled = true;
         }
     }
 }

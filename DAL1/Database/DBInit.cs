@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Web;
 using WebApplication3.Model;
 
 namespace WebApplication3.DAL
 {
+    [ExcludeFromCodeCoverage]
     public class DBInit : DropCreateDatabaseAlways<DB>
     {
         private byte[] GetCryptedPassword(String password)

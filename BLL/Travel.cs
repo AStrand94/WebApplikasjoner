@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Web;
 using WebApplication3.Model;
 
 namespace WebApplication3.Model
 {
+    [ExcludeFromCodeCoverage]
     public class Travel
     {
         public Travel(Flight FromFlight, Flight ToFlight)

@@ -422,8 +422,16 @@ namespace UnitTesting
                 }
             };
 
-            //Act
-            var result = (ViewResult)controller.Order(expectedResult.Id);
+			var t = new Ticket
+			{
+				FirstName = "",
+				LastName = "",
+				Order = expectedResult
+			};
+			expectedResult.Tickets.Add(t);
+
+			//Act
+			var result = (ViewResult)controller.Order(expectedResult.Id);
             var resultOrder = (Order)result.Model;
 
             //Assert
@@ -1458,7 +1466,15 @@ namespace UnitTesting
                 }
             };
 
-            expectedResult.Add(order);
+			var t = new Ticket
+			{
+				FirstName = "",
+				LastName = "",
+				Order = order
+			};
+			order.Tickets.Add(t);
+
+			expectedResult.Add(order);
             expectedResult.Add(order);
             expectedResult.Add(order);
 

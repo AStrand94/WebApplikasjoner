@@ -5,7 +5,6 @@ namespace WebApplication3.DAL
 {
     public interface ITicketDAL
     {
-        void addTickets(IEnumerable<Ticket> tickets);
         Ticket DeleteTicket(int id);
     }
 }

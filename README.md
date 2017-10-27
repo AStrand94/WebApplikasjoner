@@ -26,3 +26,21 @@ https://webapph17.azurewebsites.net/
 Det kreves ingen log-in informasjon for å få tilgang til siden vår.
 
 NB! Nederst på siden i footeren så ligger informasjon om flyvninger inne. Hovedsaklig så ligger alle flyvninger inne 12. og 13. september 2017. Søker man på Oslo - Paris 12. september med retur 13. september får man mulighet til å bestille to reiser med mellomlandinger.
+
+
+
+
+--------------Oblig2--------------
+Man kan nå navigere seg til en administrasjonsside ved trykke på "Admin" øverst i høyre hjørne. Riktig brukernavn og passord er "admin" og "admin". Man kan legge til, oppdatere og slette nesten alle entiteter ved å navigere seg igjennom de i den øverste menyen.
+
+Alle exceptions fanges opp av Controlleren og logges til en mappe i /'bruker'/App_Data/Local/Logs/. Logging av alle endringer skjer til en tabell i databasen som heter 'Log'.
+
+All kode er lagdelt, samt koden fra Oblig1. Vi har også lagt til et par andre lag i koden (DTO og UnitTesting) for å holde bedre struktur over koden vår.
+
+Enhetstesting er gjort på alle metoder som er implementert i Oblig2. Kjører man en Code Coverage så ser man at det kun er 2% av koden som ikke er testet. Metoder og klasser som kun brukes til funksjonalitet fra Oblig1 er annotert med '[ExcludeFromCodeCoverage]' for å mer nøyaktig se hvor stor andel av koden som er testet. 
+
+Løsningen er nå også lagt opp til Azure, på https://webapph17.azurewebsites.net/
+
+Login til admin-side:
+Brukernavn: admin
+Passord: admin

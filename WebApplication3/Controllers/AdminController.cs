@@ -352,7 +352,7 @@ namespace WebApplication3.Controllers
             if (!ModelState.IsValid)
             {
                 SetErrorMessage(GetErrorFromModel(ModelState));
-                return RedirectToAction("Customers", "Admin");
+                return View();
             }
 
             //Validate in server!!
@@ -491,7 +491,7 @@ namespace WebApplication3.Controllers
             if (!ModelState.IsValid)
             {
                 SetErrorMessage(GetErrorFromModel(ModelState));
-                return RedirectToAction("Routes", "Admin");
+                return View();
             }
 
             if (route.FromAirport == null || route.ToAirport == null || route.FlightTime == null)

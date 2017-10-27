@@ -61,7 +61,7 @@ namespace WebApplication3.DAL
             {
                 Flight dbFlight = db.Flights.Where(f => f.Id == flight.Id).Single();
 
-                dbFlight.Route = db.Routes.Attach(flight.Route);
+                dbFlight.Route = db.Routes.Where(r => r.Id == flight.Route.Id).Single();
                 dbFlight.Price = flight.Price;
                 dbFlight.Time = flight.Time;
                 dbFlight.Airplane = db.Airplanes.Attach(flight.Airplane);

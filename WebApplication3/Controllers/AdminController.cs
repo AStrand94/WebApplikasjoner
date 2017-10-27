@@ -419,12 +419,6 @@ namespace WebApplication3.Controllers
                 return RedirectToAction("Index", "Home", new { area = "" });
             }
 
-            if (!ModelState.IsValid)
-            {
-                SetErrorMessage(GetErrorFromModel(ModelState));
-                return RedirectToAction("Flights", "Admin");
-            }
-
             string result = _flightBLL.CanInsertFlight(flight);
 
             if(result.Length > 0)
@@ -574,16 +568,11 @@ namespace WebApplication3.Controllers
                 return RedirectToAction("Index", "Home", new { area = "" });
             }
 
-            if (!ModelState.IsValid)
-            {
-                SetErrorMessage(GetErrorFromModel(ModelState));
-                return RedirectToAction("Flights", "Admin");
-            }
-
             string result = _flightBLL.CanUpdateFlight(flight);
             if (result.Length == 0)
             {
                 _flightBLL.UpdateFlight(flight);
+                SetMessage("Update successful!");
             }
             else
             {

@@ -57,6 +57,7 @@
     <Compile Include="Interface\IFlightBLL.cs" />
     <Compile Include="Interface\ILoginBLL.cs" />
     <Compile Include="Interface\IOrderBLL.cs" />
+    <Compile Include="Interface\IReferenceGenerator.cs" />
     <Compile Include="Interface\IRouteBLL.cs" />
     <Compile Include="Interface\ITicketBLL.cs" />
     <Compile Include="BLL\LoginBLL.cs" />
@@ -66,6 +67,7 @@
     <Compile Include="ReferenceGenerator.cs" />
     <Compile Include="BLL\RouteBLL.cs" />
     <Compile Include="BLL\TicketBLL.cs" />
+    <Compile Include="ReferenceGeneratorStub.cs" />
     <Compile Include="Travel.cs" />
     <Compile Include="TravelModel.cs" />
   </ItemGroup>

@@ -9,10 +9,7 @@ namespace WebApplication3.DAL
 {
     public class TicketStub : ITicketDAL
     {
-        public void addTickets(IEnumerable<Ticket> tickets)
-        {
-            
-        }
+        
 
         public Ticket DeleteTicket(int id)
         {

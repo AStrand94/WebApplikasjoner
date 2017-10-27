@@ -9,15 +9,7 @@ namespace WebApplication3.DAL
 {
     public class TicketDAL : ITicketDAL
     {
-        public void addTickets(IEnumerable<Ticket> tickets)
-        {
-            using (DB db = new DB())
-            {
-                db.Orders.Add(((List<Ticket>)tickets)[0].Order);
-                db.Tickets.AddRange(tickets);
-                db.SaveChanges();
-            }
-        }
+        
 
         public Ticket DeleteTicket(int id)
         {

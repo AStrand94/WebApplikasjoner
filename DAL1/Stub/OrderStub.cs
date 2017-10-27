@@ -57,7 +57,7 @@ namespace WebApplication3.DAL
             }
             else
             {
-                return new Order
+                var o =  new Order
                 {
                     Id = 1,
                     Tickets = new List<Ticket>(),
@@ -69,6 +69,15 @@ namespace WebApplication3.DAL
                         Email = "a@a.a"
                     }
                 };
+				var t = new Ticket
+				{
+					FirstName ="",
+					LastName = "",
+					Order = o
+				};
+
+				o.Tickets.Add(t);
+				return o;
             }
             
         }

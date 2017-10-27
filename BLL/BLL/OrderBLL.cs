@@ -16,6 +16,7 @@ namespace WebApplication3.BLL
         private ICustomerDAL _customerDAL;
         private IFlightDAL _flightDAL;
         private ITicketDAL _ticketDAL;
+        private IReferenceGenerator _referenceGenerator;
 
         public OrderBLL()
         {
@@ -23,20 +24,22 @@ namespace WebApplication3.BLL
             _customerDAL = new CustomerDAL();
             _flightDAL = new FlightDAL();
             _ticketDAL = new TicketDAL();
+            _referenceGenerator = new ReferenceGenerator();
         }
 
-        public OrderBLL(IOrderDAL stub, ICustomerDAL customerStub, IFlightDAL flightStub, ITicketDAL ticketStub)
+        public OrderBLL(IOrderDAL stub, ICustomerDAL customerStub, IFlightDAL flightStub, ITicketDAL ticketStub, IReferenceGenerator referenceGenerator)
         {
             _orderDAL = stub;
             _customerDAL = customerStub;
             _flightDAL = flightStub;
             _ticketDAL = ticketStub;
+            _referenceGenerator = referenceGenerator;
         }
 
         //Called from Home controller, so will not be tested
         public Order CreateOrder(OrderSession orderSession)
         {
-            String referenceNumber = new ReferenceGenerator().getReferenceNumber();
+            String referenceNumber = _referenceGenerator.getReferenceNumber();
 
             Order o = new Order
             {
@@ -67,7 +70,7 @@ namespace WebApplication3.BLL
 
             //new TicketDAL().addTickets(tickets);
             o.TotalPrice = orderSession.TotalPrice;
-            new OrderDAL().AddOrderWithCustomer(o);
+            _orderDAL.AddOrderWithCustomer(o);
 
             return _orderDAL.GetOrder(o.Id);
         }
@@ -125,7 +128,7 @@ namespace WebApplication3.BLL
             
             order.Customer = _customerDAL.GetCustomer(dto.CustomerId);
             Flight flight = _flightDAL.GetFlight(dto.FlightId);
-            order.Reference = new ReferenceGenerator().getReferenceNumber();
+            order.Reference = _referenceGenerator.getReferenceNumber();
 
             List<Ticket> tickets = new List<Ticket>();
 
@@ -143,8 +146,7 @@ namespace WebApplication3.BLL
 
             order.TotalPrice = flight.Price * dto.Travellers.Count;
             order.Tickets = tickets;
-            new OrderDAL().AddOrder(order);
-            //new TicketDAL().addTickets(tickets);
+            _orderDAL.AddOrder(order);
 
             return order;
         }

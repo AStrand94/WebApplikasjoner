@@ -8,5 +8,8 @@ namespace WebApplication3.DAL
         IEnumerable<Order> GetAllOrders();
         Order GetOrder(int id);
         IEnumerable<Order> GetAllOrdersConnections();
+        Order AddOrderWithCustomer(Order o);
+
+        Order AddOrder(Order o);
     }
 }

@@ -9,6 +9,16 @@ namespace WebApplication3.DAL
 {
     public class OrderStub : IOrderDAL
     {
+        public Order AddOrder(Order o)
+        {
+            return o;
+        }
+
+        public Order AddOrderWithCustomer(Order o)
+        {
+            return o;
+        }
+
         public IEnumerable<Order> GetAllOrders()
         {
             var orderList = new List<Order>();

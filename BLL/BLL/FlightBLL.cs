@@ -21,6 +21,7 @@ namespace WebApplication3.BLL
         private IAirplaneDAL _airplaneDAL;
         private IAirportDAL _airportDAL;
 
+        //Used from HomeController, not to be tested
         public FlightBLL(int fromAirportId, int toAirportId, DateTime date, DateTime? returnDate, int numberOfTravellers)
         {
             this.fromAirportId = fromAirportId;
@@ -57,6 +58,7 @@ namespace WebApplication3.BLL
             return pathHelper.GetAllFlights();
         }
 
+        //Used in HomeController. Will not be tested.
         private List<Travel> GetFlightsFrom()
         {
             PathHelper pathHelper = new PathHelper(toAirportId, fromAirportId, returnDate.GetValueOrDefault(), new DB());

@@ -17,24 +17,26 @@ namespace WebApplication3.DAL
             }
             else
             {
-                return GetRoute(1);
-            }
+				var airport = new Airport
+				{
+					Id = 1,
+					Name = "Gardermoen"
+				};
+
+				return new Route
+				{
+					Id = 1,
+					FromAirport = airport,
+					ToAirport = airport,
+					Flights = new List<Flight>(),
+					FlightTime = new TimeSpan(10, 0, 0)
+				};
+			}
         }
 
         public Route DeleteRoute(int id)
         {
-            if (id == 0)
-            {
-                var r = new Route
-                {
-                    Id = 0
-                };
-                return r;
-            }
-            else
-            {
-                return GetRoute(1);
-            }
+            return GetRoute(1);   
         }
 
         public bool ExistsRouteWithId(int id)
@@ -79,6 +81,17 @@ namespace WebApplication3.DAL
             {
                 return null;
             }
+            else if (id == 1000)
+            {
+                return new Route
+                {
+                    Id = 1,
+                    FromAirport = null,
+                    ToAirport = null,
+                    Flights = new List<Flight>(),
+                    FlightTime = new TimeSpan(10, 0, 0)
+                };
+            }
             else
             {
                 var airport = new Airport
@@ -86,8 +99,10 @@ namespace WebApplication3.DAL
                     Id = 1,
                     Name = "Gardermoen"
                 };
+                Flight f = new Flight();
+                Flight f1 = new Flight();
 
-                return new Route
+                var r = new Route
                 {
                     Id = 1,
                     FromAirport = airport,
@@ -95,6 +110,10 @@ namespace WebApplication3.DAL
                     Flights = new List<Flight>(),
                     FlightTime = new TimeSpan(10, 0, 0)
                 };
+                r.Flights.Add(f);
+                r.Flights.Add(f1);
+
+                return r;
             }
         }
 

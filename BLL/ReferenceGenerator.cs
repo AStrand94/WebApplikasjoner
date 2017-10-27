@@ -7,7 +7,7 @@ using WebApplication3.DAL;
 
 namespace WebApplication3.BLL
 {
-    public class ReferenceGenerator
+    public class ReferenceGenerator : IReferenceGenerator
     {
         private static readonly String CHARACTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
         private static readonly int LENGTH = 6;

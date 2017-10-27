@@ -49,6 +49,7 @@
   <ItemGroup>
     <Compile Include="DAL\AirplaneDAL.cs" />
     <Compile Include="Interface\IOrderDAL.cs" />
+    <Compile Include="Interface\IReferenceGenerator.cs" />
     <Compile Include="Logging\LogHelper.cs" />
     <Compile Include="Stub\AirplaneStub.cs" />
     <Compile Include="DAL\AirportDAL.cs" />
@@ -72,6 +73,7 @@
     <Compile Include="Stub\OrderStub.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="DAL\RouteDAL.cs" />
+    <Compile Include="Stub\ReferenceGeneratorStub.cs" />
     <Compile Include="Stub\RouteStub.cs" />
     <Compile Include="DAL\TicketDAL.cs" />
     <Compile Include="Stub\TicketStub.cs" />

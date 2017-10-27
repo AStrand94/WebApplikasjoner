@@ -34,18 +34,11 @@ namespace WebApplication3.BLL
         {
             return _routeDAL.GetAllRoutesConnections();
         }
-
-        public bool RouteHasAirport(int id)
-        {
-            return _routeDAL.RouteHasAirport(id);
-        }
+        
 
         public Route UpdateRoute(Route route)
         {
             Route dbRoute = _routeDAL.GetRoute(route.Id);
-
-            if (dbRoute == null)
-                throw new NullReferenceException("Route with id " + route.Id + " does not exist in current context");
 
             route.FromAirport = _airportDAL.GetAirport(route.FromAirport.Id);
             route.ToAirport = _airportDAL.GetAirport(route.ToAirport.Id);
@@ -99,12 +92,7 @@ namespace WebApplication3.BLL
         public string CanUpdateRoute(Route route)
         {
             StringBuilder stringBuilder = new StringBuilder();
-
-            if(route.FlightTime == null)
-            {
-                stringBuilder.Append("Must specify time!\n");
-            }
-
+            
             if(route.FromAirport.Id == route.ToAirport.Id)
             {
                 stringBuilder.Append("From- and To- airport must be different!\n");

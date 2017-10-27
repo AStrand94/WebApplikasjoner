@@ -10,5 +10,6 @@ namespace WebApplication3.BLL
         Airport DeleteAirport(int id);
         List<Airport> GetAllAirports();
         Airport UpdateAirport(Airport airport);
+        Airport GetAirport(int id);
     }
 }

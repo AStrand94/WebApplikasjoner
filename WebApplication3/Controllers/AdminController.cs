@@ -372,14 +372,15 @@ namespace WebApplication3.Controllers
                 return RedirectToAction("Index", "Home", new { area = "" });
             }
 
-            if (airport == null || airport.Name == null || airport.Code == null || airport.Country == null || airport.City == null)
+            if(ModelState.IsValid)
             {
-                SetErrorMessage("All fields must be filled out!");
+                _airportBLL.AddAirport(airport);
+                SetMessage(airport.Name + " successfully created");
+                return RedirectToAction("Airports", "Admin");
+            } else
+            {
                 return View();
-            }
-            _airportBLL.AddAirport(airport);
-            SetMessage(airport.Name + " successfully created");
-            return RedirectToAction("Airports", "Admin");
+            }   
         }
         
         public ActionResult CreateFlight()
@@ -436,9 +437,17 @@ namespace WebApplication3.Controllers
                 return RedirectToAction("Index", "Home", new { area = "" });
             }
 
-            _airplaneBLL.InsertAirplane(airplane);
-
-            return RedirectToAction("Airplanes", "Admin");
+            if (ModelState.IsValid)
+            {
+                SetMessage(airplane.Model + " successfully created");
+                _airplaneBLL.InsertAirplane(airplane);
+                return RedirectToAction("Airplanes", "Admin");
+            }
+            else
+            {
+                SetErrorMessage(GetErrorFromModel(ModelState));
+                return View();
+            }
         }
 
         public ActionResult CreateRoute()
@@ -472,8 +481,11 @@ namespace WebApplication3.Controllers
                 return View();
             }
 
+            Airport fromAirport = _airportBLL.GetAirport(route.FromAirport.Id);
+            Airport toAirport = _airportBLL.GetAirport(route.ToAirport.Id);
+
             _routeBLL.AddRoute(route);
-            SetMessage(route.FromAirport.Name + " - " + route.ToAirport.Name + " on " + route.FlightTime.ToString() + " successfully created");
+            SetMessage(fromAirport.Name + " - " + toAirport.Name + " on " + route.FlightTime.ToString() + " successfully created");
             return RedirectToAction("Routes", "Admin");
         }
 
@@ -522,7 +534,7 @@ namespace WebApplication3.Controllers
             }
             else
             {
-                SetErrorMessage(GetErrorFromModel(ModelState));
+                return View();
             }
             return RedirectToAction("Airports", "Admin");
         }

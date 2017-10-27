@@ -52,5 +52,10 @@ namespace WebApplication3.BLL
         {
             return _airport.DeleteAirport(id);
         }
+
+        public Airport GetAirport(int id)
+        {
+            return _airport.GetAirport(id);
+        }
     }
 }

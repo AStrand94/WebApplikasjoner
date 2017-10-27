@@ -24,6 +24,10 @@
     <strong>Airports must be different!</strong>
 </div>
 
+<div class="alert alert-danger" id="timeError" hidden="">
+    <strong>Please fill out FlightTime!</strong>
+</div>
+
 @using (Html.BeginForm("CreateRoute", "Admin", FormMethod.Post, new { enctype = "multipart/form-data", onsubmit = "return validateForm()" }))
 {
     @Html.AntiForgeryToken()
@@ -60,7 +64,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.FlightTime, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.TextBoxFor(model => model.FlightTime, new { @class = "form-control", type = "time", value = "12:00" })
+                @Html.TextBoxFor(model => model.FlightTime, new { @class = "form-control", type = "time", @Value = "00:00", id = "flightTime" })
                 @Html.ValidationMessageFor(model => model.FlightTime, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -81,11 +85,20 @@
     function validateForm() {
         var fromAirport = $('#fromAirport').find(':selected').text();
         var toAirport = $('#toAirport').find(':selected').text();
+        var time = $('#flightTime').val();
 
         if (fromAirport == toAirport) {
             $('#airportsError').show();
-
             return false;
+        } else {
+            $('#airportsError').hide();
+        }
+
+        if (time.length < 1) {
+            $('#timeError').show();
+            return false;
+        } else {
+            $('#timeError').hide();
         }
 
         return true;

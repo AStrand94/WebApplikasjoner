@@ -49,7 +49,8 @@ namespace UnitTesting
             //Assert
             Assert.AreEqual(result.RouteName, "");
             Assert.AreEqual("Index", result.RouteValues["action"]);
-            Assert.AreEqual("Admin", result.RouteValues["controller"]);        }
+            Assert.AreEqual("Admin", result.RouteValues["controller"]);
+        }
 
         [TestMethod]
         public void Login_Fail()
@@ -851,7 +852,7 @@ namespace UnitTesting
         }
 
         [TestMethod]
-        public void CreateAirportInput_Fail_Null()
+        public void CreateAirportInput_Fail_ModelState()
         {
             //Arrange
             var expectedResult = new Airport
@@ -861,11 +862,12 @@ namespace UnitTesting
 
             //Act
             var result = (ViewResult)controller.CreateAirport(expectedResult);
-            var errorMessage = controller.TempData["errorMessage"];
+            controller.ViewData.ModelState.AddModelError("Name", "Invalid name");
+
 
             //Assert
             Assert.AreEqual(result.ViewName, "");
-            Assert.AreEqual(errorMessage, "All fields must be filled out!");
+            Assert.IsTrue(controller.ModelState.Count() == 1);
         }
 
         [TestMethod]
@@ -1138,6 +1140,27 @@ namespace UnitTesting
             Assert.AreEqual(result.RouteName, "");
             Assert.AreEqual("Airplanes", result.RouteValues["action"]);
             Assert.AreEqual("Admin", result.RouteValues["controller"]);
+        }
+
+        [TestMethod]
+        public void CreateAirplaneInput_Fail_Null()
+        {
+            //Arrange
+            var expectedResult = new Airplane
+            {
+                Id = 1,
+            };
+
+            //Act
+            var result = (RedirectToRouteResult)controller.CreateAirplane(expectedResult);
+            var modelError = "Model not given";
+            controller.ViewData.ModelState.AddModelError("Firstname", modelError);
+
+            //Assert
+            Assert.AreEqual(result.RouteName, "");
+            Assert.AreEqual("Airplanes", result.RouteValues["action"]);
+            Assert.AreEqual("Admin", result.RouteValues["controller"]);
+            Assert.IsTrue(controller.ViewData.ModelState.Count() == 1, modelError);
         }
 
         [TestMethod]
@@ -1657,7 +1680,8 @@ namespace UnitTesting
             var result = controller.UserIsLoggedIn();
 
             //Assert
-            Assert.AreEqual(result, true);        }
+            Assert.AreEqual(result, true);
+        }
 
         [TestMethod]
         public void UserIsLoggedIn_Fail()
@@ -1669,6 +1693,7 @@ namespace UnitTesting
             var result = controller.UserIsLoggedIn();
 
             //Assert
-            Assert.AreEqual(result, false);        }
+            Assert.AreEqual(result, false);
+        }
     }
 }

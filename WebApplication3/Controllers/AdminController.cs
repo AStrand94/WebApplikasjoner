@@ -705,7 +705,7 @@ namespace WebApplication3.Controllers
                 ViewName = "~/Views/Shared/Error.cshtml"
             };
 
-            filterContext.Result = result;
+            //filterContext.Result = result;
 
             LogHelper.Log(filterContext.Exception);
             filterContext.ExceptionHandled = true;

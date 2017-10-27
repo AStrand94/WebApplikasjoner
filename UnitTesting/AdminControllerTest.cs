@@ -1670,7 +1670,7 @@ namespace UnitTesting
 
             //Assert
             Assert.AreEqual(result.RouteName, "");
-            Assert.AreEqual("Flights", result.RouteValues["action"]);
+            Assert.AreEqual("CreateFlight", result.RouteValues["action"]);
             Assert.AreEqual("Admin", result.RouteValues["controller"]);
             Assert.IsTrue(controller.ModelState.Count() == 1);
         }

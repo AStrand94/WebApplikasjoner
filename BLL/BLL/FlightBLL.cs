@@ -81,11 +81,11 @@ namespace WebApplication3.BLL
         {
             if(returnDate == null)
             {
-                return new TravelModel(GetFlightsTo(), _airportDAL.GetById(fromAirportId), _airportDAL.GetById(toAirportId));
+                return new TravelModel(GetFlightsTo(), _airportDAL.GetAirport(fromAirportId), _airportDAL.GetAirport(toAirportId));
             }
             else
             {
-                return new TravelModel(GetFlightsTo(), GetFlightsFrom(), _airportDAL.GetById(fromAirportId), _airportDAL.GetById(toAirportId));
+                return new TravelModel(GetFlightsTo(), GetFlightsFrom(), _airportDAL.GetAirport(fromAirportId), _airportDAL.GetAirport(toAirportId));
             }
         }
 

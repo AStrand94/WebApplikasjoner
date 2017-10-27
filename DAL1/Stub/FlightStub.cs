@@ -65,18 +65,33 @@ namespace WebApplication3.DAL
         {
             if (flightId == 0)
             {
-                var flight = new Flight
-                {
-                    Id = 0
-                };
-                return flight;
+                return null;
             }
             else
             {
+                var order = new Order()
+                {
+                    Id = 1,
+                    Reference = "DAKLF"
+                };
+
+                var ticket = new Ticket()
+                {
+                    Id = 1,
+                    FirstName = "Ola",
+                    LastName = "Normann",
+                    Order = order
+                };
+
+                var tickets = new List<Ticket>();
+                tickets.Add(ticket);
+                tickets.Add(ticket);
+
                 var flight = new Flight()
                 {
                     Id = 1,
-                    Price = 100
+                    Price = 100,
+                    Tickets = tickets
                 };
                 return flight;
             }

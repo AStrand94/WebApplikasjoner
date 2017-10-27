@@ -22,6 +22,7 @@ namespace WebApplication3.Model
 
         [Required]
         [DataType(DataType.PhoneNumber)]
+        [RegularExpression("^\\+?\\d*$", ErrorMessage = "Invalid phonenumber")]
         [StringLength(11)]
         public string Telephone { get; set; }
 

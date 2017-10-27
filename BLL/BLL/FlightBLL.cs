@@ -50,6 +50,7 @@ namespace WebApplication3.BLL
             _airportDAL = airportStub;
         }
 
+        //Used in HomeController. Will not be tested.
         private List<Travel> GetFlightsTo()
         {
             PathHelper pathHelper = new PathHelper(fromAirportId, toAirportId, date, new DB());
@@ -64,19 +65,7 @@ namespace WebApplication3.BLL
             return ReturnFlights;
         }
 
-        private List<Travel> GetFligthts()
-        {
-            List<Travel> Travels = GetFlightsTo();
-            if (returnDate != null)
-            {
-                List<Travel> RetTravels = GetFlightsFrom();
-                RetTravels.ForEach(t => t.isReturnFlight = true);
-                Travels.AddRange(RetTravels);
-            }
-
-            return Travels;
-        }
-
+        //Used in HomeController. Will not be tested.
         public TravelModel GetTravelModel()
         {
             if(returnDate == null)
@@ -89,6 +78,7 @@ namespace WebApplication3.BLL
             }
         }
 
+        //Used in Home Controller. Will not be tested
         public List<Flight> GetFlights(List<int> flightIds)
         {
             List<Flight> flights = new List<Flight>();
@@ -135,9 +125,6 @@ namespace WebApplication3.BLL
         public void UpdateFlight(Flight flight)
         {
             Flight dbFlight = _flightDAL.GetFlight(flight.Id);
-
-            if (dbFlight == null)
-                throw new NullReferenceException("flight with id " + flight.Id + " does not exist in current context");
             
             flight.Route = _routeDAL.GetRoute(flight.Route.Id);
             flight.Airplane = _airplaneDAL.GetAirplane(flight.Airplane.Id);

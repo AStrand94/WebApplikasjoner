@@ -1853,6 +1853,50 @@ namespace UnitTesting
         }
 
         [TestMethod]
+        public void UpdateFlight_Fail_Time()
+        {
+            //Arrange
+            var airport = new Airport
+            {
+                Id = 1,
+                Name = "Gardermoen"
+            };
+
+            var airplane = new Airplane
+            {
+                Id = 1,
+                Model = "Boeing 737",
+                Seats = 148
+            };
+
+            var route = new Route()
+            {
+                Id = 100,
+                FromAirport = airport,
+                ToAirport = airport,
+                Flights = new List<Flight>(),
+                FlightTime = new TimeSpan(10, 0, 0)
+            };
+
+            var expectedResult = new Flight
+            {
+                Id = 1,
+                Price = 100,
+                Route = route,
+                Airplane = airplane,
+                Time = new DateTime(2015, 1, 1)
+            };
+
+            //Act
+            var result = (RedirectToRouteResult)controller.UpdateFlight(expectedResult);
+
+            //Assert
+            Assert.AreEqual(result.RouteName, "");
+            Assert.AreEqual("Flights", result.RouteValues["action"]);
+            Assert.AreEqual("Admin", result.RouteValues["controller"]);
+        }
+
+        [TestMethod]
         public void UpdateFlight_Fail_Null_Id()
         {
             //Arrange

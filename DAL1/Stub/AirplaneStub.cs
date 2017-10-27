@@ -42,14 +42,6 @@ namespace WebApplication3.DAL
 
         public Airplane GetAirplane(int id)
         {
-            if(id == 0)
-            {
-                var airplane = new Airplane
-                {
-                    Id = 0
-                };
-                return airplane;
-            } else
             {
                 var airplane = new Airplane()
                 {
@@ -75,7 +67,7 @@ namespace WebApplication3.DAL
 
         public bool HasFlights(int id)
         {
-            if (id == 0)
+            if (id == 100)
             {
                 return true;
             }
@@ -102,17 +94,7 @@ namespace WebApplication3.DAL
 
         public Airplane UpdateAirplane(Airplane airplane)
         {
-            if(airplane.Id == 0)
-            {
-                var ap = new Airplane
-                {
-                    Id = 0
-                };
-                return ap;
-            } else
-            {
-                return GetAirplane(1);
-            }
+            return GetAirplane(1);
         }
     }
 }

@@ -97,11 +97,7 @@ namespace WebApplication3.DAL
         {
             if (id == 0)
             {
-                var customer = new Customer
-                {
-                    Id = 0
-                };
-                return customer;
+                return null;
             }
             else
             {

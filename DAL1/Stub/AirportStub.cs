@@ -11,13 +11,9 @@ namespace WebApplication3.DAL
     {
         public Airport AddAirport(Airport airport)
         {
-            if (airport.Name == "")
+            if (airport.Name == "admin")
             {
-                var ap = new Airport
-                {
-                    Name = ""
-                };
-                return ap;
+                return null;
             }
             else
             {
@@ -77,20 +73,11 @@ namespace WebApplication3.DAL
             return airportList;
         }
 
-        public Airport GetById(int fromAirportId)
-        {
-            return GetAirport(fromAirportId);
-        }
-
         public Airport UpdateAirport(Airport airport)
         {
             if (airport.Id == 0)
             {
-                var a = new Airport
-                {
-                    Id = 0
-                };
-                return a;
+                return null;
             }
             else
             {

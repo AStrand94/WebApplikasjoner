@@ -18,14 +18,6 @@ namespace WebApplication3.DAL
             }
         }
 
-        public Airport GetById(int Id)
-        {
-            using (DB db = new DB())
-            {
-                return db.Airports.Where(a => a.Id == Id).Single();
-            }
-        }
-
         public Airport AddAirport(Airport airport)
         {
             using (DB db = new DB())

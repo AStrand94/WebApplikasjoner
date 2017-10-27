@@ -699,6 +699,36 @@ namespace UnitTesting
         }
 
         [TestMethod]
+        public void CreateOrderInput_Fail_Null_Id()
+        {
+            var person = new PersonDTO
+            {
+                firstName = "Ola",
+                lastName = "Normann"
+            };
+
+            var persons = new List<PersonDTO>();
+            persons.Add(person);
+            persons.Add(person);
+
+            //Arrange
+            var expectedResult = new OrderDTO
+            {
+                CustomerId = 0,
+                FlightId = 1,
+                Travellers = persons
+            };
+
+            //Act
+            var result = (RedirectToRouteResult)controller.DeleteOrder(expectedResult.CustomerId);
+
+            //Assert
+            Assert.AreEqual(result.RouteName, "");
+            Assert.AreEqual("Orders", result.RouteValues["action"]);
+            Assert.AreEqual("Admin", result.RouteValues["controller"]);
+        }
+
+        [TestMethod]
         public void CreateOrderInput_Fail_Null()
         {
             var person = new PersonDTO
@@ -898,12 +928,54 @@ namespace UnitTesting
         }
 
         [TestMethod]
+        public void CreateAirportInput_Fail_Null()
+        {
+            //Arrange
+            var expectedResult = new Airport
+            {
+                Id = 1,
+                Name = "admin",
+                Code = "OSL",
+                Country = "Norway",
+                City = "Oslo"
+            };
+
+            //Act
+            var result = (RedirectToRouteResult)controller.CreateAirport(expectedResult);
+
+            //Assert
+            Assert.AreEqual(result.RouteName, "");
+            Assert.AreEqual("Airports", result.RouteValues["action"]);
+            Assert.AreEqual("Admin", result.RouteValues["controller"]);
+        }
+
+        [TestMethod]
         public void CreateAirportInput_Fail_ModelState()
         {
             //Arrange
             var expectedResult = new Airport
             {
                 Id = 1,
+            };
+
+            //Act
+            var result = (RedirectToRouteResult)controller.CreateAirport(expectedResult);
+            controller.ViewData.ModelState.AddModelError("Name", "Invalid name");
+
+
+            //Assert
+            Assert.AreEqual("Airports", result.RouteValues["action"]);
+            Assert.AreEqual("Admin", result.RouteValues["controller"]);
+            Assert.IsTrue(controller.ModelState.Count() == 1);
+        }
+
+        [TestMethod]
+        public void CreateAirportInput_Fail_Null_Id()
+        {
+            //Arrange
+            var expectedResult = new Airport
+            {
+                Id = 0,
             };
 
             //Act
@@ -1430,6 +1502,7 @@ namespace UnitTesting
             Assert.AreEqual("Admin", result.RouteValues["controller"]);
         }
 
+        [TestMethod]
         public void UpdateCustomer_Fail_Null()
         {
             //Arrange
@@ -1485,6 +1558,28 @@ namespace UnitTesting
             var airport = new Airport
             {
                 Id = 1,
+                Name = "Gardermoen",
+                Code = "OSL",
+                Country = "Norway",
+                City = "Oslo"
+            };
+
+            //Act
+            var result = (RedirectToRouteResult)controller.UpdateAirport(airport);
+
+            //Assert
+            Assert.AreEqual(result.RouteName, "");
+            Assert.AreEqual("Airports", result.RouteValues["action"]);
+            Assert.AreEqual("Admin", result.RouteValues["controller"]);
+        }
+
+        [TestMethod]
+        public void UpdateAirport_Fail_Null()
+        {
+            //Arrange
+            var airport = new Airport
+            {
+                Id = 0,
                 Name = "Gardermoen",
                 Code = "OSL",
                 Country = "Norway",
@@ -1933,6 +2028,28 @@ namespace UnitTesting
             Assert.AreEqual("Airplanes", result.RouteValues["action"]);
             Assert.AreEqual("Admin", result.RouteValues["controller"]);
             Assert.AreEqual(errorMessage.ToString().Substring(0,5), "No flight with id".Substring(0,5));
+        }
+
+        [TestMethod]
+        public void DeleteAirplane_Fail_HasFlights()
+        {
+            //Arrange
+            var airplane = new Airplane
+            {
+                Id = 100,
+                Model = "Boeing 737",
+                Seats = 148
+            };
+
+            //Act
+            var result = (RedirectToRouteResult)controller.DeleteAirplane(airplane.Id);
+            var errorMessage = controller.TempData["errorMessage"];
+
+            //Assert
+            Assert.AreEqual(result.RouteName, "");
+            Assert.AreEqual("Airplanes", result.RouteValues["action"]);
+            Assert.AreEqual("Admin", result.RouteValues["controller"]);
+            Assert.AreEqual(errorMessage.ToString().Substring(0, 5), "Cannot delete. There are flights connected to airplane".Substring(0, 5));
         }
 
         [TestMethod]
